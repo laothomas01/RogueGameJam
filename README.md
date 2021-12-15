@@ -1,9 +1,10 @@
 # Rogue Game Jam Repository
 
-# Unity 2020.3.11f1 (64-bit)
+# Unity Version: 2020.3.11f1 (64-bit)
 
+(this is temporary)
 # Instructions on the basics of how to use this git hub repository:
-  ## Downloading this repository
+  ## Downloading and using this repository
   - Type in the git bash terminal after choosing your current directory: Git clone <repository http>
   OR
   - just download the zip and unpack it
@@ -30,10 +31,12 @@
        - put in user name from github. put in authenication token.
 ## Working in Unity:
    - you have your own scene to work in. it's basically your work space. play around with animations, make levels, write scripts, do what you want in your scene. all the assets will/should be separated into folders though for organization.
-   - we will pour our work into different scenes/levels when things get going.
-   
-   
-   We love Umair.
-   
+   - we will pour our work into different scenes/levels when things get going.   
+
+# Game Name 
+  (this is temporary) 
+  Sweet Tooth
+# Game Description
+  Wake up with no knowledge of an apocalypse that has happened. We are approached by someone screaming and his head is replaced by a lollipop. A newspaper is picked up and fills the main character in on how a machine gone haywire in New York has turned the world into a land of horrific sugary madness. Lots of sugar will be spilled and lots of candy pieces will be broken. Survive, eat, save. 
   
-   
+  
