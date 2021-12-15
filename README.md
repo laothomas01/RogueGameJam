@@ -30,6 +30,10 @@
        - put in user name from github. put in authenication token.
 ## Working in Unity:
    - you have your own scene to work in. it's basically your work space. play around with animations, make levels, write scripts, do what you want in your scene. all the assets will/should be separated into folders though for organization.
-   - we will pour our work into different scenes/levels when things get going.   
+   - we will pour our work into different scenes/levels when things get going.
+   
+   
+   We love Umair.
+   
   
    
