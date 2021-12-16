@@ -69,8 +69,8 @@ public class Weapon : MonoBehaviour
             bulletPrefab.GetComponent<Bullet>().flyHorizontal = true;
             verticalFirePoint.SetActive(IsAimingUp);
             horizontalFirePoint.SetActive(IsAimingHorizontal);
-            cc2d.animator.SetBool("Is_Vertical_Idle_Shooting", false);
-            cc2d.animator.SetBool("Is_Vertical_Move_Shooting", false);
+            //cc2d.animator.SetBool("Is_Vertical_Idle_Shooting", false);
+            //cc2d.animator.SetBool("Is_Vertical_Move_Shooting", false);
             //Debug.Log(IsAimingHorizontal);
         }
 
@@ -84,7 +84,7 @@ public class Weapon : MonoBehaviour
                     isHorizontalMoveShooting = false;
                     if (isIdleShooting)
                     {
-                        cc2d.animator.SetBool("Is_Horizontal_Idle_Shooting", true);
+                        //cc2d.animator.SetBool("Is_Horizontal_Idle_Shooting", true);
                         Shoot();
                     }
 
@@ -95,7 +95,7 @@ public class Weapon : MonoBehaviour
                     isHorizontalMoveShooting = true;
                     if (isHorizontalMoveShooting)
                     {
-                        cc2d.animator.SetBool("Is_Horizontal_Move_Shooting", true);
+                        //cc2d.animator.SetBool("Is_Horizontal_Move_Shooting", true);
                         Shoot();
                     }
                     //cc2d.animator.SetBool("Is_Horizontal_Idle_Shooting", false);
@@ -112,8 +112,8 @@ public class Weapon : MonoBehaviour
             }
             else if (Input.GetKeyUp(KeyCode.J))
             {
-                cc2d.animator.SetBool("Is_Horizontal_Idle_Shooting", false);
-                cc2d.animator.SetBool("Is_Horizontal_Move_Shooting", false);
+                //cc2d.animator.SetBool("Is_Horizontal_Idle_Shooting", false);
+                //cc2d.animator.SetBool("Is_Horizontal_Move_Shooting", false);
 
             }
 

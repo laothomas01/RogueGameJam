@@ -7,9 +7,9 @@ public class BasicCameraTracker : MonoBehaviour {
     [SerializeField] GameObject m_Target = null;
     [SerializeField] float m_InterpolationFactor = 0.0f;
     [SerializeField] bool m_UseFixedUpdate = false;
-    [SerializeField] float m_ZDistance = 10.0f;
+    private float m_ZDistance = 10.0f;
 
-	void FixedUpdate () 
+    void FixedUpdate () 
 	{
         if (m_UseFixedUpdate)
         {
