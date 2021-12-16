@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
 
-   //private variables
+    //private variables
     private Rigidbody2D rb;
     private float inputX;
 
@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded, canJump, isIdle;
     public Animator anim;
     public SpriteRenderer rend;
-     
+
     void Start()
     {
         Cursor.visible = false;
@@ -56,46 +56,55 @@ public class PlayerController : MonoBehaviour
     {
         inputX = Input.GetAxisRaw("Horizontal");
 
-        if (isGrounded && Input.GetButton("Jump")){
+        if (isGrounded && Input.GetButton("Jump"))
+        {
             isIdle = false;
             canJump = true;
         }
-        else {
+        else
+        {
             isIdle = true;
             canJump = false;
         }
 
-        if (Input.GetButtonDown("Fire1")){
+        if (Input.GetButtonDown("Fire1"))
+        {
             isIdle = false;
-            anim.SetBool("IsShooting", true);
+            //anim.SetBool("IsShooting", true);
         }
-        else {
+        else
+        {
             isIdle = true;
-            anim.SetBool("IsShooting", false);
+            //anim.SetBool("IsShooting", false);
         }
 
 
-        if (canJump == true){
+        if (canJump == true)
+        {
             isIdle = false;
-            anim.SetBool("IsJumping", true);
+            //anim.SetBool("IsJumping", true);
         }
-        else {
+        else
+        {
             isIdle = true;
-            anim.SetBool("IsJumping", false);
+            //anim.SetBool("IsJumping", false);
         }
 
-        if (inputX != 0){
+        if (inputX != 0)
+        {
             isIdle = false;
-            anim.SetBool("IsRunning", true);
+            //anim.SetBool("IsRunning", true);
             rb.velocity = new Vector2(inputX * moveSpeed, rb.velocity.y);
         }
-        else{
+        else
+        {
             isIdle = true;
-            anim.SetBool("IsRunning", false);
+            //anim.SetBool("IsRunning", false);
         }
 
-        if (isIdle == true) {
-            anim.SetBool("IsIdle", false);
+        if (isIdle == true)
+        {
+            //anim.SetBool("IsIdle", false);
         }
 
         //make the sprite face the direction we move by flipping it
@@ -103,7 +112,8 @@ public class PlayerController : MonoBehaviour
         {
             rend.flipX = false;
         }
-        else {
+        else
+        {
             rend.flipX = true;
         }
     }
@@ -112,7 +122,7 @@ public class PlayerController : MonoBehaviour
         //animations and jumping
         if (canJump == true)
         {
-            
+
             rb.AddForce(Vector2.up * jumpspeed);
         }
     }

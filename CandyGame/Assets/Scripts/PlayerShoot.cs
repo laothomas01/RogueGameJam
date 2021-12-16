@@ -13,7 +13,7 @@ public class PlayerShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,12 +23,14 @@ public class PlayerShoot : MonoBehaviour
 
         crosshair.transform.position = mousepos;
 
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButtonDown("Fire1"))
+        {
             shoot();
         }
     }
-    private void shoot() {
-        Vector2 targetDelta = new Vector2(mousepos.x,mousepos.y) - new Vector2(transform.position.x , transform.position.y) ;
+    private void shoot()
+    {
+        Vector2 targetDelta = new Vector2(mousepos.x, mousepos.y) - new Vector2(transform.position.x, transform.position.y);
         PlayerHealth.health -= .1f;
         GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().AddForce(targetDelta.normalized * bulletSpeed);
