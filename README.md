@@ -37,6 +37,6 @@
   (this is temporary) 
   Sweet Tooth
 # Game Description
-  Wake up with no knowledge of an apocalypse that has happened. We are approached by someone screaming and his head is replaced by a lollipop. A newspaper is picked up and fills the main character in on how a machine gone haywire in New York has turned the world into a land of horrific sugary madness. Lots of sugar will be spilled and lots of candy pieces will be broken. 
+  Wake up with no knowledge of an apocalypse that has happened in a laboratory. We are approached by candy scientist (boths studies and is made of candy). The scientist informs the main character in on how a machine has gone haywire in thehighest level of the lab and has turned the world into a land of horrific sugary madness. Lots of sugar will be spilled and lots of candy pieces will be broken. Eat, shoot, and eat some more.
   
   
