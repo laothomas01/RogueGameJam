@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
 
 
     private float horizontalMove = 0f;
-    public float runSpeed = 40f;
+    public float runSpeed = 35f;
     
 
 
