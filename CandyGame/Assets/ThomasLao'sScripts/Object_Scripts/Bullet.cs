@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-        Debug.Log(hitInfo);
+        //Debug.Log(hitInfo);
 
         //put code here later:
         //Instantiate(impactEffect,transform.positon,transform.rotation);

@@ -12,9 +12,11 @@ public class Weapon : MonoBehaviour
     private Vector2 mousepos;
     Vector2 targetDelta;
     float angle;
-    bool shooting = false;
-
-
+    bool canShoot = true;
+    float time = 0;
+    public float fireRate = 1.0f;
+    public int damage = 1;
+    public GameObject player;
 
     private void Start()
     {
@@ -23,15 +25,16 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
 
-
-
-
-
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            shooting = true;
+            Shoot();
+            canShoot = false;
         }
+        else if (Input.GetMouseButtonUp(0) && canShoot == false)
+        {
+            canShoot = true;
+        }
+
 
 
     }
@@ -41,19 +44,19 @@ public class Weapon : MonoBehaviour
         crosshair.transform.position = mousepos;
         angle = Mathf.Atan2(mousepos.y, mousepos.x) * Mathf.Rad2Deg;
 
-        if (shooting)
-        {
-            Shoot();
-        }
+
+
+
     }
 
     private void Shoot()
     {
+
         //    targetDelta =               destination                 -           source
         targetDelta = new Vector2(mousepos.x, mousepos.y) - new Vector2(transform.position.x, transform.position.y);
         GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().AddForce(targetDelta.normalized * bulletSpeed);
-
+        bullet.GetComponent<Rigidbody2D>().AddForce(targetDelta * bulletSpeed, ForceMode2D.Force);
+        this.GetComponentInParent<Player>().TakeDamage(damage);
     }
 
 
