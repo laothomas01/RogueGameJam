@@ -12,8 +12,8 @@ public class PlayerScript : MonoBehaviour
     public bool grounded;
 
     //Jump Checks
-    private float initgroundPos;
-    public float jumpHeight = 3;
+    
+    //public float jumpHeight = 3;
     public float highJump = 2.5f;
     public float lowJump = 2f;
 
@@ -36,7 +36,7 @@ public class PlayerScript : MonoBehaviour
     {
         
         rb = GetComponent<Rigidbody2D>();
-        initgroundPos = transform.position.y;
+        
     }
     private void Update()
     {
@@ -61,7 +61,7 @@ public class PlayerScript : MonoBehaviour
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * highJump * Time.deltaTime;
         }
-        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.K))
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
         }
@@ -73,7 +73,7 @@ public class PlayerScript : MonoBehaviour
         Move();
         // Jump control and animation
         
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
