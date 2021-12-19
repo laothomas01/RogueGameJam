@@ -6,14 +6,19 @@ public class PlayerScript : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    //bullet
+    public GameObject bullet;
+    public Transform firepoint;
+    public GameObject arm;
+
     //Ground Checks
     private RaycastHit2D hit;
     public float hitDistance = 1f;
     public bool grounded;
+    private Collider2D cl;
 
     //Jump Checks
-    
-    //public float jumpHeight = 3;
+   
     public float highJump = 2.5f;
     public float lowJump = 2f;
 
@@ -34,29 +39,21 @@ public class PlayerScript : MonoBehaviour
 
     private void Awake()
     {
-        
+        cl = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         
     }
     private void Update()
     {
         GroundCheck();
-        //if (transform.position.y - initgroundPos > jumpHeight && !grounded)
-        //{
-        //    Physics2D.gravity = new Vector2(0, -50);
-        //    Debug.Log("Peak Reached");
-        //}
-        //else
-        //{
-        //    Physics2D.gravity = new Vector2(0, -9.81f);
 
-        //}
-        //if (grounded)
-        //{
-        //    initgroundPos = transform.position.y;
-        //}
+        //cl.sharedMaterial.friction = grounded ? 10f : 0f;
+        //cl.sharedMaterial. = grounded ? 10f : 0f;
+        Debug.Log(cl.friction);
+        if (Input.GetKeyDown(KeyCode.X)){
+            Instantiate(bullet, firepoint.position, firepoint.rotation);
+        }
 
-        //if falling increase gravity, else if holding jump, keep jumping until max height
         if(rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * highJump * Time.deltaTime;
@@ -69,6 +66,13 @@ public class PlayerScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
+        float horizontal = Input.GetAxisRaw("Vertical") == 0 ? transform.right.x : Input.GetAxisRaw("Horizontal");
+        Vector2 direction = new Vector2(horizontal, Input.GetAxisRaw("Vertical"));
+        arm.transform.right = direction;
+
+
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed*Time.fixedDeltaTime;
         Move();
         // Jump control and animation
@@ -102,7 +106,11 @@ public class PlayerScript : MonoBehaviour
             Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
         // And then smoothing it out and applying it to the character
         //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
-        rb.velocity = targetVelocity;
+        if(Input.GetAxisRaw("Vertical") == 0)
+        {
+            rb.velocity = targetVelocity;
+        }
+            
 
             // If the input is moving the player right and the player is facing left...
             if (horizontalMove > 0 && !facingRight)
