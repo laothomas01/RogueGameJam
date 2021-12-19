@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     public Rigidbody2D rb;
 
     public float lifeTime = 0.0f;
+    float time = 0;
     void Start()
     {
 
@@ -17,23 +18,41 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         //SelfDestroy();
+        SelfDisable();
     }
 
-
-    void OnTriggerEnter2D(Collider2D hitInfo)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log(hitInfo);
 
-        //put code here later:
-        //Instantiate(impactEffect,transform.positon,transform.rotation);
-        //Destroy(gameObject);
+        string tag = collision.gameObject.tag;
+        switch (tag)
+        {
+            case "wall":
+                gameObject.SetActive(false);
+                break;
+            case "enemy":
+                Debug.Log("Enemy Hit");
+                gameObject.SetActive(false);
+                break;
+
+
+        }
     }
 
 
-    private void SelfDestroy()
+
+
+    private void SelfDisable()
     {
         //destroy object after a certain time. 
-        Destroy(gameObject, lifeTime);
+        //Destroy(gameObject, lifeTime);
+        time += Time.deltaTime;
+        Debug.Log(time);
+        if (time > 1)
+        {
+            gameObject.SetActive(false);
+            time = 0;
+        }
     }
 
 

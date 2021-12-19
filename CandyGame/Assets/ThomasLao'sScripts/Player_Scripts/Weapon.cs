@@ -6,7 +6,8 @@ public class Weapon : MonoBehaviour
 {
 
     public Transform shootPosition;
-    public GameObject projectile, crosshair;
+    //public GameObject projectile, crosshair;
+    public GameObject crosshair;
     CharacterController2D cc2d;
     [SerializeField] float bulletSpeed = 0.0f;
     private Vector2 mousepos;
@@ -54,9 +55,17 @@ public class Weapon : MonoBehaviour
 
         //    targetDelta =               destination                 -           source
         targetDelta = new Vector2(mousepos.x, mousepos.y) - new Vector2(transform.position.x, transform.position.y);
-        GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
+        //GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
+        GameObject bullet = ObjectPool.instance.GetPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = shootPosition.position;
+
+            bullet.SetActive(true);
+
+        }
         bullet.GetComponent<Rigidbody2D>().AddForce(targetDelta * bulletSpeed, ForceMode2D.Force);
-        this.GetComponentInParent<Player>().TakeDamage(damage);
+        //this.GetComponentInParent<Player>().TakeDamage(damage);
     }
 
 
