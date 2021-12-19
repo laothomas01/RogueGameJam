@@ -14,6 +14,9 @@ public class PlayerScript : MonoBehaviour
     //Jump Checks
     private float initgroundPos;
     public float jumpHeight = 3;
+    public float highJump = 2.5f;
+    public float lowJump = 2f;
+
     [SerializeField] private float jumpForce = 400f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;  
     [SerializeField] private LayerMask GroundedMask;                    
@@ -27,13 +30,7 @@ public class PlayerScript : MonoBehaviour
 
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
-    
-
-
-    public UnityEvent OnLandEvent;
-
-    public class BoolEvent : UnityEvent<bool> { }
-
+   
 
     private void Awake()
     {
@@ -41,29 +38,41 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         initgroundPos = transform.position.y;
     }
+    private void Update()
+    {
+        GroundCheck();
+        //if (transform.position.y - initgroundPos > jumpHeight && !grounded)
+        //{
+        //    Physics2D.gravity = new Vector2(0, -50);
+        //    Debug.Log("Peak Reached");
+        //}
+        //else
+        //{
+        //    Physics2D.gravity = new Vector2(0, -9.81f);
 
-    void FixedUpdate()
+        //}
+        //if (grounded)
+        //{
+        //    initgroundPos = transform.position.y;
+        //}
+
+        //if falling increase gravity, else if holding jump, keep jumping until max height
+        if(rb.velocity.y < 0)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * highJump * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.K))
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
+        }
+
+    }
+    private void FixedUpdate()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed*Time.fixedDeltaTime;
         Move();
         // Jump control and animation
-        GroundCheck();
-
-        if(transform.position.y - initgroundPos > jumpHeight && !grounded)
-        {
-            Physics2D.gravity = new Vector2(0, -50);
-            Debug.Log("Peak Reached");
-        }
-        else
-        {
-            Physics2D.gravity = new Vector2(0, -9.81f);
-            
-        }
-        if (grounded)
-        {
-            initgroundPos = transform.position.y;
-        }
-
+        
         if (Input.GetKeyDown(KeyCode.K))
         {
             Jump();
@@ -91,8 +100,9 @@ public class PlayerScript : MonoBehaviour
         //only control the player if grounded or airControl is turned on
             // Move the character by finding the target velocity
             Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
-            // And then smoothing it out and applying it to the character
-            rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
+        // And then smoothing it out and applying it to the character
+        //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
+        rb.velocity = targetVelocity;
 
             // If the input is moving the player right and the player is facing left...
             if (horizontalMove > 0 && !facingRight)
@@ -124,7 +134,8 @@ public class PlayerScript : MonoBehaviour
         if (grounded)
         {
             grounded = false;
-            rb.AddForce(new Vector2(0f, jumpForce));
+            //rb.AddForce(new Vector2(0f, jumpForce));
+            rb.velocity = Vector2.up * jumpForce;
         }
     }
 }
