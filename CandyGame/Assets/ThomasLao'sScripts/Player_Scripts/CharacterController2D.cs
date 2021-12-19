@@ -5,20 +5,17 @@ public class CharacterController2D : MonoBehaviour
 {
     [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
-    [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
+    public bool m_AirControl = false;                                    // Whether or not a player can steer while jumping;
     [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
     [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
 
 
-    public Animator animator; // PUT THIS SOMEWHERE ELSE >:(
-
-
+    //public Animator animator; // PUT THIS SOMEWHERE ELSE >:(
 
     const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
     public bool m_Grounded;            // Whether or not the player is grounded.
-    private Rigidbody2D m_Rigidbody2D;
-    private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-    public bool m_IsMoving = false; //check whether the character is moving. 
+    public Rigidbody2D m_Rigidbody2D;
+    public bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private Vector3 m_Velocity = Vector3.zero;
 
     [Header("Events")]
@@ -40,7 +37,9 @@ public class CharacterController2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool wasGrounded = m_Grounded;
+        //save the last vallue of m_Grounded.
+
+        //bool wasGrounded = m_Grounded;
         m_Grounded = false;
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -51,10 +50,17 @@ public class CharacterController2D : MonoBehaviour
             if (colliders[i].gameObject != gameObject)
             {
                 m_Grounded = true;
-                if (!wasGrounded)
-                    OnLandEvent.Invoke();
+                //if (!wasGrounded)
+                //    OnLandEvent.Invoke();
             }
         }
+        if (m_Grounded)
+        {
+
+            m_Rigidbody2D.gravityScale = 3f;
+        }
+
+
     }
 
 
@@ -76,12 +82,14 @@ public class CharacterController2D : MonoBehaviour
             {
                 // ... flip the player.
                 Flip();
+                //Debug.Log("Moving Right");
             }
             // Otherwise if the input is moving the player left and the player is facing right...
             else if (move < 0 && m_FacingRight)
             {
                 // ... flip the player.
                 Flip();
+                //Debug.Log("Moving Left");
             }
 
         }
@@ -93,14 +101,16 @@ public class CharacterController2D : MonoBehaviour
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
         }
 
+
     }
 
 
-    private void Flip()
+    public void Flip()
     {
         // Switch the way the player is labelled as facing.
         m_FacingRight = !m_FacingRight;
 
         transform.Rotate(0f, 180f, 0f);
+
     }
 }
