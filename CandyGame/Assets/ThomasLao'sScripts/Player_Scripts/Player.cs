@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
 
 
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         //spriteRend = GetComponent<SpriteRenderer>();
     }
 
@@ -46,21 +46,21 @@ public class Player : MonoBehaviour
     // tag
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            //Debug.Log("enemy hits player");
-            if (isInvincible) return;
-            TakeDamage(2);
-        }
-        else if (collision.gameObject.CompareTag("void"))
-        {
-            TakeDamage(10);
-        }
-        else if (collision.gameObject.CompareTag("trap"))
-        {
-            TakeDamage(3);
-            if (isInvincible) return;
-        }
+        //if (collision.gameObject.CompareTag("Enemy"))
+        //{
+        //    //Debug.Log("enemy hits player");
+        //    if (isInvincible) return;
+        //    TakeDamage(2);
+        //}
+        //else if (collision.gameObject.CompareTag("void"))
+        //{
+        //    TakeDamage(10);
+        //}
+        //else if (collision.gameObject.CompareTag("trap"))
+        //{
+        //    TakeDamage(3);
+        //    if (isInvincible) return;
+        //}
 
     }
 
@@ -68,9 +68,9 @@ public class Player : MonoBehaviour
     {
 
         currentHealth -= damage;
-        animator.SetTrigger("Hurt");
+        //animator.SetTrigger("Hurt");
 
-        healthBar.SetHealth(currentHealth);
+        //healthBar.SetHealth(currentHealth);
 
         if (!isInvincible)
         {
@@ -92,15 +92,13 @@ public class Player : MonoBehaviour
         //animator.SetBool("IsDead", true);
 
 
-        animator.SetTrigger("PlayerDead");
+        //animator.SetTrigger("PlayerDead");
         GetComponent<PlayerMovement>().enabled = false;
         GetComponent<CharacterController2D>().enabled = false;
         this.GetComponentInChildren<Weapon>().enabled = false;
 
         isPlayerDead = true;
-        //LevelManager.instance.GameOver();
-        //healthBar.gameObject.SetActive(false);
-        //gameObject.SetActive(false);
+
 
 
 
