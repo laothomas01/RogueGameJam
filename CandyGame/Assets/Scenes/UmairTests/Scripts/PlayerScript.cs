@@ -6,28 +6,24 @@ public class PlayerScript : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    //bullet
-    public GameObject bullet;
-    public Transform firepoint;
-    public GameObject arm;
-
     //Ground Checks
     private RaycastHit2D hit;
     public float hitDistance = 1f;
     public bool grounded;
-    private Collider2D cl;
 
     //Jump Checks
-   
+
+    //public float jumpHeight = 3;
     public float highJump = 2.5f;
     public float lowJump = 2f;
+    public bool jump = false;
 
     [SerializeField] private float jumpForce = 400f;
-    [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;  
-    [SerializeField] private LayerMask GroundedMask;                    
-    
-    
-    
+    [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
+    [SerializeField] private LayerMask GroundedMask;
+
+
+
     private bool facingRight = true;  // For determining which way the player is currently facing.
     public bool moving = false; //check whether the character is moving. 
     private Vector3 velocity = Vector3.zero;
@@ -35,26 +31,34 @@ public class PlayerScript : MonoBehaviour
 
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
-   
+
 
     private void Awake()
     {
-        cl = GetComponent<Collider2D>();
+
         rb = GetComponent<Rigidbody2D>();
-        
+
     }
     private void Update()
     {
         GroundCheck();
+        //if (transform.position.y - initgroundPos > jumpHeight && !grounded)
+        //{
+        //    Physics2D.gravity = new Vector2(0, -50);
+        //    Debug.Log("Peak Reached");
+        //}
+        //else
+        //{
+        //    Physics2D.gravity = new Vector2(0, -9.81f);
 
-        //cl.sharedMaterial.friction = grounded ? 10f : 0f;
-        //cl.sharedMaterial. = grounded ? 10f : 0f;
-        //Debug.Log(cl.friction);
-        if (Input.GetKeyDown(KeyCode.X)){
-            Instantiate(bullet, firepoint.position, firepoint.rotation);
-        }
+        //}
+        //if (grounded)
+        //{
+        //    initgroundPos = transform.position.y;
+        //}
 
-        if(rb.velocity.y < 0)
+        //if falling increase gravity, else if holding jump, keep jumping until max height
+        if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * highJump * Time.deltaTime;
         }
@@ -62,25 +66,23 @@ public class PlayerScript : MonoBehaviour
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jump = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            jump = false;
+        }
 
     }
     private void FixedUpdate()
     {
-
-        float horizontal = Input.GetAxisRaw("Vertical") == 0 ? transform.right.x : Input.GetAxisRaw("Horizontal");
-        Vector2 direction = new Vector2(horizontal, Input.GetAxisRaw("Vertical"));
-        arm.transform.right = direction;
-
-
-
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed*Time.fixedDeltaTime;
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
         Move();
         // Jump control and animation
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
+        Jump();
+
     }
 
 
@@ -89,41 +91,37 @@ public class PlayerScript : MonoBehaviour
 
     private void GroundCheck()
     {
-  
+
         hit = Physics2D.Raycast(transform.position, -transform.up, hitDistance, GroundedMask);
         Debug.DrawRay(transform.position, -transform.up * hitDistance, Color.red);
 
         grounded = hit ? true : false;
-  
+
     }
 
     private void Move()
     {
-        
+
 
         //only control the player if grounded or airControl is turned on
-            // Move the character by finding the target velocity
-            Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
+        // Move the character by finding the target velocity
+        Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
         // And then smoothing it out and applying it to the character
         //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
-        if(Input.GetAxisRaw("Vertical") == 0)
-        {
-            rb.velocity = targetVelocity;
-        }
-            
+        rb.velocity = targetVelocity;
 
-            // If the input is moving the player right and the player is facing left...
-            if (horizontalMove > 0 && !facingRight)
-            {
-                // ... flip the player.
-                Flip();
-            }
-            // Otherwise if the input is moving the player left and the player is facing right...
-            else if (horizontalMove < 0 && facingRight)
-            {
-                // ... flip the player.
-                Flip();
-            }
+        // If the input is moving the player right and the player is facing left...
+        if (horizontalMove > 0 && !facingRight)
+        {
+            // ... flip the player.
+            Flip();
+        }
+        // Otherwise if the input is moving the player left and the player is facing right...
+        else if (horizontalMove < 0 && facingRight)
+        {
+            // ... flip the player.
+            Flip();
+        }
 
 
     }
@@ -139,11 +137,12 @@ public class PlayerScript : MonoBehaviour
 
     private void Jump()
     {
-        if (grounded)
+        if (grounded && jump)
         {
             grounded = false;
             //rb.AddForce(new Vector2(0f, jumpForce));
             rb.velocity = Vector2.up * jumpForce;
+
         }
     }
 }
