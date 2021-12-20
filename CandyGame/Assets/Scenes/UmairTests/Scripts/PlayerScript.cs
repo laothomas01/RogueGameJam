@@ -49,7 +49,7 @@ public class PlayerScript : MonoBehaviour
 
         //cl.sharedMaterial.friction = grounded ? 10f : 0f;
         //cl.sharedMaterial. = grounded ? 10f : 0f;
-        Debug.Log(cl.friction);
+        //Debug.Log(cl.friction);
         if (Input.GetKeyDown(KeyCode.X)){
             Instantiate(bullet, firepoint.position, firepoint.rotation);
         }
