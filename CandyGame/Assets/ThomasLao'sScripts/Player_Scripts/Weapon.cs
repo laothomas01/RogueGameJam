@@ -8,7 +8,7 @@ public class Weapon : MonoBehaviour
     public Transform shootPosition;
     //public GameObject projectile, crosshair;
     public GameObject crosshair;
-    CharacterController2D cc2d;
+    Player cc2d;
     [SerializeField] float bulletSpeed = 0.0f;
     private Vector2 mousepos;
     Vector2 targetDelta;
@@ -17,11 +17,13 @@ public class Weapon : MonoBehaviour
     float time = 0;
     public float fireRate = 1.0f;
     public int damage = 1;
-    public GameObject player;
+    PlayerScript playerScript;
+    public GameObject arm;
 
     private void Start()
     {
-        cc2d = GetComponentInParent<CharacterController2D>();
+        playerScript = GetComponentInParent<PlayerScript>();
+
     }
     private void Update()
     {
@@ -37,16 +39,105 @@ public class Weapon : MonoBehaviour
         }
 
 
-
     }
     private void FixedUpdate()
     {
         mousepos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
         crosshair.transform.position = mousepos;
-        angle = Mathf.Atan2(mousepos.y, mousepos.x) * Mathf.Rad2Deg;
 
 
 
+        //Debug.Log(angle);
+
+        //Debug.Log(rotationZ);
+        //if (angle > 90 && angle < -90 && playerScript.facingRight)
+        //{
+        //    playerScript.Flip();
+        //}
+        //else if (angle <= 90 && angle >= -90 && !playerScript.facingRight)
+        //{
+        //    playerScript.Flip();
+        //}
+        //if (angle > 90 || angle < -90)
+        //{
+        //    playerScript.
+        //}
+        //if (playerScript.facingRight)
+        //{
+        //    if (this.transform.rotation.z > 90)
+        //    {
+        //        playerScript.Flip();
+        //    }
+        //}
+        //else if (!playerScript.facingRight)
+        //{
+        //    if (this.transform.rotation.z >= -90)
+        //    {
+        //        playerScript.Flip();
+        //    }
+        //}
+
+        //if (playerScript.facingRight &&)
+        //{
+        //    //facing Right = true -> facingRight = false
+
+        //    playerScript.Flip();
+        //}
+        //else if (!playerScript.facingRight &&)
+        //{
+        //    playerScript.Flip();
+        //}
+        //Debug.Log(angle);
+        targetDelta = new Vector2(mousepos.x, mousepos.y) - new Vector2(transform.position.x, transform.position.y);
+
+        arm.transform.right = targetDelta;
+        float rotationZ = arm.transform.eulerAngles.z;
+        Debug.Log(rotationZ);
+        if (playerScript.facingRight)
+        {
+            if (rotationZ <= 90)
+            {
+                this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+            }
+            else if (rotationZ >= 270)
+            {
+                this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+            }
+            else if (rotationZ > 90 && rotationZ < 270)
+            {
+                playerScript.Flip();
+            }
+        }
+        //else if (!playerScript.facingRight)
+        //{
+
+        //    if (rotationZ > 90)
+        //    {
+        //        this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+        //    }
+        //    else if (rotationZ < 270)
+        //    {
+        //        this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+        //    }
+        //    else if (rotationZ <= 90 && rotationZ >= 270)
+        //    {
+        //        playerScript.Flip();
+        //    }
+        //}
+        //else if (rotationZ >= 270)
+        //{
+        //    transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
+        //}
+        //else if (rotationZ > 90 && rotationZ < 270)
+        //{
+        //    playerScript.Flip();
+        //}
+
+
+        //if (rotationZ > 90 && rotationZ < 270)
+        //{
+        //    playerScript.Flip();
+        //}
 
     }
 

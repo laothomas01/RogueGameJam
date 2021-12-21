@@ -18,13 +18,14 @@ public class PlayerScript : MonoBehaviour
     public float lowJump = 2f;
     public bool jump = false;
 
+
     [SerializeField] private float jumpForce = 400f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
     [SerializeField] private LayerMask GroundedMask;
 
 
 
-    private bool facingRight = true;  // For determining which way the player is currently facing.
+    public bool facingRight = true;  // For determining which way the player is currently facing.
     public bool moving = false; //check whether the character is moving. 
     private Vector3 velocity = Vector3.zero;
 
@@ -79,6 +80,7 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
+
         Move();
         // Jump control and animation
         Jump();
@@ -127,7 +129,7 @@ public class PlayerScript : MonoBehaviour
     }
 
 
-    private void Flip()
+    public void Flip()
     {
         // Switch the way the player is labelled as facing.
         facingRight = !facingRight;

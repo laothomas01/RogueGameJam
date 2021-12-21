@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
         //destroy object after a certain time. 
         //Destroy(gameObject, lifeTime);
         time += Time.deltaTime;
-        Debug.Log(time);
+        //Debug.Log(time);
         if (time > 1)
         {
             gameObject.SetActive(false);
