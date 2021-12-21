@@ -33,16 +33,25 @@ public class PlayerScript : MonoBehaviour
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
 
+    //player weapon
+    public Weapon weapon;
 
+    private void Start()
+    {
+
+    }
     private void Awake()
     {
 
         rb = GetComponent<Rigidbody2D>();
-
+        weapon = GetComponentInChildren<Weapon>();
     }
     private void Update()
     {
         GroundCheck();
+        //CheckFlip();
+
+        //Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
         //if (transform.position.y - initgroundPos > jumpHeight && !grounded)
         //{
         //    Physics2D.gravity = new Vector2(0, -50);
@@ -80,7 +89,7 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
-
+        Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
         Move();
         // Jump control and animation
         Jump();
@@ -112,29 +121,76 @@ public class PlayerScript : MonoBehaviour
         //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
         rb.velocity = targetVelocity;
 
+
+
+    }
+
+    public void CheckFlip()
+    {
+
         // If the input is moving the player right and the player is facing left...
         if (horizontalMove > 0 && !facingRight)
         {
             // ... flip the player.
-            Flip();
+            Movement_Flip();
         }
         // Otherwise if the input is moving the player left and the player is facing right...
         else if (horizontalMove < 0 && facingRight)
         {
             // ... flip the player.
-            Flip();
+            Movement_Flip();
         }
 
-
     }
-
-
-    public void Flip()
+    public void Movement_Flip()
     {
         // Switch the way the player is labelled as facing.
         facingRight = !facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+        //transform.Rotate(0f, 180f, 0f);
+    }
+    public void Flip_Player_Based_On_Rotation_Of_The_Mouse_Input()
+    {
 
-        transform.Rotate(0f, 180f, 0f);
+        //Vector3 gunPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //float gunAngle = Mathf.Atan2(gunPos.y, gunPos.x) * Mathf.Rad2Deg;
+        //Debug.Log(gunAngle);
+        if (facingRight)
+        {
+            if (weapon.rotationZ <= 90)
+            {
+                weapon.transform.rotation = Quaternion.Euler(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.rotationZ);
+            }
+            else if (weapon.rotationZ >= 270)
+            {
+                weapon.transform.rotation = Quaternion.Euler(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.rotationZ);
+            }
+            if (weapon.rotationZ > 90 && weapon.rotationZ < 270)
+            {
+                Movement_Flip();
+            }
+
+        }
+        Debug.Log(weapon.rotationZ);
+        Debug.Log(facingRight);
+        if (facingRight == false)
+        {
+            if (weapon.rotationZ >= 90)
+            {
+                weapon.transform.rotation = Quaternion.Euler(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.rotationZ);
+            }
+            else if (weapon.rotationZ <= 270)
+            {
+                weapon.transform.rotation = Quaternion.Euler(weapon.transform.rotation.x, weapon.transform.rotation.y, weapon.rotationZ);
+            }
+            if (weapon.rotationZ < 90 || weapon.rotationZ > 270)
+            {
+                Movement_Flip();
+            }
+        }
+
     }
 
     private void Jump()
@@ -147,6 +203,7 @@ public class PlayerScript : MonoBehaviour
 
         }
     }
+
 }
 
 

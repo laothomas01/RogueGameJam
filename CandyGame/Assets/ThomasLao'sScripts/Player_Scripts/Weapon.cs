@@ -10,8 +10,8 @@ public class Weapon : MonoBehaviour
     public GameObject crosshair;
     Player cc2d;
     [SerializeField] float bulletSpeed = 0.0f;
-    private Vector2 mousepos;
-    Vector2 targetDelta;
+    Vector2 MOUSE_POSITION;
+    Vector2 direction;
     float angle;
     bool canShoot = true;
     float time = 0;
@@ -19,15 +19,17 @@ public class Weapon : MonoBehaviour
     public int damage = 1;
     PlayerScript playerScript;
     public GameObject arm;
+    public float rotationZ;
 
     private void Start()
     {
         playerScript = GetComponentInParent<PlayerScript>();
 
+        //playerScript.Flip();
     }
     private void Update()
     {
-
+        gunTurning();
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
             Shoot();
@@ -39,113 +41,98 @@ public class Weapon : MonoBehaviour
         }
 
 
+
     }
     private void FixedUpdate()
     {
-        mousepos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-        crosshair.transform.position = mousepos;
+
+
+    }
+    private void gunTurning()
+    {
+
+        /*
+         * my logic:
+         * quite a lot of thnigs will be based on my mouse position from screen to world
+         * get mouse position
+         * 
+         * make mouse position from screen to world point
+         * 
+         * set cross hair position = to mouse so I can see where I am pointing
+         * 
+         * get the direction of where the arm gun should point
+         * 
+         * get the gun's angle for later usage which is based on the position of your
+         */
+        //mouse position
+        Vector2 mousepos = Input.mousePosition;
+
+
+        //from the screen to the world
+        MOUSE_POSITION = Camera.main.ScreenToWorldPoint(mousepos);
+
+
+        //set the cross hair object's position = to my mouse position
+        crosshair.transform.position = MOUSE_POSITION;
+
+
+        //  direction = Mouse Position.transform.position - this.transform.position
+        direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
+
+        //use this to point our arm in the direction we want
+        arm.transform.right = direction;
+        rotationZ = arm.transform.eulerAngles.z;
 
 
 
-        //Debug.Log(angle);
 
-        //Debug.Log(rotationZ);
-        //if (angle > 90 && angle < -90 && playerScript.facingRight)
-        //{
-        //    playerScript.Flip();
-        //}
-        //else if (angle <= 90 && angle >= -90 && !playerScript.facingRight)
-        //{
-        //    playerScript.Flip();
-        //}
-        //if (angle > 90 || angle < -90)
-        //{
-        //    playerScript.
-        //}
+
+
+        //float gunAngle = Mathf.Atan2(MOUSE_POSITION.y, MOUSE_POSITION.x) * Mathf.Rad2Deg;
+        //Debug.Log(gunAngle);
         //if (playerScript.facingRight)
         //{
-        //    if (this.transform.rotation.z > 90)
+        //    if (gunAngle <= 90)
         //    {
-        //        playerScript.Flip();
+
+        //    }
+        //    else if (gunAngle >= 270)
+        //    {
+
+        //    }
+        //    else if (gunAngle > 90 && gunAngle < 270)
+        //    {
+
         //    }
         //}
-        //else if (!playerScript.facingRight)
-        //{
-        //    if (this.transform.rotation.z >= -90)
-        //    {
-        //        playerScript.Flip();
-        //    }
-        //}
 
-        //if (playerScript.facingRight &&)
+        //if (MOUSE_POSITION.x < transform.position.x)
         //{
-        //    //facing Right = true -> facingRight = false
-
-        //    playerScript.Flip();
+        //    transform.rotation = Quaternion.Euler(new Vector3(180f, 0f, -gunAngle));
         //}
-        //else if (!playerScript.facingRight &&)
+        //else
         //{
-        //    playerScript.Flip();
-        //}
-        //Debug.Log(angle);
-        targetDelta = new Vector2(mousepos.x, mousepos.y) - new Vector2(transform.position.x, transform.position.y);
-
-        arm.transform.right = targetDelta;
-        float rotationZ = arm.transform.eulerAngles.z;
-        Debug.Log(rotationZ);
-        if (playerScript.facingRight)
-        {
-            if (rotationZ <= 90)
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-            }
-            else if (rotationZ >= 270)
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-            }
-            else if (rotationZ > 90 && rotationZ < 270)
-            {
-                playerScript.Flip();
-            }
-        }
-        //else if (!playerScript.facingRight)
-        //{
-
-        //    if (rotationZ > 90)
-        //    {
-        //        this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-        //    }
-        //    else if (rotationZ < 270)
-        //    {
-        //        this.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
-        //    }
-        //    else if (rotationZ <= 90 && rotationZ >= 270)
-        //    {
-        //        playerScript.Flip();
-        //    }
-        //}
-        //else if (rotationZ >= 270)
-        //{
-        //    transform.rotation = Quaternion.Euler(0f, 0f, rotationZ);
-        //}
-        //else if (rotationZ > 90 && rotationZ < 270)
-        //{
-        //    playerScript.Flip();
+        //    transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, gunAngle));
         //}
 
 
-        //if (rotationZ > 90 && rotationZ < 270)
-        //{
-        //    playerScript.Flip();
-        //}
 
+        //if (MOUSE_POSITION.x < transform.position.x)
+        //{
+        //    transform.rotation = Quaternion.Euler(new Vector3(180f, 0f, -gunAngle));
+        //}
+        //else
+        //{
+        //    transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, gunAngle));
+        //}
+        //float rotationZ = arm.transform.eulerAngles.z;
     }
 
     private void Shoot()
     {
 
         //    targetDelta =               destination                 -           source
-        targetDelta = new Vector2(mousepos.x, mousepos.y) - new Vector2(transform.position.x, transform.position.y);
+        direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
         //GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
         GameObject bullet = ObjectPool.instance.GetPooledObject();
         if (bullet != null)
@@ -155,9 +142,10 @@ public class Weapon : MonoBehaviour
             bullet.SetActive(true);
 
         }
-        bullet.GetComponent<Rigidbody2D>().AddForce(targetDelta * bulletSpeed, ForceMode2D.Force);
+        bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Force);
         //this.GetComponentInParent<Player>().TakeDamage(damage);
     }
+
 
 
 }
