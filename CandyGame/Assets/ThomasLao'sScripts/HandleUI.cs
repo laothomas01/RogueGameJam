@@ -18,7 +18,7 @@ public class HandleUI : MonoBehaviour
     {
         if (p.isPlayerDead)
         {
-            p.healthBar.gameObject.SetActive(false);
+            //p.healthBar.gameObject.SetActive(false);
             gos.SetActive(true);
 
         }

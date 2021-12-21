@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
 
     public float lifeTime = 0.0f;
     float time = 0;
+    int damage = 1;
     void Start()
     {
 
@@ -25,6 +26,7 @@ public class Bullet : MonoBehaviour
     {
 
         string tag = collision.gameObject.tag;
+        Enemy enemy = collision.GetComponent<Enemy>();
         switch (tag)
         {
             case "wall":
@@ -32,10 +34,12 @@ public class Bullet : MonoBehaviour
                 break;
             case "enemy":
                 Debug.Log("Enemy Hit");
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(damage);
+                }
                 gameObject.SetActive(false);
                 break;
-
-
         }
     }
 

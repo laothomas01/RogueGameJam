@@ -49,6 +49,7 @@ public class PlayerScript : MonoBehaviour
     private void Update()
     {
         GroundCheck();
+        Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
         //CheckFlip();
 
         //Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
@@ -89,7 +90,7 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
-        Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
+
         Move();
         // Jump control and animation
         Jump();
@@ -173,8 +174,8 @@ public class PlayerScript : MonoBehaviour
             }
 
         }
-        Debug.Log(weapon.rotationZ);
-        Debug.Log(facingRight);
+        //Debug.Log(weapon.rotationZ);
+        //Debug.Log(facingRight);
         if (facingRight == false)
         {
             if (weapon.rotationZ >= 90)

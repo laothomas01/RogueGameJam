@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public HealthBar healthBar;
+    //public HealthBar healthBar;
 
 
     public int maxHealth = 10;
@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     // tag
     private void OnCollisionEnter2D(Collision2D collision)
     {
+      
         //if (collision.gameObject.CompareTag("Enemy"))
         //{
         //    //Debug.Log("enemy hits player");
@@ -117,11 +118,16 @@ public class Player : MonoBehaviour
 
         Debug.Log("Player turned invincible!");
         isInvincible = true;
-        Physics2D.IgnoreLayerCollision(8, 9, true);
+        //the fuck is this? 
+        //Physics2D.IgnoreLayerCollision(8, 9, true);
+
+
         //spriteRend.color = new Color(1, 0, 0, 0.5f);
         yield return new WaitForSeconds(iFramesDuration);
 
-        Physics2D.IgnoreLayerCollision(8, 9, false);
+        //the fuck is this? 
+        //Physics2D.IgnoreLayerCollision(8, 9, false);
+
         //spriteRend.color = Color.white;
 
 

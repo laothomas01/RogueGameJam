@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
     bool canShoot = true;
     float time = 0;
     public float fireRate = 1.0f;
-    public int damage = 1;
+
     PlayerScript playerScript;
     public GameObject arm;
     public float rotationZ;
@@ -85,47 +85,6 @@ public class Weapon : MonoBehaviour
 
 
 
-
-
-
-        //float gunAngle = Mathf.Atan2(MOUSE_POSITION.y, MOUSE_POSITION.x) * Mathf.Rad2Deg;
-        //Debug.Log(gunAngle);
-        //if (playerScript.facingRight)
-        //{
-        //    if (gunAngle <= 90)
-        //    {
-
-        //    }
-        //    else if (gunAngle >= 270)
-        //    {
-
-        //    }
-        //    else if (gunAngle > 90 && gunAngle < 270)
-        //    {
-
-        //    }
-        //}
-
-        //if (MOUSE_POSITION.x < transform.position.x)
-        //{
-        //    transform.rotation = Quaternion.Euler(new Vector3(180f, 0f, -gunAngle));
-        //}
-        //else
-        //{
-        //    transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, gunAngle));
-        //}
-
-
-
-        //if (MOUSE_POSITION.x < transform.position.x)
-        //{
-        //    transform.rotation = Quaternion.Euler(new Vector3(180f, 0f, -gunAngle));
-        //}
-        //else
-        //{
-        //    transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, gunAngle));
-        //}
-        //float rotationZ = arm.transform.eulerAngles.z;
     }
 
     private void Shoot()
@@ -143,6 +102,7 @@ public class Weapon : MonoBehaviour
 
         }
         bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Force);
+
         //this.GetComponentInParent<Player>().TakeDamage(damage);
     }
 
