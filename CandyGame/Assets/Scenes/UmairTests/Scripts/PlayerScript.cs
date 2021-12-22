@@ -126,24 +126,24 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    public void CheckFlip()
-    {
+    //public void CheckFlip()
+    //{
 
-        // If the input is moving the player right and the player is facing left...
-        if (horizontalMove > 0 && !facingRight)
-        {
-            // ... flip the player.
-            Movement_Flip();
-        }
-        // Otherwise if the input is moving the player left and the player is facing right...
-        else if (horizontalMove < 0 && facingRight)
-        {
-            // ... flip the player.
-            Movement_Flip();
-        }
+    //    // If the input is moving the player right and the player is facing left...
+    //    if (horizontalMove > 0 && !facingRight)
+    //    {
+    //        // ... flip the player.
+    //        Movement_Flip();
+    //    }
+    //    // Otherwise if the input is moving the player left and the player is facing right...
+    //    else if (horizontalMove < 0 && facingRight)
+    //    {
+    //        // ... flip the player.
+    //        Movement_Flip();
+    //    }
 
-    }
-    public void Movement_Flip()
+    //}
+    public void Player_Flip()
     {
         // Switch the way the player is labelled as facing.
         facingRight = !facingRight;
@@ -155,9 +155,12 @@ public class PlayerScript : MonoBehaviour
     public void Flip_Player_Based_On_Rotation_Of_The_Mouse_Input()
     {
 
-        //Vector3 gunPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 gunPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float thingy = gunPos.x - this.transform.position.x;
+        float abs = Mathf.Abs(thingy);
         //float gunAngle = Mathf.Atan2(gunPos.y, gunPos.x) * Mathf.Rad2Deg;
         //Debug.Log(gunAngle);
+        Debug.Log(gunPos);
         if (facingRight)
         {
             if (weapon.rotationZ <= 90)
@@ -170,8 +173,17 @@ public class PlayerScript : MonoBehaviour
             }
             if (weapon.rotationZ > 90 && weapon.rotationZ < 270)
             {
-                Movement_Flip();
+                if (abs > 1)
+                {
+
+                    Player_Flip();
+                }
+
+
             }
+        }
+        if (facingRight == false)
+        {
 
         }
         //Debug.Log(weapon.rotationZ);
@@ -188,11 +200,16 @@ public class PlayerScript : MonoBehaviour
             }
             if (weapon.rotationZ < 90 || weapon.rotationZ > 270)
             {
-                Movement_Flip();
+                //if (abs > 1)
+                //{
+                Player_Flip();
+                weapon.rotationZ = 0;
+                //}
             }
         }
 
     }
+
 
     private void Jump()
     {

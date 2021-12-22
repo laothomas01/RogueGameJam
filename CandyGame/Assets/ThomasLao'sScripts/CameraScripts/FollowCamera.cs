@@ -6,7 +6,10 @@ public class FollowCamera : MonoBehaviour
 {
     public GameObject followTarget;
     private Camera camera;
-
+    private void Start()
+    {
+        Cursor.visible = false;
+    }
     void Awake()
     {
         // get the Camera component when the game runs
