@@ -10,13 +10,14 @@ public class Player : MonoBehaviour
 
     public int maxHealth = 10;
     public int currentHealth;
-    public bool isPlayerDead = false;
+    //public bool isPlayerDead = false;
 
     //public HealthBar healthBar;
     Animator animator;
 
     //[Header("iFrames")]
-    //[SerializeField] public float iFramesDuration;
+    //[SerializeField]
+    //public float iFramesDuration;
     private bool isInvincible = false;
     //[SerializeField] public int numberOfFlashes;
     [SerializeField] private float iFramesDuration;
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour
     // tag
     private void OnCollisionEnter2D(Collision2D collision)
     {
-      
+
         //if (collision.gameObject.CompareTag("Enemy"))
         //{
         //    //Debug.Log("enemy hits player");
@@ -81,7 +82,7 @@ public class Player : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-            isPlayerDead = true;
+            //isPlayerDead = true;
         }
     }
 
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour
         GetComponent<CharacterController2D>().enabled = false;
         this.GetComponentInChildren<Weapon>().enabled = false;
 
-        isPlayerDead = true;
+        //isPlayerDead = true;
 
 
 

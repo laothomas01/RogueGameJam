@@ -93,7 +93,7 @@ public class Weapon : MonoBehaviour
         //    targetDelta =               destination                 -           source
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
         //GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
-        GameObject bullet = ObjectPool.instance.GetPooledObject();
+        GameObject bullet = ObjectPool.instance.Pool_Bullets();
         if (bullet != null)
         {
             bullet.transform.position = shootPosition.position;

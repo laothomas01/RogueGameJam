@@ -5,10 +5,10 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool instance;
-    private List<GameObject> pooledObjects1 = new List<GameObject>();
-    private List<GameObject> pooledObjects2 = new List<GameObject>();
+    private List<GameObject> poolBullets = new List<GameObject>();
+    private List<GameObject> poolEnemies = new List<GameObject>();
     private int bulletPool = 15;
-    private int enemyPool = 15;
+    private int enemyPool = 10;
 
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject babyCandyCreatures;
@@ -27,7 +27,7 @@ public class ObjectPool : MonoBehaviour
 
 
             obj.SetActive(false);
-            pooledObjects1.Add(obj);
+            poolBullets.Add(obj);
 
 
 
@@ -36,32 +36,48 @@ public class ObjectPool : MonoBehaviour
         {
             GameObject obj2 = Instantiate(babyCandyCreatures);
             obj2.SetActive(false);
-            pooledObjects2.Add(obj2);
+            poolEnemies.Add(obj2);
         }
     }
-    public GameObject GetPooledObject()
+    public GameObject Pool_Bullets()
     {
-        for (int i = 0; i < pooledObjects1.Count; i++)
+        for (int i = 0; i < poolBullets.Count; i++)
         {
-            if (!pooledObjects1[i].activeInHierarchy)
+            if (!poolBullets[i].activeInHierarchy)
             {
-                return pooledObjects1[i];
+                return poolBullets[i];
             }
         }
 
         return null;
     }
-    public GameObject GetPooledObject2()
+    public GameObject Pool_Enemies()
     {
-        for (int i = 0; i < enemyPool; i++)
+        for (int i = 0; i < poolEnemies.Count; i++)
         {
-            if (!pooledObjects2[i].activeInHierarchy)
+            if (!poolEnemies[i].activeInHierarchy)
             {
-                return pooledObjects2[i];
+                return poolEnemies[i];
             }
+
         }
+        Debug.Log(poolEnemies.Count);
         return null;
+
     }
+    public GameObject Re_Stock_Enemies()
+    {
+        enemyPool += 10;
+        for (int j = 0; j < enemyPool; j++)
+        {
+            GameObject obj2 = Instantiate(babyCandyCreatures);
+            obj2.SetActive(false);
+            poolEnemies.Add(obj2);
+        }
+        return Pool_Enemies();
+    }
+
+
 
     void Update()
     {

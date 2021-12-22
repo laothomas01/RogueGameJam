@@ -16,11 +16,11 @@ public class HandleUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (p.isPlayerDead)
-        {
-            //p.healthBar.gameObject.SetActive(false);
-            gos.SetActive(true);
+        //if (p.isPlayerDead)
+        //{
+        //    //p.healthBar.gameObject.SetActive(false);
+        //    gos.SetActive(true);
 
-        }
+        //}
     }
 }
