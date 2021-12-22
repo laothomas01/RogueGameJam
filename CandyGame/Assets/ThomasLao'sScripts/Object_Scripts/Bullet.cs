@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     {
 
         string tag = collision.gameObject.tag;
-        Enemy enemy = collision.GetComponent<Enemy>();
+        CandyBirthMother cbm = collision.GetComponent<CandyBirthMother>();
         switch (tag)
         {
             case "wall":
@@ -34,9 +34,9 @@ public class Bullet : MonoBehaviour
                 break;
             case "enemy":
                 Debug.Log("Enemy Hit");
-                if (enemy != null)
+                if (cbm != null)
                 {
-                    enemy.TakeDamage(damage);
+                    cbm.TakeDamage(damage);
                 }
                 gameObject.SetActive(false);
                 break;
