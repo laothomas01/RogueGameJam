@@ -18,9 +18,11 @@ public class CandyChildren : MonoBehaviour
         time = 0;
         rb2d = GetComponent<Rigidbody2D>();
 
+
     }
     private void Update()
     {
+
         playerPosition = GameObject.FindWithTag("Player").transform.position;
         float distToPlayer = Vector2.Distance(transform.position, playerPosition);
         if (aggroRange > distToPlayer)

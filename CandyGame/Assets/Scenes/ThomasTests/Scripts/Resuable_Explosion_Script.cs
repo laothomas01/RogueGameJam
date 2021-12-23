@@ -17,6 +17,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
     //public bool poolItems = false;
     //public bool poolSpecialEffects = false;
     public bool poolEnemies = false;
+    public bool poolSludge = false;
 
     Vector2 objectPivot;
     void Start()
@@ -29,7 +30,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
         //explosionUpward = 0.4f;
         //explosionSideWays = Random.Range(-5, -1);
         //explosionForce = ;
-        poolEnemies = true;
+
     }
 
     // Update is called once per frame
@@ -52,9 +53,25 @@ public class Resuable_Explosion_Script : MonoBehaviour
 
             }
 
+
             //enemies.GetComponent<Rigidbody2D>().AddTorque(5, ForceMode2D.Impulse);
             //enemies.GetComponent<Rigidbody2D>().AddForce(new Vector2(explosionSideWays, explosionUpward) * explosionPos.normalized * explosionForce);
 
+        }
+        else if (poolSludge)
+        {
+            Vector3 explosionPos = this.transform.position;
+            GameObject sludge = ObjectPool.instance.Pool_Hazardous_Sludge();
+            if (sludge == null)
+            {
+                ObjectPool.instance.Re_Stock_Sludge();
+            }
+            else
+            {
+                sludge.SetActive(true);
+                sludge.transform.position = new Vector2(transform.position.x, transform.position.y) + new Vector2(objectSize * x, objectSize * y) - objectPivot;
+                sludge.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
+            }
         }
         //else if (poolItems)
         //{
