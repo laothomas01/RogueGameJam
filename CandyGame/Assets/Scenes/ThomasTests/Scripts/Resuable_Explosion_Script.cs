@@ -18,47 +18,51 @@ public class Resuable_Explosion_Script : MonoBehaviour
     //public bool poolSpecialEffects = false;
     public bool poolEnemies = false;
     public bool poolSludge = false;
+    public bool poolItems = false;
 
     Vector2 objectPivot;
     void Start()
     {
+        explosionForce = Random.Range(500, 700);
+        explosionUpward = Random.Range(0.4f, 0.7f);
+        explosionRadius = Random.Range(3, 6);
+        objectsInRow = Random.Range(3, 5);
+
         //calculate pivot distance
         objectPivotDistance = objectSize * objectsInRow / 2;
         //use this value to create a pivot vector
         objectPivot = new Vector3(objectPivotDistance, objectPivotDistance);
 
-        //explosionUpward = 0.4f;
-        //explosionSideWays = Random.Range(-5, -1);
-        //explosionForce = ;
 
     }
 
     // Update is called once per frame
     public void createPieces(int x, int y)
     {
-        if (poolEnemies)
-        {
-            Vector3 explosionPos = this.transform.position;
-            GameObject enemies = ObjectPool.instance.Pool_Enemies();
-            if (enemies == null)
-            {
-                ObjectPool.instance.Re_Stock_Enemies();
-            }
-            else
-            {
+        //if (poolEnemies)
+        //{
+        //    Vector3 explosionPos = this.transform.position;
+        //    GameObject enemies = ObjectPool.instance.Pool_Enemies();
+        //    if (enemies == null)
+        //    {
+        //        ObjectPool.instance.Re_Stock_Enemies();
+        //    }
+        //    else
+        //    {
 
-                enemies.SetActive(true);
-                enemies.transform.position = new Vector2(transform.position.x, transform.position.y) + new Vector2(objectSize * x, objectSize * y) - objectPivot;
-                enemies.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
+        //        enemies.SetActive(true);
+        //        enemies.transform.position = new Vector2(transform.position.x, transform.position.y) + new Vector2(objectSize * x, objectSize * y) - objectPivot;
+        //        enemies.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
 
-            }
+        //    }
 
 
-            //enemies.GetComponent<Rigidbody2D>().AddTorque(5, ForceMode2D.Impulse);
-            //enemies.GetComponent<Rigidbody2D>().AddForce(new Vector2(explosionSideWays, explosionUpward) * explosionPos.normalized * explosionForce);
+        //    //enemies.GetComponent<Rigidbody2D>().AddTorque(5, ForceMode2D.Impulse);
+        //    //enemies.GetComponent<Rigidbody2D>().AddForce(new Vector2(explosionSideWays, explosionUpward) * explosionPos.normalized * explosionForce);
 
-        }
-        else if (poolSludge)
+        //}
+        //else
+        if (poolSludge)
         {
             Vector3 explosionPos = this.transform.position;
             GameObject sludge = ObjectPool.instance.Pool_Hazardous_Sludge();
@@ -73,36 +77,29 @@ public class Resuable_Explosion_Script : MonoBehaviour
                 sludge.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
             }
         }
-        //else if (poolItems)
-        //{
+        else if (poolItems)
+        {
+            Vector3 explosionPos = this.transform.position;
+            GameObject healthDrops = ObjectPool.instance.Pool_Hazardous_Sludge();
+            if (healthDrops == null)
+            {
+                ObjectPool.instance.Re_Stock_Sludge();
+            }
+            else
+            {
+                healthDrops.SetActive(true);
+                healthDrops.transform.position = new Vector2(transform.position.x, transform.position.y) + new Vector2(objectSize * x, objectSize * y) - objectPivot;
+                healthDrops.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
+            }
 
-        //}
-        //else if (poolEnemies && poolItems)
-        //{
 
-        //}
-        //GameObject babyCandyCreatures = ObjectPool.instance.GetPooledObject2();
+        }
 
-        //babyCandyCreatures.transform.position = new Vector2(transform.position.x, transform.position.y) + new Vector2(cubeSize * x, cubeSize * y) - cubesPivot;
-        //babyCandyCreatures.SetActive(true);
-        //babyCandyCreatures.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-5, -1), (Random.Range(1, 5))), ForceMode2D.Impulse);
-        //if (poolEnemies && poolItems && poolSpecialEffects)
-        //{
-
-        //}
-        //else if (poolEnemies && poolItems)
-        //{
-
-        //}
-        //else if (poolItems && poolSpecialEffects)
-        //{
-
-        //}
 
 
     }
 
-    public void explode()
+    public void explodeSludge()
     {
 
         for (int i = 0; i < objectsInRow; i++)
@@ -113,7 +110,16 @@ public class Resuable_Explosion_Script : MonoBehaviour
             }
         }
 
-
+    }
+    public void explode_Out_HealthPacks()
+    {
+        for (int i = 0; i < objectsInRow * 2; i++)
+        {
+            for (int j = 0; j < objectsInRow; j++)
+            {
+                createPieces(i, j);
+            }
+        }
     }
 }
 

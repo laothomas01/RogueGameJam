@@ -8,13 +8,14 @@ public class FollowCamera : MonoBehaviour
     private Camera camera;
     private void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
     }
     void Awake()
     {
         // get the Camera component when the game runs
         // note if this script is not on the same GameObject as the Camera component, there will be an error
         camera = GetComponent<Camera>();
+
     }
 
     // Update is called once per frame

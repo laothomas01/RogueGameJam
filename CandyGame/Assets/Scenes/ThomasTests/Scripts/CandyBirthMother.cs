@@ -61,7 +61,7 @@ public class CandyBirthMother : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);     // Waits 0.7 of a second.
         Destroy(gameObject);
-        res.explode();
+        res.explodeSludge();
 
 
 

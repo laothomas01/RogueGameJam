@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
         float abs = Mathf.Abs(thingy);
         //float gunAngle = Mathf.Atan2(gunPos.y, gunPos.x) * Mathf.Rad2Deg;
         //Debug.Log(gunAngle);
-        Debug.Log(gunPos);
+        //Debug.Log(gunPos);
         if (facingRight)
         {
             if (weapon.rotationZ <= 90)

@@ -22,7 +22,6 @@ public class CandyChildren : MonoBehaviour
     }
     private void Update()
     {
-
         playerPosition = GameObject.FindWithTag("Player").transform.position;
         float distToPlayer = Vector2.Distance(transform.position, playerPosition);
         if (aggroRange > distToPlayer)
