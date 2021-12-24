@@ -5,19 +5,20 @@ using UnityEngine;
 public class StickyPatrol : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private RaycastHit2D[] hits;
+    private RaycastHit2D[] hits = new RaycastHit2D[4];
     private RaycastHit2D forwardHit;
     private RaycastHit2D currentGroundHit;
     public float hitDistance,speed;
     [SerializeField] private LayerMask GroundedMask;
-    public Vector2 gravity;
+    public Vector2 gravity = new Vector2(0f, -1f);
     public bool grounded;
+    private float time=0;
     Quaternion newRot;
     // Start is called before the first frame update
     void Start()
     {
-        hits = new RaycastHit2D[4];
-        gravity = new Vector2(0f, -1f);
+        
+        
         rb = GetComponent<Rigidbody2D>();
         grounded = false;
         newRot = Quaternion.LookRotation(Vector3.forward, transform.up);
@@ -42,7 +43,7 @@ public class StickyPatrol : MonoBehaviour
         }
         else
         {
-            Debug.Log("NOT GROUNDED");
+            //Debug.Log("NOT GROUNDED");
             grounded = false;
         }
 
@@ -114,6 +115,16 @@ public class StickyPatrol : MonoBehaviour
         if (grounded)
         {
             rb.velocity = transform.right * speed;
+            time = 0;
+            
+        }
+        if (!grounded)
+        {
+            time += Time.fixedDeltaTime;
+            if(time > 1)
+            {
+                gravity = -transform.up;
+            }
         }
         
     }

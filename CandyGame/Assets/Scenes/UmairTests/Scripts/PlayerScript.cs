@@ -12,7 +12,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject arm;
 
     //Ground Checks
-    private RaycastHit2D hit;
+    private RaycastHit2D hit,enemyHit;
     public float hitDistance = 1f;
     public bool grounded;
     private Collider2D cl;
@@ -33,16 +33,24 @@ public class PlayerScript : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
 
 
-    private float horizontalMove = 0f;
+    public float horizontalMove = 0f;
     public float runSpeed = 40f;
+
+    private bool damaged;
+    public float hitDamage=5;
+    private float time = 0;
+    Color curr;
    
 
     private void Awake()
     {
+        damaged = false;
         cl = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
-        
+        curr = GetComponent<SpriteRenderer>().color;
+        //Physics2D.IgnoreLayerCollision(31, 6, true);
     }
+
     private void Update()
     {
         GroundCheck();
@@ -50,7 +58,7 @@ public class PlayerScript : MonoBehaviour
         //cl.sharedMaterial.friction = grounded ? 10f : 0f;
         //cl.sharedMaterial. = grounded ? 10f : 0f;
         //Debug.Log(cl.friction);
-        if (Input.GetKeyDown(KeyCode.X)){
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire1")){
             Instantiate(bullet, firepoint.position, firepoint.rotation);
         }
 
@@ -63,6 +71,23 @@ public class PlayerScript : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
         }
 
+        
+
+    }
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.layer == 6)
+        {
+             float dis =  transform.position.x- col.transform.position.x;
+            dis = dis>0?1f:-1f;
+            //Vector2 norm = new Vector2((dis)*2f, 2f);
+            Vector2 norm = transform.position - col.transform.position;
+            Debug.Log(norm+","+dis);
+            damaged = true;
+            rb.AddForce(norm*hitDamage,ForceMode2D.Impulse);
+            
+            Debug.DrawRay(transform.position,  norm*5, Color.red);
+        }
     }
     private void FixedUpdate()
     {
@@ -72,9 +97,28 @@ public class PlayerScript : MonoBehaviour
         arm.transform.right = direction;
 
 
-
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed*Time.fixedDeltaTime;
-        Move();
+        if (!damaged)
+        {
+            horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
+            Move();
+            time = 0;
+        }
+        else
+        {
+            time += Time.fixedDeltaTime;
+            
+            GetComponent<SpriteRenderer>().color = Color.red;
+            if(time > 0.2)
+            {
+                GetComponent<SpriteRenderer>().color = curr;
+            }
+            if(time > 1)
+            {
+                
+                damaged = false;
+            }
+        }
+        
         // Jump control and animation
         
         if (Input.GetKeyDown(KeyCode.Space))
@@ -146,6 +190,15 @@ public class PlayerScript : MonoBehaviour
             rb.velocity = Vector2.up * jumpForce;
         }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.layer != 3)
+    //    {
+    //        Debug.Log(collision.transform.name);
+    //        Physics2D.IgnoreCollision(collision.collider , GetComponent<Collider2D>(),true);
+    //    }
+    //}
 }
 
 
