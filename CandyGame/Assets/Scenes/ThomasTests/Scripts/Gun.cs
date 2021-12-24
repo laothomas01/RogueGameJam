@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour
     PlayerScript playerScript;
     public GameObject arm;
     public float rotationZ;
-
+    //public float rotationY;
     private void Start()
     {
         playerScript = GetComponentInParent<PlayerScript>();
@@ -80,6 +80,8 @@ public class Gun : MonoBehaviour
 
         //use this to point our arm in the direction we want
         arm.transform.right = direction;
+
+
         rotationZ = arm.transform.eulerAngles.z;
 
 
@@ -97,10 +99,12 @@ public class Gun : MonoBehaviour
         if (bullet != null)
         {
             bullet.transform.position = shootPosition.position;
+            bullet.transform.rotation = arm.transform.rotation;
 
             bullet.SetActive(true);
 
         }
+
         bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Force);
 
         //this.GetComponentInParent<Player>().TakeDamage(damage);

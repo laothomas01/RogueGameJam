@@ -147,10 +147,10 @@ public class PlayerController : MonoBehaviour
     {
         // Switch the way the player is labelled as facing.
         facingRight = !facingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-        //transform.Rotate(0f, 180f, 0f);
+        //Vector3 scale = transform.localScale;
+        //scale.x *= -1;
+        //transform.localScale = scale;
+        transform.Rotate(0f, 180f, 0f);
     }
     public void Flip_Player_Based_On_Rotation_Of_The_Mouse_Input()
     {
@@ -203,7 +203,8 @@ public class PlayerController : MonoBehaviour
                 //if (abs > 1)
                 //{
                 Player_Flip();
-                weapon.rotationZ = 0;
+                
+                //weapon.rotationZ = -180;
                 //}
             }
         }
