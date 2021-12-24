@@ -18,15 +18,15 @@ public class Resuable_Explosion_Script : MonoBehaviour
     //public bool poolSpecialEffects = false;
     public bool poolEnemies = false;
     public bool poolSludge = false;
-    public bool poolItems = false;
+    public bool poolHealthPacks = false;
 
     Vector2 objectPivot;
     void Start()
     {
-        explosionForce = Random.Range(500, 700);
+        explosionForce = Random.Range(300, 500);
         explosionUpward = Random.Range(0.4f, 0.7f);
         explosionRadius = Random.Range(3, 6);
-        objectsInRow = Random.Range(3, 5);
+        objectsInRow = Random.Range(1, 3);
 
         //calculate pivot distance
         objectPivotDistance = objectSize * objectsInRow / 2;
@@ -77,22 +77,20 @@ public class Resuable_Explosion_Script : MonoBehaviour
                 sludge.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
             }
         }
-        else if (poolItems)
+        if (poolHealthPacks)
         {
             Vector3 explosionPos = this.transform.position;
             GameObject healthDrops = ObjectPool.instance.Get_Health_Drops();
             if (healthDrops == null)
             {
-                ObjectPool.instance.Re_Stock_Sludge();
+                ObjectPool.instance.Re_Stock_Health_Drops();
             }
             else
             {
                 healthDrops.SetActive(true);
                 healthDrops.transform.position = new Vector2(transform.position.x, transform.position.y) + new Vector2(objectSize * x, objectSize * y) - objectPivot;
-                healthDrops.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
+                healthDrops.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce * 1.5f, explosionPos, explosionRadius, explosionUpward);
             }
-
-
         }
 
 
@@ -115,7 +113,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
     {
         for (int i = 0; i < objectsInRow * 2; i++)
         {
-            for (int j = 0; j < objectsInRow; j++)
+            for (int j = 0; j < objectsInRow * 2; j++)
             {
                 createPieces(i, j);
             }

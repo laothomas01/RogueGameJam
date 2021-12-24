@@ -19,11 +19,11 @@ public class DangerousSludge : MonoBehaviour
     {
         Destroy(this.gameObject, lifeSpan);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        string tag = collision.gameObject.tag;
-        Player_Attributes pa = collision.GetComponent<Player_Attributes>();
-        if (tag == "Player")
+
+        Player_Attributes pa = collision.gameObject.GetComponent<Player_Attributes>();
+        if (collision.gameObject.tag == "Player")
         {
             if (pa != null)
             {
@@ -31,6 +31,19 @@ public class DangerousSludge : MonoBehaviour
             }
         }
     }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    string tag = collision.gameObject.tag;
+    //    Player_Attributes pa = collision.GetComponent<Player_Attributes>();
+    //    if (tag == "Player")
+    //    {
+    //        if (pa != null)
+    //        {
+    //            pa.TakeDamage(damage);
+    //        }
+    //    }
+    //}
+
 
 
 

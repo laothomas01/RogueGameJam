@@ -49,7 +49,7 @@ public class Player_Attributes : MonoBehaviour
         }
     }
     //player heals health
-    public void Health(int heal)
+    public void Heal(int heal)
     {
         if (playerIsDead)
         {
@@ -57,7 +57,7 @@ public class Player_Attributes : MonoBehaviour
         }
         else if (currentHealth > 0 && currentHealth < maxHealth)
         {
-            currentHealth += heal;
+
 
         }
         if (currentHealth > maxHealth)
