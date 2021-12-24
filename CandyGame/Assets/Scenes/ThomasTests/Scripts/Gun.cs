@@ -8,7 +8,6 @@ public class Gun : MonoBehaviour
     public Transform shootPosition;
     //public GameObject projectile, crosshair;
     public GameObject crosshair;
-    Player cc2d;
     [SerializeField] float bulletSpeed = 0.0f;
     Vector2 MOUSE_POSITION;
     Vector2 direction;

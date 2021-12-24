@@ -34,7 +34,7 @@ public class PlayerScript : MonoBehaviour
     public float runSpeed = 40f;
 
     //player weapon
-    public Weapon weapon;
+    public Gun weapon;
 
     private void Start()
     {
@@ -44,7 +44,7 @@ public class PlayerScript : MonoBehaviour
     {
 
         rb = GetComponent<Rigidbody2D>();
-        weapon = GetComponentInChildren<Weapon>();
+        weapon = GetComponentInChildren<Gun>();
     }
     private void Update()
     {

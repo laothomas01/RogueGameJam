@@ -65,7 +65,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
         if (poolSludge)
         {
             Vector3 explosionPos = this.transform.position;
-            GameObject sludge = ObjectPool.instance.Pool_Hazardous_Sludge();
+            GameObject sludge = ObjectPool.instance.Get_Hazardous_Sludge();
             if (sludge == null)
             {
                 ObjectPool.instance.Re_Stock_Sludge();
@@ -80,7 +80,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
         else if (poolItems)
         {
             Vector3 explosionPos = this.transform.position;
-            GameObject healthDrops = ObjectPool.instance.Pool_Hazardous_Sludge();
+            GameObject healthDrops = ObjectPool.instance.Get_Health_Drops();
             if (healthDrops == null)
             {
                 ObjectPool.instance.Re_Stock_Sludge();
