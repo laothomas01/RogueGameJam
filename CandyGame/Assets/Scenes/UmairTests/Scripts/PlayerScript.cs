@@ -22,6 +22,13 @@ public class PlayerScript : MonoBehaviour
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
     [SerializeField] private LayerMask GroundedMask;
 
+    //hit
+    private Collider2D cl;
+
+    //shooting
+    public GameObject arm;
+    public Transform firepoint;
+    public GameObject bullet;
 
 
     private bool facingRight = true;  // For determining which way the player is currently facing.
