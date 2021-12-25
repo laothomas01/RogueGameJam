@@ -115,7 +115,6 @@ public class PlayerScript : MonoBehaviour
     {
 
 
-        //only control the player if grounded or airControl is turned on
         // Move the character by finding the target velocity
         Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
         // And then smoothing it out and applying it to the character

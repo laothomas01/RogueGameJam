@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-
+    //weapon position
     public Transform shootPosition;
     //public GameObject projectile, crosshair;
     public GameObject crosshair;
@@ -17,7 +17,7 @@ public class Gun : MonoBehaviour
     //public float fireRate = 1.0f;
     public GameObject projectile;
     PlayerScript playerScript;
-    public GameObject arm;
+    //public GameObject arm;
     public float rotationZ;
     //public float rotationY;
     private void Start()
@@ -42,11 +42,7 @@ public class Gun : MonoBehaviour
 
 
     }
-    private void FixedUpdate()
-    {
 
-
-    }
     private void gunTurning()
     {
 
@@ -79,10 +75,10 @@ public class Gun : MonoBehaviour
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
 
         //use this to point our arm in the direction we want
-        arm.transform.right = direction;
+        shootPosition.right = direction;
 
 
-        rotationZ = arm.transform.eulerAngles.z;
+        rotationZ = shootPosition.eulerAngles.z;
 
 
 
@@ -95,6 +91,11 @@ public class Gun : MonoBehaviour
         //    targetDelta =               destination                 -           source
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
         GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
+        Bullet bs = bullet.GetComponent<Bullet>();
+        bullet.transform.position = shootPosition.position;
+        bullet.transform.rotation = shootPosition.rotation;
+        bullet.GetComponent<Rigidbody2D>().AddForce(direction * bs.speed, ForceMode2D.Force);
+        //bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
         //GameObject bullet = ObjectPool.instance.Get_Bullets();
 
         //if (bullet != null)
@@ -106,7 +107,7 @@ public class Gun : MonoBehaviour
 
         //}
 
-        //bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Force);
+
 
         //this.GetComponentInParent<Player>().TakeDamage(damage);
     }
