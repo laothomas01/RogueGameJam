@@ -203,8 +203,8 @@ public class PlayerController : MonoBehaviour
                 //if (abs > 1)
                 //{
                 Player_Flip();
-                
-                //weapon.rotationZ = -180;
+
+                weapon.rotationZ = 0;
                 //}
             }
         }
