@@ -96,6 +96,7 @@ public class Gun : MonoBehaviour
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
         //GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
         GameObject bullet = ObjectPool.instance.Get_Bullets();
+
         if (bullet != null)
         {
             bullet.transform.position = shootPosition.position;

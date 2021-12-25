@@ -27,28 +27,12 @@ public class HealthDrops : MonoBehaviour
             if (pa != null)
             {
                 pa.Heal(heal);
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
+                //Destroy(this.gameObject);
             }
         }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    string tag = collision.gameObject.tag;
-    //    Player_Attributes pa = collision.GetComponent<Player_Attributes>();
-    //    if (tag == "Player")
-    //    {
-    //        if (pa != null)
-    //        {
-    //            pa.Heal(1);
 
-    //            Destroy(this.gameObject);
-    //        }
-
-    //    }
-
-
-
-    //}
 
 
 }

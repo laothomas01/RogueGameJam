@@ -36,13 +36,15 @@ public class PlayerController : MonoBehaviour
     //player weapon
     public Gun weapon;
 
+
+
     private void Start()
     {
 
     }
     private void Awake()
     {
-
+   
         rb = GetComponent<Rigidbody2D>();
         weapon = GetComponentInChildren<Gun>();
     }
@@ -89,7 +91,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
+
 
         Move();
         // Jump control and animation
@@ -114,7 +116,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
 
-
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
         //only control the player if grounded or airControl is turned on
         // Move the character by finding the target velocity
         Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
@@ -122,27 +124,23 @@ public class PlayerController : MonoBehaviour
         //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
         rb.velocity = targetVelocity;
 
+        if (rb.velocity.x < 0)
+        {
+
+        }
+        else if (rb.velocity.x > 0)
+        {
+
+        }
+        else
+        {
+
+        }
 
 
     }
 
-    //public void CheckFlip()
-    //{
 
-    //    // If the input is moving the player right and the player is facing left...
-    //    if (horizontalMove > 0 && !facingRight)
-    //    {
-    //        // ... flip the player.
-    //        Movement_Flip();
-    //    }
-    //    // Otherwise if the input is moving the player left and the player is facing right...
-    //    else if (horizontalMove < 0 && facingRight)
-    //    {
-    //        // ... flip the player.
-    //        Movement_Flip();
-    //    }
-
-    //}
     public void Player_Flip()
     {
         // Switch the way the player is labelled as facing.

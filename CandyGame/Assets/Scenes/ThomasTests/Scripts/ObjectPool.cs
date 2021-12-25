@@ -14,7 +14,7 @@ public class ObjectPool : MonoBehaviour
     /// <summary>
     /// MAXIMUM POOL SIZES WE WILL USE FOR OBJECT INSTANTIATION 
     /// </summary>
-    private int bulletPool = 15;
+    private int bulletPool = 10;
     public int enemyPool;
     public int sludgePool;
     public int health_drop_Pool;
@@ -94,6 +94,8 @@ public class ObjectPool : MonoBehaviour
             obj.SetActive(false);
             pool_Hazardous_Sludge.Add(obj);
         }
+
+
     }
 
     public void createHealthDropPool()
@@ -180,30 +182,34 @@ public class ObjectPool : MonoBehaviour
     //    return Get_Enemies();
     //}
     ////should the amount of sludge set active be over its list limit, it will add 5 more to itself. 
+
+
     public GameObject Re_Stock_Sludge()
     {
-        sludgePool += sludge_restock_amount;
-        for (int i = 0; i < sludgePool; i++)
-        {
-            GameObject obj = Instantiate(sludgePrefab);
-            obj.SetActive(false);
-            pool_Hazardous_Sludge.Add(obj);
-        }
+
+        createSludgePool();
         return Get_Hazardous_Sludge();
 
     }
 
     public GameObject Re_Stock_Health_Drops()
     {
-        health_drop_Pool += health_restock_amount;
-        for (int i = 0; i < health_drop_Pool; i++)
-        {
-            GameObject obj = Instantiate(healthDropPrefab);
-            obj.SetActive(false);
-            pool_Health_Drops.Add(obj);
-        }
+
+        createHealthDropPool();
+        //for (int i = 0; i < health_drop_Pool; i++)
+        //{
+        //    GameObject obj = Instantiate(healthDropPrefab);
+        //    obj.SetActive(false);
+        //    pool_Health_Drops.Add(obj);
+        //}
         return Get_Health_Drops();
 
+    }
+    public GameObject Re_Stock_Bullets()
+    {
+        createBulletPool();
+
+        return Get_Health_Drops();
     }
 
 

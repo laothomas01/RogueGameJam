@@ -39,29 +39,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
     // Update is called once per frame
     public void createPieces(int x, int y)
     {
-        //if (poolEnemies)
-        //{
-        //    Vector3 explosionPos = this.transform.position;
-        //    GameObject enemies = ObjectPool.instance.Pool_Enemies();
-        //    if (enemies == null)
-        //    {
-        //        ObjectPool.instance.Re_Stock_Enemies();
-        //    }
-        //    else
-        //    {
 
-        //        enemies.SetActive(true);
-        //        enemies.transform.position = new Vector2(transform.position.x, transform.position.y) + new Vector2(objectSize * x, objectSize * y) - objectPivot;
-        //        enemies.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
-
-        //    }
-
-
-        //    //enemies.GetComponent<Rigidbody2D>().AddTorque(5, ForceMode2D.Impulse);
-        //    //enemies.GetComponent<Rigidbody2D>().AddForce(new Vector2(explosionSideWays, explosionUpward) * explosionPos.normalized * explosionForce);
-
-        //}
-        //else
         if (poolSludge)
         {
             Vector3 explosionPos = this.transform.position;
@@ -84,7 +62,9 @@ public class Resuable_Explosion_Script : MonoBehaviour
             if (healthDrops == null)
             {
                 ObjectPool.instance.Re_Stock_Health_Drops();
+
             }
+
             else
             {
                 healthDrops.SetActive(true);

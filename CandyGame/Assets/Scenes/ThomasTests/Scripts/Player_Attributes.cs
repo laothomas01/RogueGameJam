@@ -11,15 +11,20 @@ public class Player_Attributes : MonoBehaviour
     public int maxHealth = 10;
     public int currentHealth = 0;
     private Vector2 currentPosition;
-    Animator animator;
     private bool playerIsDead = false;
     private bool isInvincible = false;
     [SerializeField] private float iFramesDuration;
 
+    //Animation States
+    const string PLAYER_IDLE = "PlayerIdleShootAnimation";
+    const string PLAYER_MOVEMENT = "PlayerMovementShoot";
+    const string PLAYER_DEATH = "PlayerDeathAnimation";
 
+    private Animator animator;
+    private string currentState;
     void Start()
     {
-
+        animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         currentPosition = this.transform.position;
 
@@ -33,6 +38,11 @@ public class Player_Attributes : MonoBehaviour
             RestartLevel();
         }
     }
+    void ChangeAnimationState(string newState)
+    {
+
+    }
+
 
     //player takes damage
     public void TakeDamage(int damage)

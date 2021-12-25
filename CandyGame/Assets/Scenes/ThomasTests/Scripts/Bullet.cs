@@ -21,27 +21,47 @@ public class Bullet : MonoBehaviour
         //SelfDestroy();
         SelfDisable();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        string tag = collision.gameObject.tag;
-        CandyBirthMother cbm = collision.GetComponent<CandyBirthMother>();
-        switch (tag)
+        CandyBirthMother cbm = collision.gameObject.GetComponent<CandyBirthMother>();
+        if (cbm != null)
         {
-            case "wall":
-                gameObject.SetActive(false);
-                break;
-            case "enemy":
-                Debug.Log("Enemy Hit");
-                if (cbm != null)
-                {
-                    cbm.TakeDamage(damage);
-                }
-                gameObject.SetActive(false);
-                break;
+            cbm.TakeDamage(damage);
+            gameObject.SetActive(false);
+            //Destroy(this.gameObject);
         }
+
+
     }
+    //private void OnCollision(Collider2D collision)
+    //{
+
+    //    //string tag = collision.gameObject.tag;
+    //    //CandyBirthMother cbm = collision.GetComponent<CandyBirthMother>();
+    //    //switch (tag)
+    //    //{
+    //    //    case "wall":
+    //    //        gameObject.SetActive(false);
+    //    //        break;
+    //    //    case "enemy":
+    //    //        Debug.Log("Enemy Hit");
+    //    //        if (cbm != null)
+    //    //        {
+    //    //            cbm.TakeDamage(damage);
+    //    //        }
+    //    //        gameObject.SetActive(false);
+    //    //        break;
+    //    //}
+    //    //CandyBirthMother cbm = collision.GetComponent<CandyBirthMother>();
+    //    //if (cbm != null)
+    //    //{
+    //    //    //    cbm.TakeDamage(damage);
+    //    //    Destroy(this.gameObject);
+    //    //}
+
+
+
+    //}
 
 
 
