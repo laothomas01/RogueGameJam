@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     float time = 0;
     int damage = 1;
     public float speed = 20f;
-    public Transform weaponPosition;
+    //public Transform weaponPosition;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

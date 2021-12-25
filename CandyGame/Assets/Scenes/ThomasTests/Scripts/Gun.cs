@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     public Transform shootPosition;
     //public GameObject projectile, crosshair;
     public GameObject crosshair;
-    [SerializeField] float bulletSpeed = 0.0f;
+    //[SerializeField] float bulletSpeed = 0.0f;
     Vector2 MOUSE_POSITION;
     Vector2 direction;
     float angle;
@@ -92,9 +92,10 @@ public class Gun : MonoBehaviour
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
         GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
         Bullet bs = bullet.GetComponent<Bullet>();
-        bullet.transform.position = shootPosition.position;
+        //bullet.transform.position = shootPosition.position;
         bullet.transform.rotation = shootPosition.rotation;
-        bullet.GetComponent<Rigidbody2D>().AddForce(direction * bs.speed, ForceMode2D.Force);
+        Debug.Log(bs.speed);
+        bullet.GetComponent<Rigidbody2D>().AddForce(direction * bs.speed, ForceMode2D.Impulse);
         //bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
         //GameObject bullet = ObjectPool.instance.Get_Bullets();
 
