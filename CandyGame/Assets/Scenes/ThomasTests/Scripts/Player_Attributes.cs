@@ -15,16 +15,10 @@ public class Player_Attributes : MonoBehaviour
     private bool isInvincible = false;
     [SerializeField] private float iFramesDuration;
 
-    //Animation States
-    const string PLAYER_IDLE = "PlayerIdleShootAnimation";
-    const string PLAYER_MOVEMENT = "PlayerMovementShoot";
-    const string PLAYER_DEATH = "PlayerDeathAnimation";
-
-    private Animator animator;
-    private string currentState;
+   
     void Start()
     {
-        animator = GetComponent<Animator>();
+      
         currentHealth = maxHealth;
         currentPosition = this.transform.position;
 

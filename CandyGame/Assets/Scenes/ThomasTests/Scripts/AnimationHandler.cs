@@ -6,9 +6,12 @@ public class AnimationHandler : MonoBehaviour
 {
 
     //Animation States
-    const string PLAYER_IDLE = "PlayerIdleShootAnimation";
-    const string PLAYER_MOVEMENT = "PlayerMovementShoot";
-    const string PLAYER_DEATH = "PlayerDeathAnimation";
+    [HideInInspector]
+    public string PLAYER_IDLE = "PlayerIdleShootAnimation";
+    [HideInInspector]
+    public string PLAYER_MOVEMENT = "PlayerMovementShoot";
+    [HideInInspector]
+    public string PLAYER_DEATH = "PlayerDeathAnimation";
 
     private Animator animator;
     private string currentState;
@@ -16,7 +19,7 @@ public class AnimationHandler : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    private void ChangeAnimationState(string newState)
+    public void ChangeAnimationState(string newState)
     {
         //stop the same animation from interrupting itself
         if (currentState == newState) return;

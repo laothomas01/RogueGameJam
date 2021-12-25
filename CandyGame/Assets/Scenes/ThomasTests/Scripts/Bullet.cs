@@ -11,25 +11,30 @@ public class Bullet : MonoBehaviour
     public float lifeTime = 0.0f;
     float time = 0;
     int damage = 1;
+    public float bulletSpeed = 0f;
     void Start()
     {
 
+       
     }
+    private void Awake()
+    {
 
+    }
     void Update()
     {
-        //SelfDestroy();
-        SelfDisable();
+        SelfDestroy();
+        //SelfDisable();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        CandyBirthMother cbm = collision.gameObject.GetComponent<CandyBirthMother>();
-        if (cbm != null)
-        {
-            cbm.TakeDamage(damage);
-            gameObject.SetActive(false);
-            //Destroy(this.gameObject);
-        }
+        //CandyBirthMother cbm = collision.gameObject.GetComponent<CandyBirthMother>();
+        //if (cbm != null)
+        //{
+        //    cbm.TakeDamage(damage);
+        //    gameObject.SetActive(false);
+        //    //Destroy(this.gameObject);
+        //}
 
 
     }
@@ -66,15 +71,15 @@ public class Bullet : MonoBehaviour
 
 
 
-    private void SelfDisable()
+    private void SelfDestroy()
     {
         //destroy object after a certain time. 
         //Destroy(gameObject, lifeTime);
         time += Time.deltaTime;
         //Debug.Log(time);
-        if (time > 1)
+        if (time > lifeTime)
         {
-            gameObject.SetActive(false);
+            Destroy(this.gameObject);
             time = 0;
         }
     }

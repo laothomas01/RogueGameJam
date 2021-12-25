@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
-
+    AnimationHandler ah;
     //player weapon
     public Gun weapon;
 
@@ -40,11 +40,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-
+        ah = this.GetComponent<AnimationHandler>();
     }
     private void Awake()
     {
-   
+
         rb = GetComponent<Rigidbody2D>();
         weapon = GetComponentInChildren<Gun>();
     }
@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
             jump = false;
         }
 
+
     }
     private void FixedUpdate()
     {
@@ -124,18 +125,26 @@ public class PlayerController : MonoBehaviour
         //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
         rb.velocity = targetVelocity;
 
-        if (rb.velocity.x < 0)
+        if (rb.velocity.x != 0)
         {
-
-        }
-        else if (rb.velocity.x > 0)
-        {
-
+            ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
         }
         else
         {
-
+            ah.ChangeAnimationState(ah.PLAYER_IDLE);
         }
+        //if (rb.velocity.x < 0)
+        //{
+
+        //}
+        //else if (rb.velocity.x > 0)
+        //{
+
+        //}
+        //else
+        //{
+
+        //}
 
 
     }

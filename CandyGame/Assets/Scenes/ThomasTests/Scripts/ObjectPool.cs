@@ -6,7 +6,7 @@ public class ObjectPool : MonoBehaviour
 {
     //variable for referencing the class
     public static ObjectPool instance;
-    private List<GameObject> poolBullets = new List<GameObject>(); //pool for bullets
+    //private List<GameObject> poolBullets = new List<GameObject>(); //pool for bullets
     private List<GameObject> poolEnemies = new List<GameObject>(); // pool for enemies you want to spawn from other enemies
     private List<GameObject> pool_Hazardous_Sludge = new List<GameObject>(); // sludge prefabs you can create from a pool
     private List<GameObject> pool_Health_Drops = new List<GameObject>(); // health drops from the pool
@@ -22,7 +22,7 @@ public class ObjectPool : MonoBehaviour
 
     public bool poolCandyCreatures = false, poolSludge = false, pool_health_item = false; // toggle which pool you want working
 
-    [SerializeField] private GameObject bulletPrefab;
+    //[SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject babyCandyCreaturePrefab;
     [SerializeField] private GameObject sludgePrefab;
     [SerializeField] private GameObject healthDropPrefab;
@@ -36,7 +36,7 @@ public class ObjectPool : MonoBehaviour
     //set the object you want to pool before you play your scene
     void Start()
     {
-        createBulletPool();
+        //createBulletPool();
         /// <summary>
         /// 
         /// 
@@ -66,15 +66,15 @@ public class ObjectPool : MonoBehaviour
     /// FILL THE POOLS WITH INACTIVE OBJECTS
     /// CALL THIS IN THE START METHOD TO FILL THE OBJECT POOL, AN EMPTY OBJECT IN THE GAME'S SCENE, WITH INACTIVE OBJECTS
     /// </summary>
-    public void createBulletPool()
-    {
-        for (int i = 0; i < bulletPool; i++)
-        {
-            GameObject obj1 = Instantiate(bulletPrefab);
-            obj1.SetActive(false);
-            poolBullets.Add(obj1);
-        }
-    }
+    //public void createBulletPool()
+    //{
+    //    for (int i = 0; i < bulletPool; i++)
+    //    {
+    //        GameObject obj1 = Instantiate(bulletPrefab);
+    //        obj1.SetActive(false);
+    //        poolBullets.Add(obj1);
+    //    }
+    //}
 
     //public void createCandyCreaturePool()
     //{
@@ -119,18 +119,18 @@ public class ObjectPool : MonoBehaviour
     /// <returns>
     /// RETURN A GAME OBJECT
     /// </returns>
-    public GameObject Get_Bullets()
-    {
-        for (int i = 0; i < poolBullets.Count; i++)
-        {
-            if (!poolBullets[i].activeInHierarchy)
-            {
-                return poolBullets[i];
-            }
-        }
+    //public GameObject Get_Bullets()
+    //{
+    //    for (int i = 0; i < poolBullets.Count; i++)
+    //    {
+    //        if (!poolBullets[i].activeInHierarchy)
+    //        {
+    //            return poolBullets[i];
+    //        }
+    //    }
 
-        return null;
-    }
+    //    return null;
+    //}
     //public GameObject Get_Enemies()
     //{
     //    for (int i = 0; i < poolEnemies.Count; i++)
@@ -207,7 +207,7 @@ public class ObjectPool : MonoBehaviour
     }
     public GameObject Re_Stock_Bullets()
     {
-        createBulletPool();
+        //createBulletPool();
 
         return Get_Health_Drops();
     }

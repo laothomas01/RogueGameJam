@@ -14,8 +14,8 @@ public class Gun : MonoBehaviour
     float angle;
     bool canShoot = true;
     float time = 0;
-    public float fireRate = 1.0f;
-
+    //public float fireRate = 1.0f;
+    public GameObject projectile;
     PlayerScript playerScript;
     public GameObject arm;
     public float rotationZ;
@@ -94,19 +94,19 @@ public class Gun : MonoBehaviour
 
         //    targetDelta =               destination                 -           source
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
-        //GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
-        GameObject bullet = ObjectPool.instance.Get_Bullets();
+        GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
+        //GameObject bullet = ObjectPool.instance.Get_Bullets();
 
-        if (bullet != null)
-        {
-            bullet.transform.position = shootPosition.position;
-            bullet.transform.rotation = arm.transform.rotation;
+        //if (bullet != null)
+        //{
+        //    bullet.transform.position = shootPosition.position;
+        //    //    bullet.transform.rotation = arm.transform.rotation;
 
-            bullet.SetActive(true);
+        //    bullet.SetActive(true);
 
-        }
+        //}
 
-        bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Force);
+        //bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Force);
 
         //this.GetComponentInParent<Player>().TakeDamage(damage);
     }
