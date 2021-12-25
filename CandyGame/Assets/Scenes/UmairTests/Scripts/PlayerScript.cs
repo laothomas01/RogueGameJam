@@ -32,7 +32,6 @@ public class PlayerScript : MonoBehaviour
     public float horizontalMove = 0f;
     public float runSpeed = 40f;
 
-<<<<<<< HEAD
     private bool damaged;
     public float hitDamage=5;
     private float time = 0;
@@ -46,20 +45,11 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         curr = GetComponent<SpriteRenderer>().color;
         //Physics2D.IgnoreLayerCollision(31, 6, true);
-=======
-
-    private void Awake()
-    {
-
-        rb = GetComponent<Rigidbody2D>();
-
->>>>>>> 0f4858ed01e7091283b43496e8aec3bcc1c51605
     }
 
     private void Update()
     {
         GroundCheck();
-<<<<<<< HEAD
 
         //cl.sharedMaterial.friction = grounded ? 10f : 0f;
         //cl.sharedMaterial. = grounded ? 10f : 0f;
@@ -69,25 +59,6 @@ public class PlayerScript : MonoBehaviour
         }
 
         if(rb.velocity.y < 0)
-=======
-        //if (transform.position.y - initgroundPos > jumpHeight && !grounded)
-        //{
-        //    Physics2D.gravity = new Vector2(0, -50);
-        //    Debug.Log("Peak Reached");
-        //}
-        //else
-        //{
-        //    Physics2D.gravity = new Vector2(0, -9.81f);
-
-        //}
-        //if (grounded)
-        //{
-        //    initgroundPos = transform.position.y;
-        //}
-
-        //if falling increase gravity, else if holding jump, keep jumping until max height
-        if (rb.velocity.y < 0)
->>>>>>> 0f4858ed01e7091283b43496e8aec3bcc1c51605
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * highJump * Time.deltaTime;
         }
@@ -124,7 +95,6 @@ public class PlayerScript : MonoBehaviour
     }
     private void FixedUpdate()
     {
-<<<<<<< HEAD
 
         float horizontal = Input.GetAxisRaw("Vertical") == 0 ? transform.right.x : Input.GetAxisRaw("Horizontal");
         Vector2 direction = new Vector2(horizontal, Input.GetAxisRaw("Vertical"));
@@ -153,10 +123,6 @@ public class PlayerScript : MonoBehaviour
             }
         }
         
-=======
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
-        Move();
->>>>>>> 0f4858ed01e7091283b43496e8aec3bcc1c51605
         // Jump control and animation
         Jump();
 
