@@ -14,7 +14,7 @@ public class BulletScript : MonoBehaviour
         horizontal = Input.GetAxisRaw("Vertical") == 0 ? transform.right.x : Input.GetAxisRaw("Horizontal");
         Vector2 direction = new Vector2(horizontal, Input.GetAxisRaw("Vertical"));
         rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(direction * speed, ForceMode2D.Impulse);
+        rb.AddForce(transform.right * speed, ForceMode2D.Impulse);
         Destroy(gameObject,2);
     }
 
