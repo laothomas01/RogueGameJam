@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
 {
     //weapon position
     public Transform shootPosition;
+    public Transform firePoint;
     //public GameObject projectile, crosshair;
     public GameObject crosshair;
     //[SerializeField] float bulletSpeed = 0.0f;
@@ -90,7 +91,7 @@ public class Gun : MonoBehaviour
 
         //    targetDelta =               destination                 -           source
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
-        GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
+        GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
         Bullet bs = bullet.GetComponent<Bullet>();
         //bullet.transform.position = shootPosition.position;
         bullet.transform.rotation = shootPosition.rotation;

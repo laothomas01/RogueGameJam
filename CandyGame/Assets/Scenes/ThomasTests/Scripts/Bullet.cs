@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     float time = 0;
     int damage = 1;
     public float speed = 20f;
+    public GameObject splat;
     //public Transform weaponPosition;
     void Start()
     {
@@ -24,11 +25,16 @@ public class Bullet : MonoBehaviour
         //SelfDestroy();
         //SelfDisable();
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        GameObject splt = Instantiate(splat, transform.position, transform.rotation);
+        Destroy(gameObject);
+        Destroy(splt, 2);
     }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+
+    //}
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
 
