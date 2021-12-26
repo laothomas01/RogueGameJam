@@ -65,32 +65,23 @@ public class Player_Attributes : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
-        //if (playerIsDead)
-        //{
-        //    return;
-        //}
-        //else if (currentHealth > 0 && currentHealth < maxHealth)
-        //{
 
-
-        //}
-        //if (currentHealth > maxHealth)
-        //{
-        //    currentHealth = maxHealth;
-        //}
 
     }
 
     void Die()
     {
 
+        //disable the child sprite renderers to properly show death animation
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
         }
-        ah.ChangeAnimationState(ah.PLAYER_DEATH);
-        //this.GetComponent<Animator>().ani
 
+        //this animation does not loop after the first play through
+        ah.ChangeAnimationState(ah.PLAYER_DEATH);
+
+        //disable player movement
         GetComponent<PlayerController>().enabled = false;
         this.GetComponentInChildren<Gun>().enabled = false;
 
@@ -105,19 +96,19 @@ public class Player_Attributes : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public IEnumerator Invunerability()
-    {
+    //public IEnumerator Invunerability()
+    //{
 
-        Debug.Log("Player turned invincible!");
-        isInvincible = true;
-
-
-        yield return new WaitForSeconds(iFramesDuration);
+    //    Debug.Log("Player turned invincible!");
+    //    isInvincible = true;
 
 
+    //    yield return new WaitForSeconds(iFramesDuration);
 
-        isInvincible = false;
-        Debug.Log("Player no longer invincible!");
 
-    }
+
+    //    isInvincible = false;
+    //    Debug.Log("Player no longer invincible!");
+
+    //}
 }
