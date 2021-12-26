@@ -56,14 +56,11 @@ public class PlayerController : MonoBehaviour
         ah = this.GetComponent<AnimationHandler>();
         cl = GetComponent<Collider2D>();
         pa = this.GetComponent<Player_Attributes>();
-
-    }
-    private void Awake()
-    {
-
         rb = GetComponent<Rigidbody2D>();
         weapon = GetComponentInChildren<Gun>();
+
     }
+
     private void Update()
     {
         GroundCheck();
@@ -171,18 +168,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.layer);
         if (collision.gameObject.layer == 0)
         {
-
-            Debug.Log("Hit");
-            float dis = transform.position.x - collision.transform.position.x;
-            dis = dis > 0 ? 1f : -1f;
             Vector2 norm = transform.position - collision.transform.position;
-            Debug.Log(norm + "," + dis);
             pa.damaged = true;
             rb.AddForce(norm * -knockback, ForceMode2D.Impulse);
-
         }
     }
 
@@ -222,10 +212,6 @@ public class PlayerController : MonoBehaviour
 
 
             }
-        }
-        if (facingRight == false)
-        {
-
         }
 
         if (facingRight == false)
