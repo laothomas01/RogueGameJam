@@ -6,10 +6,7 @@ public class HealthDrops : MonoBehaviour
 {
     public int heal = 1;
     public float lifeSpan;
-    void Start()
-    {
 
-    }
     public void selfDestroy()
     {
         Destroy(this.gameObject, lifeSpan);
@@ -28,7 +25,6 @@ public class HealthDrops : MonoBehaviour
             {
                 pa.Heal(heal);
                 this.gameObject.SetActive(false);
-                //Destroy(this.gameObject);
             }
         }
     }

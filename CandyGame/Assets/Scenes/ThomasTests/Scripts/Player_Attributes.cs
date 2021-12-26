@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// SCRIPT USED TO MANAGER PLAYER'S HEALTH
+/// </summary>
 
 public class Player_Attributes : MonoBehaviour
 {
@@ -23,17 +26,6 @@ public class Player_Attributes : MonoBehaviour
         currentHealth = maxHealth;
         currentPosition = this.transform.position;
     }
-
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            RestartLevel();
-        }
-    }
-
-
 
     //player takes damage
     public void TakeDamage(int damage)
@@ -85,30 +77,9 @@ public class Player_Attributes : MonoBehaviour
         GetComponent<PlayerController>().enabled = false;
         this.GetComponentInChildren<Gun>().enabled = false;
 
-
-
-
-
     }
 
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    //public IEnumerator Invunerability()
-    //{
-
-    //    Debug.Log("Player turned invincible!");
-    //    isInvincible = true;
-
-
-    //    yield return new WaitForSeconds(iFramesDuration);
 
 
 
-    //    isInvincible = false;
-    //    Debug.Log("Player no longer invincible!");
-
-    //}
 }

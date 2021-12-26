@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+/// <summary>
+/// SCRIPT USED TO MAINTAIN THE PLAYER'S MOVEMENTS
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
+
+
     private Rigidbody2D rb;
 
     //Ground Checks
@@ -13,7 +18,6 @@ public class PlayerController : MonoBehaviour
 
     //Jump Checks
 
-    //public float jumpHeight = 3;
     public float highJump = 2.5f;
     public float lowJump = 2f;
     public bool jump = false;
@@ -32,11 +36,12 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
+
+    //used to call animations we want to play
     AnimationHandler ah;
-    //player weapon
+
+    //call the gun script
     public Gun weapon;
-
-
 
     private void Start()
     {
@@ -52,23 +57,6 @@ public class PlayerController : MonoBehaviour
     {
         GroundCheck();
         Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
-        //CheckFlip();
-
-        //Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
-        //if (transform.position.y - initgroundPos > jumpHeight && !grounded)
-        //{
-        //    Physics2D.gravity = new Vector2(0, -50);
-        //    Debug.Log("Peak Reached");
-        //}
-        //else
-        //{
-        //    Physics2D.gravity = new Vector2(0, -9.81f);
-
-        //}
-        //if (grounded)
-        //{
-        //    initgroundPos = transform.position.y;
-        //}
 
         //if falling increase gravity, else if holding jump, keep jumping until max height
         if (rb.velocity.y < 0)
@@ -79,9 +67,9 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
         }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
             jump = true;
         }
         else if (Input.GetKeyUp(KeyCode.Space))
@@ -90,7 +78,17 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLevel();
+        }
 
+
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void FixedUpdate()
     {
@@ -103,13 +101,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-
-
     private void GroundCheck()
     {
 
         hit = Physics2D.Raycast(transform.position, -transform.up, hitDistance, GroundedMask);
+
         Debug.DrawRay(transform.position, -transform.up * hitDistance, Color.red);
 
         grounded = hit ? true : false;
@@ -121,6 +117,7 @@ public class PlayerController : MonoBehaviour
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
         //only control the player if grounded or airControl is turned on
+
         // Move the character by finding the target velocity
         Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
         // And then smoothing it out and applying it to the character
@@ -139,18 +136,7 @@ public class PlayerController : MonoBehaviour
                 ah.ChangeAnimationState(ah.PLAYER_IDLE);
             }
         }
-        //if (rb.velocity.x < 0)
-        //{
 
-        //}
-        //else if (rb.velocity.x > 0)
-        //{
-
-        //}
-        //else
-        //{
-
-        //}
 
 
     }
@@ -158,22 +144,20 @@ public class PlayerController : MonoBehaviour
 
     public void Player_Flip()
     {
-        // Switch the way the player is labelled as facing.
+        // Switch the way the player is facing. 
         facingRight = !facingRight;
-        //Vector3 scale = transform.localScale;
-        //scale.x *= -1;
-        //transform.localScale = scale;
+
         transform.Rotate(0f, 180f, 0f);
     }
     public void Flip_Player_Based_On_Rotation_Of_The_Mouse_Input()
     {
 
+        //gunPos is the position of our mouse cursor from screen to the game's world
         Vector3 gunPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // thingy is the position between the gun and the player object
         float thingy = gunPos.x - this.transform.position.x;
         float abs = Mathf.Abs(thingy);
-        //float gunAngle = Mathf.Atan2(gunPos.y, gunPos.x) * Mathf.Rad2Deg;
-        //Debug.Log(gunAngle);
-        //Debug.Log(gunPos);
+
         if (facingRight)
         {
             if (weapon.rotationZ <= 90)
@@ -199,8 +183,7 @@ public class PlayerController : MonoBehaviour
         {
 
         }
-        //Debug.Log(weapon.rotationZ);
-        //Debug.Log(facingRight);
+
         if (facingRight == false)
         {
             if (weapon.rotationZ >= 90)
@@ -213,12 +196,9 @@ public class PlayerController : MonoBehaviour
             }
             if (weapon.rotationZ < 90 || weapon.rotationZ > 270)
             {
-                //if (abs > 1)
-                //{
                 Player_Flip();
 
                 weapon.rotationZ = 0;
-                //}
             }
         }
 
@@ -230,10 +210,8 @@ public class PlayerController : MonoBehaviour
         if (grounded && jump)
         {
 
-            //grounded = false;
             rb.velocity = Vector2.up * jumpForce;
             ah.ChangeAnimationState(ah.PLAYER_JUMP);
-            //rb.AddForce(new Vector2(0f, jumpForce));
             grounded = false;
 
 

@@ -2,23 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// We will use this script to pool objects we want exploding out of objects.
+/// 
+/// This script calls the rigidbody2D addExplosion function
+/// 
+/// This script also instantiates inactive objects into an object pool
+/// 
+/// </summary>
 public class Resuable_Explosion_Script : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //scale objects
     public float objectSize = 0f;
     public int objectsInRow = 0;
-    //public float explosionRadius = 0f;
+
     public float explosionForce = 0f;
     public float explosionUpward = 0f;
+
     float explosionSideWays = 0;
+
     private float objectPivotDistance;
     public float explosionRadius = 0f;
 
-    //public bool poolItems = false;
-    //public bool poolSpecialEffects = false;
+    //your choice on what pools you want to be active
+    //note: check the boxes before starting the scene
     public bool poolEnemies = false;
     public bool poolSludge = false;
     public bool poolHealthPacks = false;
+
 
     Vector2 objectPivot;
     void Start()
@@ -27,16 +38,12 @@ public class Resuable_Explosion_Script : MonoBehaviour
         explosionUpward = Random.Range(0.4f, 0.7f);
         explosionRadius = Random.Range(3, 6);
         objectsInRow = Random.Range(1, 3);
-
         //calculate pivot distance
         objectPivotDistance = objectSize * objectsInRow / 2;
         //use this value to create a pivot vector
         objectPivot = new Vector3(objectPivotDistance, objectPivotDistance);
-
-
     }
 
-    // Update is called once per frame
     public void createPieces(int x, int y)
     {
 
