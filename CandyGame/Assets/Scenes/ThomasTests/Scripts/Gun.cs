@@ -95,7 +95,7 @@ public class Gun : MonoBehaviour
         Bullet bs = bullet.GetComponent<Bullet>();
         //bullet.transform.position = shootPosition.position;
         bullet.transform.rotation = shootPosition.rotation;
-        Debug.Log(bs.speed);
+        //Debug.Log(bs.speed);
         bullet.GetComponent<Rigidbody2D>().AddForce(direction * bs.speed, ForceMode2D.Impulse);
         //bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Impulse);
         //GameObject bullet = ObjectPool.instance.Get_Bullets();

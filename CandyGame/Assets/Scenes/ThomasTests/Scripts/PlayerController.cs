@@ -81,11 +81,13 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
+
             jump = true;
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             jump = false;
+
         }
 
 
@@ -125,13 +127,17 @@ public class PlayerController : MonoBehaviour
         //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
         rb.velocity = targetVelocity;
 
-        if (rb.velocity.x != 0)
+        if (grounded)
         {
-            ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
-        }
-        else
-        {
-            ah.ChangeAnimationState(ah.PLAYER_IDLE);
+            if (rb.velocity.x != 0)
+            {
+                ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
+
+            }
+            else
+            {
+                ah.ChangeAnimationState(ah.PLAYER_IDLE);
+            }
         }
         //if (rb.velocity.x < 0)
         //{
@@ -223,9 +229,14 @@ public class PlayerController : MonoBehaviour
     {
         if (grounded && jump)
         {
-            grounded = false;
-            //rb.AddForce(new Vector2(0f, jumpForce));
+
+            //grounded = false;
             rb.velocity = Vector2.up * jumpForce;
+            ah.ChangeAnimationState(ah.PLAYER_JUMP);
+            //rb.AddForce(new Vector2(0f, jumpForce));
+            grounded = false;
+
+
 
         }
     }

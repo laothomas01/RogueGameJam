@@ -7,7 +7,7 @@ public class PlayerScript : MonoBehaviour
     private Rigidbody2D rb;
 
     //Ground Checks
-    private RaycastHit2D hit,enemyHit;
+    private RaycastHit2D hit, enemyHit;
     public float hitDistance = 1f;
     public bool grounded;
 
@@ -40,10 +40,10 @@ public class PlayerScript : MonoBehaviour
     public float runSpeed = 40f;
 
     private bool damaged;
-    public float hitDamage=5;
+    public float hitDamage = 5;
     private float time = 0;
     Color curr;
-   
+
 
     private void Awake()
     {
@@ -61,11 +61,12 @@ public class PlayerScript : MonoBehaviour
         //cl.sharedMaterial.friction = grounded ? 10f : 0f;
         //cl.sharedMaterial. = grounded ? 10f : 0f;
         //Debug.Log(cl.friction);
-        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire1")){
+        if (Input.GetKeyDown(KeyCode.X) || Input.GetButtonDown("Fire1"))
+        {
             Instantiate(bullet, firepoint.position, firepoint.rotation);
         }
 
-        if(rb.velocity.y < 0)
+        if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * highJump * Time.deltaTime;
         }
@@ -82,22 +83,22 @@ public class PlayerScript : MonoBehaviour
             jump = false;
         }
 
-        
+
 
     }
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.layer == 6)
+        if (col.gameObject.layer == 6)
         {
-             float dis =  transform.position.x- col.transform.position.x;
-            dis = dis>0?1f:-1f;
+            float dis = transform.position.x - col.transform.position.x;
+            dis = dis > 0 ? 1f : -1f;
             //Vector2 norm = new Vector2((dis)*2f, 2f);
             Vector2 norm = transform.position - col.transform.position;
-            Debug.Log(norm+","+dis);
+            Debug.Log(norm + "," + dis);
             damaged = true;
-            rb.AddForce(norm*hitDamage,ForceMode2D.Impulse);
-            
-            Debug.DrawRay(transform.position,  norm*5, Color.red);
+            rb.AddForce(norm * hitDamage, ForceMode2D.Impulse);
+
+            Debug.DrawRay(transform.position, norm * 5, Color.red);
         }
     }
     private void FixedUpdate()
@@ -117,19 +118,19 @@ public class PlayerScript : MonoBehaviour
         else
         {
             time += Time.fixedDeltaTime;
-            
+
             GetComponent<SpriteRenderer>().color = Color.red;
-            if(time > 0.2)
+            if (time > 0.2)
             {
                 GetComponent<SpriteRenderer>().color = curr;
             }
-            if(time > 1)
+            if (time > 1)
             {
-                
+
                 damaged = false;
             }
         }
-        
+
         // Jump control and animation
         Jump();
 

@@ -13,15 +13,15 @@ public class Player_Attributes : MonoBehaviour
     private Vector2 currentPosition;
     private bool playerIsDead = false;
     private bool isInvincible = false;
+    AnimationHandler ah;
     [SerializeField] private float iFramesDuration;
 
-   
+
     void Start()
     {
-      
+        ah = GetComponent<AnimationHandler>();
         currentHealth = maxHealth;
         currentPosition = this.transform.position;
-
     }
 
 
@@ -32,10 +32,7 @@ public class Player_Attributes : MonoBehaviour
             RestartLevel();
         }
     }
-    void ChangeAnimationState(string newState)
-    {
 
-    }
 
 
     //player takes damage
@@ -86,10 +83,18 @@ public class Player_Attributes : MonoBehaviour
 
     void Die()
     {
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+        }
+        ah.ChangeAnimationState(ah.PLAYER_DEATH);
+        //this.GetComponent<Animator>().ani
+
         GetComponent<PlayerController>().enabled = false;
         this.GetComponentInChildren<Gun>().enabled = false;
-        //this.enabled = false;
-        Debug.Log("You are Dead");
+
+
 
 
 
