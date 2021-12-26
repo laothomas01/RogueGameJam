@@ -9,28 +9,30 @@ using UnityEngine.SceneManagement;
 
 public class Player_Attributes : MonoBehaviour
 {
-
-
     public int maxHealth = 10;
     public int currentHealth = 0;
-    private Vector2 currentPosition;
     private bool playerIsDead = false;
-    private bool isInvincible = false;
     AnimationHandler ah;
-    [SerializeField] private float iFramesDuration;
+    private Rigidbody2D rb;
+
+
+    public bool damaged;
+    private float time = 0;
 
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         ah = GetComponent<AnimationHandler>();
         currentHealth = maxHealth;
-        currentPosition = this.transform.position;
+
     }
+
 
     //player takes damage
     public void TakeDamage(int damage)
     {
-
+        damaged = true;
         currentHealth -= damage;
 
 
@@ -41,6 +43,7 @@ public class Player_Attributes : MonoBehaviour
             Die();
         }
     }
+
     //player heals health
     public void Heal(int heal)
     {
@@ -60,6 +63,7 @@ public class Player_Attributes : MonoBehaviour
 
 
     }
+
 
     void Die()
     {

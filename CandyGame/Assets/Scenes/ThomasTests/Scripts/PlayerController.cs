@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     //Ground Checks
-    private RaycastHit2D hit;
+    private RaycastHit2D hit, enemyHit;
     public float hitDistance = 1f;
     public bool grounded;
 
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public float highJump = 2.5f;
     public float lowJump = 2f;
     public bool jump = false;
-
+    private float time = 0;
 
     [SerializeField] private float jumpForce = 400f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
@@ -40,12 +40,23 @@ public class PlayerController : MonoBehaviour
     //used to call animations we want to play
     AnimationHandler ah;
 
+    //hit
+    private Collider2D cl;
+
     //call the gun script
     public Gun weapon;
+
+    Player_Attributes pa;
+
+    [SerializeField] private float knockback;
+
 
     private void Start()
     {
         ah = this.GetComponent<AnimationHandler>();
+        cl = GetComponent<Collider2D>();
+        pa = this.GetComponent<Player_Attributes>();
+
     }
     private void Awake()
     {
@@ -94,7 +105,24 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        Move();
+
+        if (!pa.damaged)
+        {
+            Move();
+            time = 0;
+        }
+        else
+        {
+            time += Time.fixedDeltaTime;
+
+
+            if (time > 1)
+            {
+                pa.damaged = false;
+            }
+        }
+
+
         // Jump control and animation
         Jump();
 
@@ -141,6 +169,22 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.layer);
+        if (collision.gameObject.layer == 0)
+        {
+
+            Debug.Log("Hit");
+            float dis = transform.position.x - collision.transform.position.x;
+            dis = dis > 0 ? 1f : -1f;
+            Vector2 norm = transform.position - collision.transform.position;
+            Debug.Log(norm + "," + dis);
+            pa.damaged = true;
+            rb.AddForce(norm * -knockback, ForceMode2D.Impulse);
+
+        }
+    }
 
     public void Player_Flip()
     {

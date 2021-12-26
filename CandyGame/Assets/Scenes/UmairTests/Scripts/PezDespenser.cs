@@ -6,7 +6,7 @@ public class PezDespenser : MonoBehaviour
 {
 
     private Rigidbody2D rb;
-    public GameObject gun,bullet,firepoint;
+    public GameObject gun, bullet, firepoint;
     private float x, y, z;
     public float hitDistance;
     [SerializeField] private LayerMask PlayerMask;
@@ -28,7 +28,7 @@ public class PezDespenser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         hit = Physics2D.Raycast(gun.transform.position, gun.transform.right, hitDistance, PlayerMask);
 
         if (!hit)
@@ -49,11 +49,11 @@ public class PezDespenser : MonoBehaviour
             spotted = true;
         }
         //gun.transform.Rotate(x, y, z);
-         Debug.DrawRay(gun.transform.position, gun.transform.right * hitDistance, Color.green);
+        Debug.DrawRay(gun.transform.position, gun.transform.right * hitDistance, Color.green);
 
 
         time += Time.deltaTime;
-        if(time > fireGap)
+        if (time > fireGap)
         {
             shoot();
             time = 0;
@@ -62,6 +62,6 @@ public class PezDespenser : MonoBehaviour
 
     void shoot()
     {
-        Instantiate(bullet, firepoint.transform.position,gun.transform.rotation);
+        Instantiate(bullet, firepoint.transform.position, gun.transform.rotation);
     }
 }
