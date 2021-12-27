@@ -76,21 +76,41 @@ public class PlayerController : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!PauseController.gameisPaused)
         {
-            jump = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            jump = false;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                jump = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                jump = false;
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RestartLevel();
+            }
 
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
+        else
         {
-            RestartLevel();
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                return;
+            }
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                return;
+            }
 
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                return;
+            }
+
+        }
 
     }
 
