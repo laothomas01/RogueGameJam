@@ -39,7 +39,7 @@ public class PauseController : MonoBehaviour
     //private void Settings()
     //{
 
-    //}
+    //}  
     public GameObject Canvas;
     private int escape_key_pressed_Count = 0;
     public static bool gameisPaused = false;
@@ -67,16 +67,18 @@ public class PauseController : MonoBehaviour
     }
     public void Resume()
     {
-        Time.timeScale = 1;
+        gameisPaused = !gameisPaused;
+        Pause();
+        Canvas.gameObject.SetActive(gameisPaused);
     }
     public void Quit()
     {
-
+        SceneManager.LoadScene("MainMenu");
     }
-    public void Settings()
-    {
+    //public void Settings()
+    //{
 
-    }
+    //}
 
 
 
