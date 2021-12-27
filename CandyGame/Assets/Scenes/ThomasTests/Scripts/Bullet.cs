@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             Destroy(splt, 2);
         }
-   
+
     }
     private void SelfDestroy()
     {

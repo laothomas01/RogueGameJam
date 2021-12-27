@@ -4,42 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PauseController : MonoBehaviour
 {
-    //// Start is called before the first frame update
-
-    //// Update is called once per frame
-    //int escape_Button_Pressed_Count = 0;
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Escape))
-    //    {
-    //        PauseScreen();
-    //    }
-    //}
-
-    //private void PauseScreen()
-    //{
-    //    Time.timeScale = 0;
-
-    //    escape_Button_Pressed_Count += 1;
-    //    if (escape_Button_Pressed_Count % 2 == 0)
-    //    {
-    //        Resume();
-    //    }
-    //}
-    //private void Resume()
-    //{
-    //    Time.timeScale = 1;
-
-    //    escape_Button_Pressed_Count = 0;
-    //}
-    //private void Quit()
-    //{
-
-    //}
-    //private void Settings()
-    //{
-
-    //}  
+    
     public GameObject Canvas;
     private int escape_key_pressed_Count = 0;
     public static bool gameisPaused = false;
@@ -75,11 +40,6 @@ public class PauseController : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-    //public void Settings()
-    //{
-
-    //}
-
 
 
 }
