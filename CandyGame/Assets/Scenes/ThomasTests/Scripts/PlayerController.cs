@@ -116,6 +116,12 @@ public class PlayerController : MonoBehaviour
             if (time > 1)
             {
                 pa.damaged = false;
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
+
+                }
+                this.GetComponentInChildren<Gun>().enabled = true;
             }
         }
 
@@ -166,13 +172,39 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        if (collision.gameObject.layer == 0)
+
+        if (col.gameObject.layer == 6)
         {
-            Vector2 norm = transform.position - collision.transform.position;
+
             pa.damaged = true;
-            rb.AddForce(norm * -knockback, ForceMode2D.Impulse);
+
+            if (transform.position.x < col.gameObject.transform.position.x)
+            {
+                rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+                }
+                this.GetComponentInChildren<Gun>().enabled = false;
+                ah.ChangeAnimationState(ah.PLAYER_HURT);
+
+            }
+            else
+            {
+                rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * -knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+                }
+                this.GetComponentInChildren<Gun>().enabled = false;
+                ah.ChangeAnimationState(ah.PLAYER_HURT);
+            }
+
+
         }
     }
 
