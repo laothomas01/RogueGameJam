@@ -26,9 +26,20 @@ public class Bullet : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GameObject splt = Instantiate(splat, transform.position, transform.rotation);
-        Destroy(gameObject);
-        Destroy(splt, 2);
+        if (collision.gameObject.tag == "enemy")
+        {
+            collision.gameObject.GetComponent<EnemyScript>().TakeDamage(damage);
+            GameObject splt = Instantiate(splat, transform.position, transform.rotation);
+            Destroy(gameObject);
+            Destroy(splt, 2);
+        }
+        else
+        {
+            GameObject splt = Instantiate(splat, transform.position, transform.rotation);
+            Destroy(gameObject);
+            Destroy(splt, 2);
+        }
+   
     }
     private void SelfDestroy()
     {

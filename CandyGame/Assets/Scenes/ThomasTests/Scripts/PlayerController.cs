@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 /// <summary>
 /// SCRIPT USED TO MAINTAIN THE PLAYER'S MOVEMENTS
+/// 
+/// NOTE: MAKE SURE PLAYER IS GROUNDED.
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
