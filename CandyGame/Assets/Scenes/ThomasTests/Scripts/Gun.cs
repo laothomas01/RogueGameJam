@@ -99,7 +99,8 @@ public class Gun : MonoBehaviour
 
         //USE THIS LATER
 
-        //this.GetComponentInParent<Player>().TakeDamage(damage);
+        //this.GetComponentInParent<Player_Attributes>().TakeDamage();
+        this.GetComponentInParent<Player_Attributes>().TakeDamage(Bullet.damage);
     }
 
 

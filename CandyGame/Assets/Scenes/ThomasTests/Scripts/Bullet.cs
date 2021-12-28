@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     public float lifeTime = 0.0f;
     float time = 0;
-    int damage = 1;
+    public static int damage = 1;
     public float speed = 20f;
     public GameObject splat;
     //public Transform weaponPosition;
