@@ -6,6 +6,7 @@ public class FollowCamera : MonoBehaviour
 {
     public GameObject followTarget;
     private Camera camera;
+    public float yOffset=1f;
     private void Start()
     {
         //Cursor.visible = false;
@@ -23,7 +24,7 @@ public class FollowCamera : MonoBehaviour
     {
         // get the X and Y position of the follow target and the Z position of the camera.
         // if the camera Z position is zero or position, the screen will be blank, so we are setting it to -10 (any negative number will work)
-        Vector3 newPosition = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y, -10);
+        Vector3 newPosition = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y+yOffset, -10);
 
         // set camera position to new position
         camera.transform.position = newPosition;

@@ -202,29 +202,38 @@ public class PlayerController : MonoBehaviour
 
             pa.damaged = true;
 
-            if (transform.position.x < col.gameObject.transform.position.x)
-            {
-                rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+            //if (transform.position.x < col.gameObject.transform.position.x)
+            //{
+            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+            //    for (int i = 0; i < transform.childCount; i++)
+            //    {
+            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
 
-                }
-                this.GetComponentInChildren<Gun>().enabled = false;
-                ah.ChangeAnimationState(ah.PLAYER_HURT);
+            //    }
+            //    this.GetComponentInChildren<Gun>().enabled = false;
+            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
+
+            //}
+            //else
+            //{
+            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * -knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+            //    for (int i = 0; i < transform.childCount; i++)
+            //    {
+            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+            //    }
+            //    this.GetComponentInChildren<Gun>().enabled = false;
+            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
+            //}
+            Vector2 norm = transform.position - col.transform.position;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
 
             }
-            else
-            {
-                rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * -knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
-
-                }
-                this.GetComponentInChildren<Gun>().enabled = false;
-                ah.ChangeAnimationState(ah.PLAYER_HURT);
-            }
+            this.GetComponentInChildren<Gun>().enabled = false;
+            rb.AddForce(norm * knockback, ForceMode2D.Impulse);
+            ah.ChangeAnimationState(ah.PLAYER_HURT);
 
 
         }
