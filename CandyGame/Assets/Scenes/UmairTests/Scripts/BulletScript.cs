@@ -18,11 +18,15 @@ public class BulletScript : MonoBehaviour
         Destroy(gameObject,2);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject);
+    }
     // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Collided");
-       GameObject splt =  Instantiate(splat, transform.position, transform.rotation);
+        GameObject splt =  Instantiate(splat, transform.position, transform.rotation);
 
         Destroy(gameObject);
         Destroy(splt,2);

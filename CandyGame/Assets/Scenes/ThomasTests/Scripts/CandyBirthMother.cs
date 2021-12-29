@@ -63,11 +63,6 @@ public class CandyBirthMother : MonoBehaviour
         Destroy(gameObject);
         res.explodeSludge();
         res.explode_Out_HealthPacks();
-
-
-
-
-
     }
 
 }

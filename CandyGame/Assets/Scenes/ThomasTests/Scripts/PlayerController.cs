@@ -1,23 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+/// <summary>
+/// SCRIPT USED TO MAINTAIN THE PLAYER'S MOVEMENTS
+/// 
+/// NOTE: MAKE SURE PLAYER IS GROUNDED.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
+
+
     private Rigidbody2D rb;
 
     //Ground Checks
-    private RaycastHit2D hit;
+    private RaycastHit2D hit, enemyHit;
     public float hitDistance = 1f;
     public bool grounded;
 
     //Jump Checks
 
-    //public float jumpHeight = 3;
     public float highJump = 2.5f;
     public float lowJump = 2f;
     public bool jump = false;
-
+    private float time = 0;
 
     [SerializeField] private float jumpForce = 400f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
@@ -32,43 +38,35 @@ public class PlayerController : MonoBehaviour
 
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
+
+    //used to call animations we want to play
     AnimationHandler ah;
-    //player weapon
+
+    //hit
+    private Collider2D cl;
+
+    //call the gun script
     public Gun weapon;
 
+    Player_Attributes pa;
+
+    [SerializeField] private float knockback;
 
 
     private void Start()
     {
         ah = this.GetComponent<AnimationHandler>();
-    }
-    private void Awake()
-    {
-
+        cl = GetComponent<Collider2D>();
+        pa = this.GetComponent<Player_Attributes>();
         rb = GetComponent<Rigidbody2D>();
         weapon = GetComponentInChildren<Gun>();
+
     }
+
     private void Update()
     {
         GroundCheck();
         Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
-        //CheckFlip();
-
-        //Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
-        //if (transform.position.y - initgroundPos > jumpHeight && !grounded)
-        //{
-        //    Physics2D.gravity = new Vector2(0, -50);
-        //    Debug.Log("Peak Reached");
-        //}
-        //else
-        //{
-        //    Physics2D.gravity = new Vector2(0, -9.81f);
-
-        //}
-        //if (grounded)
-        //{
-        //    initgroundPos = transform.position.y;
-        //}
 
         //if falling increase gravity, else if holding jump, keep jumping until max height
         if (rb.velocity.y < 0)
@@ -79,35 +77,88 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (!PauseController.gameisPaused)
         {
-            jump = true;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                jump = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                jump = false;
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RestartLevel();
+            }
+
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else
         {
-            jump = false;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                return;
+            }
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                return;
+            }
+
         }
 
+    }
 
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     private void FixedUpdate()
     {
 
 
-        Move();
+
+        if (!pa.damaged)
+        {
+            Move();
+            time = 0;
+        }
+        else
+        {
+            time += Time.fixedDeltaTime;
+
+
+            if (time > 1)
+            {
+                pa.damaged = false;
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
+
+                }
+                this.GetComponentInChildren<Gun>().enabled = true;
+            }
+        }
+
+
         // Jump control and animation
         Jump();
 
     }
 
 
-
-
-
     private void GroundCheck()
     {
 
         hit = Physics2D.Raycast(transform.position, -transform.up, hitDistance, GroundedMask);
+
         Debug.DrawRay(transform.position, -transform.up * hitDistance, Color.red);
 
         grounded = hit ? true : false;
@@ -119,55 +170,86 @@ public class PlayerController : MonoBehaviour
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed * Time.fixedDeltaTime;
         //only control the player if grounded or airControl is turned on
+
         // Move the character by finding the target velocity
         Vector3 targetVelocity = new Vector2(horizontalMove * 10f, rb.velocity.y);
         // And then smoothing it out and applying it to the character
         //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
         rb.velocity = targetVelocity;
 
-        if (rb.velocity.x != 0)
+        if (grounded)
         {
-            ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
+            if (rb.velocity.x != 0)
+            {
+                ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
+
+            }
+            else
+            {
+                ah.ChangeAnimationState(ah.PLAYER_IDLE);
+            }
         }
-        else
-        {
-            ah.ChangeAnimationState(ah.PLAYER_IDLE);
-        }
-        //if (rb.velocity.x < 0)
-        //{
 
-        //}
-        //else if (rb.velocity.x > 0)
-        //{
-
-        //}
-        //else
-        //{
-
-        //}
 
 
     }
 
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+
+        if (col.gameObject.layer == 6)
+        {
+
+            pa.damaged = true;
+
+            //if (transform.position.x < col.gameObject.transform.position.x)
+            //{
+            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+            //    for (int i = 0; i < transform.childCount; i++)
+            //    {
+            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+            //    }
+            //    this.GetComponentInChildren<Gun>().enabled = false;
+            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
+
+            //}
+            //else
+            //{
+            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * -knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+            //    for (int i = 0; i < transform.childCount; i++)
+            //    {
+            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+            //    }
+            //    this.GetComponentInChildren<Gun>().enabled = false;
+            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
+            //}
+            Vector2 norm = transform.position - col.transform.position;
+            this.GetComponentInChildren<Gun>().enabled = false;
+            rb.AddForce(norm * knockback, ForceMode2D.Impulse);
+            ah.ChangeAnimationState(ah.PLAYER_HURT);
+
+
+        }
+    }
 
     public void Player_Flip()
     {
-        // Switch the way the player is labelled as facing.
+        // Switch the way the player is facing. 
         facingRight = !facingRight;
-        //Vector3 scale = transform.localScale;
-        //scale.x *= -1;
-        //transform.localScale = scale;
+
         transform.Rotate(0f, 180f, 0f);
     }
     public void Flip_Player_Based_On_Rotation_Of_The_Mouse_Input()
     {
 
+        //gunPos is the position of our mouse cursor from screen to the game's world
         Vector3 gunPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // thingy is the position between the gun and the player object
         float thingy = gunPos.x - this.transform.position.x;
         float abs = Mathf.Abs(thingy);
-        //float gunAngle = Mathf.Atan2(gunPos.y, gunPos.x) * Mathf.Rad2Deg;
-        //Debug.Log(gunAngle);
-        //Debug.Log(gunPos);
+
         if (facingRight)
         {
             if (weapon.rotationZ <= 90)
@@ -189,12 +271,7 @@ public class PlayerController : MonoBehaviour
 
             }
         }
-        if (facingRight == false)
-        {
 
-        }
-        //Debug.Log(weapon.rotationZ);
-        //Debug.Log(facingRight);
         if (facingRight == false)
         {
             if (weapon.rotationZ >= 90)
@@ -207,12 +284,9 @@ public class PlayerController : MonoBehaviour
             }
             if (weapon.rotationZ < 90 || weapon.rotationZ > 270)
             {
-                //if (abs > 1)
-                //{
                 Player_Flip();
 
                 weapon.rotationZ = 0;
-                //}
             }
         }
 
@@ -223,9 +297,12 @@ public class PlayerController : MonoBehaviour
     {
         if (grounded && jump)
         {
-            grounded = false;
-            //rb.AddForce(new Vector2(0f, jumpForce));
+
             rb.velocity = Vector2.up * jumpForce;
+            ah.ChangeAnimationState(ah.PLAYER_JUMP);
+            grounded = false;
+
+
 
         }
     }

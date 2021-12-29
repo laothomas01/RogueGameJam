@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// REQUIRED TO SPAWN OBJECTS
+/// </summary>
 public class ObjectPool : MonoBehaviour
 {
     //variable for referencing the class
@@ -66,15 +68,7 @@ public class ObjectPool : MonoBehaviour
     /// FILL THE POOLS WITH INACTIVE OBJECTS
     /// CALL THIS IN THE START METHOD TO FILL THE OBJECT POOL, AN EMPTY OBJECT IN THE GAME'S SCENE, WITH INACTIVE OBJECTS
     /// </summary>
-    //public void createBulletPool()
-    //{
-    //    for (int i = 0; i < bulletPool; i++)
-    //    {
-    //        GameObject obj1 = Instantiate(bulletPrefab);
-    //        obj1.SetActive(false);
-    //        poolBullets.Add(obj1);
-    //    }
-    //}
+  
 
     //public void createCandyCreaturePool()
     //{

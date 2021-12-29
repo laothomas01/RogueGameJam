@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+///  This is an extension of the rigid2d class.
+///  
+/// Rigidbody2D has no AddExplosionForce method. so one was created for 2D games. 
+/// </summary>
 public static class Rigidbody2DExtension
 {
 

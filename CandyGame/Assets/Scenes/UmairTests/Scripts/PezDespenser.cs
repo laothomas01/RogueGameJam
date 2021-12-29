@@ -6,7 +6,7 @@ public class PezDespenser : MonoBehaviour
 {
 
     private Rigidbody2D rb;
-    public GameObject gun,bullet,firepoint;
+    public GameObject gun, bullet, firepoint;
     private float x, y, z;
     public float hitDistance;
     [SerializeField] private LayerMask PlayerMask;
@@ -17,9 +17,17 @@ public class PezDespenser : MonoBehaviour
     private float time = 0;
     private bool spotted;
     public float fireGap = 2;
+    public Animator turretAnimator, headAnimator,bodyAnimator;
+    private EnemyScript enemy;
+    
     // Start is called before the first frame update
     void Start()
     {
+        enemy = GetComponent<EnemyScript>();
+        headAnimator = transform.GetChild(0).GetComponent<Animator>();
+        bodyAnimator = transform.GetChild(1).GetComponent<Animator>();
+        turretAnimator= GetComponent<Animator>();
+
         rb = GetComponent<Rigidbody2D>();
         x = gun.transform.rotation.x;
         y = gun.transform.rotation.y;
@@ -28,6 +36,17 @@ public class PezDespenser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        headAnimator.SetBool("Hit", enemy.damaged);
+        bodyAnimator.SetBool("Hit", enemy.damaged);
+
+        if (enemy.dead)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
+            GetComponent<SpriteRenderer>().enabled = true;
+            turretAnimator.SetBool("death", true);
+        }
         
         hit = Physics2D.Raycast(gun.transform.position, gun.transform.right, hitDistance, PlayerMask);
 
@@ -43,25 +62,30 @@ public class PezDespenser : MonoBehaviour
             gun.transform.right = direction;
             if (!spotted)
             {
-                //z = -60f;
                 Debug.Log("Should return");
             }
             spotted = true;
         }
         //gun.transform.Rotate(x, y, z);
-         Debug.DrawRay(gun.transform.position, gun.transform.right * hitDistance, Color.green);
+        Debug.DrawRay(gun.transform.position, gun.transform.right * hitDistance, Color.green);
 
 
         time += Time.deltaTime;
-        if(time > fireGap)
+        if (time > fireGap && !enemy.dead)
         {
             shoot();
             time = 0;
+        }
+        else
+        {
+            headAnimator.SetBool("PezShoot", false);
         }
     }
 
     void shoot()
     {
-        Instantiate(bullet, firepoint.transform.position,gun.transform.rotation);
+        headAnimator.SetBool("PezShoot", true);
+        Instantiate(bullet, firepoint.transform.position, gun.transform.rotation);
+        //headAnimator.SetBool("PezShoot", false);
     }
 }

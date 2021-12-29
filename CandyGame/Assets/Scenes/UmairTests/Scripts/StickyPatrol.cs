@@ -6,9 +6,7 @@ public class StickyPatrol : MonoBehaviour
 {
     private Rigidbody2D rb;
     private RaycastHit2D[] hits = new RaycastHit2D[4];
-    private RaycastHit2D forwardHit;
-    private RaycastHit2D wallHit;
-    private RaycastHit2D currentGroundHit;
+    private RaycastHit2D forwardHit,wallHit,currentGroundHit;
     public float hitDistance,speed;
     [SerializeField] private LayerMask GroundedMask;
     public Vector2 gravity = new Vector2(0f, -1f);
@@ -17,11 +15,13 @@ public class StickyPatrol : MonoBehaviour
     Quaternion newRot;
     public bool right = true;
     private Vector3 forwardRotation;
+    private Color curr;
+    private EnemyScript enemy;
     // Start is called before the first frame update
     void Start()
     {
-        
-        
+        enemy = GetComponent<EnemyScript>();
+        curr = GetComponent<SpriteRenderer>().color;
         rb = GetComponent<Rigidbody2D>();
         grounded = false;
         newRot = Quaternion.LookRotation(Vector3.forward, transform.up);
@@ -40,6 +40,7 @@ public class StickyPatrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetComponent<SpriteRenderer>().color = enemy.damaged ? Color.red : curr;
         gravity = -transform.up;
         Vector2 forward = new Vector2(transform.right.x, -transform.up.y);
         Debug.DrawRay(transform.position, forward * hitDistance, Color.black);

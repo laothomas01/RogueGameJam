@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-
     public Transform shootPosition;
-    //public GameObject projectile, crosshair;
+    public Transform firePoint;
     public GameObject crosshair;
-    [SerializeField] float bulletSpeed = 0.0f;
     Vector2 MOUSE_POSITION;
     Vector2 direction;
     float angle;
     bool canShoot = true;
     float time = 0;
-    //public float fireRate = 1.0f;
     public GameObject projectile;
     PlayerScript playerScript;
-    public GameObject arm;
     public float rotationZ;
-    //public float rotationY;
     private void Start()
     {
         playerScript = GetComponentInParent<PlayerScript>();
@@ -28,25 +23,27 @@ public class Gun : MonoBehaviour
     }
     private void Update()
     {
-        gunTurning();
-        if (Input.GetMouseButtonDown(0) && canShoot)
+        if (!PauseController.gameisPaused)
         {
-            Shoot();
-            canShoot = false;
+            gunTurning();
+            if (Input.GetMouseButtonDown(0) && canShoot)
+            {
+                Shoot();
+                canShoot = false;
+            }
+            else if (Input.GetMouseButtonUp(0) && canShoot == false)
+            {
+                canShoot = true;
+            }
+
         }
-        else if (Input.GetMouseButtonUp(0) && canShoot == false)
+        else
         {
-            canShoot = true;
+            return;
         }
-
-
 
     }
-    private void FixedUpdate()
-    {
 
-
-    }
     private void gunTurning()
     {
 
@@ -79,10 +76,10 @@ public class Gun : MonoBehaviour
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
 
         //use this to point our arm in the direction we want
-        arm.transform.right = direction;
+        shootPosition.right = direction;
 
 
-        rotationZ = arm.transform.eulerAngles.z;
+        rotationZ = shootPosition.eulerAngles.z;
 
 
 
@@ -94,19 +91,13 @@ public class Gun : MonoBehaviour
 
         //    targetDelta =               destination                 -           source
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
-        GameObject bullet = Instantiate(projectile, shootPosition.position, Quaternion.identity);
-        //GameObject bullet = ObjectPool.instance.Get_Bullets();
+        GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
+        Bullet bs = bullet.GetComponent<Bullet>();
+        bullet.transform.rotation = shootPosition.rotation;
+        bullet.GetComponent<Rigidbody2D>().AddForce(direction * bs.speed, ForceMode2D.Impulse);
 
-        //if (bullet != null)
-        //{
-        //    bullet.transform.position = shootPosition.position;
-        //    //    bullet.transform.rotation = arm.transform.rotation;
 
-        //    bullet.SetActive(true);
-
-        //}
-
-        //bullet.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed, ForceMode2D.Force);
+        //USE THIS LATER
 
         //this.GetComponentInParent<Player>().TakeDamage(damage);
     }

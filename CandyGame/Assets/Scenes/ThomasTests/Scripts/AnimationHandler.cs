@@ -12,6 +12,10 @@ public class AnimationHandler : MonoBehaviour
     public string PLAYER_MOVEMENT = "PlayerMovementShoot";
     [HideInInspector]
     public string PLAYER_DEATH = "PlayerDeathAnimation";
+    [HideInInspector]
+    public string PLAYER_JUMP = "PlayerJumpAnimation";
+    [HideInInspector]
+    public string PLAYER_HURT = "PlayerHurtAnimation";
 
     private Animator animator;
     private string currentState;

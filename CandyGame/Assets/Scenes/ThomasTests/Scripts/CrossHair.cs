@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrossHair : MonoBehaviour
 {
-    //This is for seeing where the player should be shooting
+    //Cursor for seeing where the player should shoot
 
     [SerializeField] private Camera mainCam;
     void Update()
