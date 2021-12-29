@@ -14,19 +14,17 @@ public class Player_Attributes : MonoBehaviour
     private bool playerIsDead = false;
     AnimationHandler ah;
     private Rigidbody2D rb;
-
-    public HealthBar healthBar;
-
     public bool damaged;
     private float time = 0;
-
-
+    public GameObject healthBar;
+    private HealthBar hb;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         ah = GetComponent<AnimationHandler>();
         currentHealth = maxHealth;
-        healthBar.setMaxHealth(maxHealth);
+        hb = healthBar.GetComponent<HealthBar>();
+
     }
 
 
@@ -35,7 +33,7 @@ public class Player_Attributes : MonoBehaviour
     {
         damaged = true;
         currentHealth -= damage;
-        healthBar.setHealth(currentHealth);
+        hb.setHealth(currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -56,12 +54,12 @@ public class Player_Attributes : MonoBehaviour
         if (currentHealth > 0 && currentHealth <= maxHealth)
         {
             currentHealth += heal;
-            healthBar.setHealth(currentHealth);
+            hb.setHealth(currentHealth);
         }
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-            healthBar.setHealth(currentHealth);
+            hb.setHealth(currentHealth);
         }
 
 
@@ -74,7 +72,7 @@ public class Player_Attributes : MonoBehaviour
         //disable the child sprite renderers to properly show death animation
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform .GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+            transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
         }
 
         //this animation does not loop after the first play through
