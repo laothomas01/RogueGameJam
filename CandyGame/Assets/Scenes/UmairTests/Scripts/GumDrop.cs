@@ -5,10 +5,9 @@ using UnityEngine;
 public class GumDrop : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float jumpInterval;
-    public float jumpForce;
-    private float time;
-    private float horizontal;
+    public float jumpInterval, jumpForce, distance, horiDis;
+    private float time, horizontal,direction;
+    public Transform Player;
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,11 +18,22 @@ public class GumDrop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(time > jumpInterval)
+        direction = Player.position.x - transform.position.x;
+
+        if (time > jumpInterval)
         {
-            horizontal = Random.Range(-1, 2);
             
-            rb.velocity = new Vector2(Vector2.right.x * horizontal,Vector2.up.y* jumpForce);
+            if (Mathf.Abs(direction) < distance)
+            {
+                horizontal = direction/Mathf.Abs(direction);
+            }
+            else
+            {
+                horizontal = Random.Range(-1, 2);
+            }
+            
+            
+            rb.velocity = new Vector2(Vector2.right.x * horizontal*horiDis,Vector2.up.y* jumpForce);
             time = 0;
         }
         else

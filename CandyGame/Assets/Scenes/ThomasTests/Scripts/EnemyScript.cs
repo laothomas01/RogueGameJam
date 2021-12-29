@@ -56,6 +56,7 @@ public class EnemyScript : MonoBehaviour
         Player_Attributes pa = collision.gameObject.GetComponent<Player_Attributes>();
         if (collision.gameObject.tag == "Player")
         {
+
             if (pa != null)
             {
                 pa.TakeDamage(damage);

@@ -20,7 +20,7 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        Destroy(gameObject,2);
     }
     // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D collision)

@@ -75,6 +75,14 @@ public class ChocoBoss : MonoBehaviour
         rb.velocity = Vector2.up * intensity * direction;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            direction *= -1;
+        }
+    }
+
     private void FixedUpdate()
     {
 

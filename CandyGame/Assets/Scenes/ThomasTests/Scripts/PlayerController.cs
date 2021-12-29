@@ -226,6 +226,11 @@ public class PlayerController : MonoBehaviour
             //    ah.ChangeAnimationState(ah.PLAYER_HURT);
             //}
             Vector2 norm = transform.position - col.transform.position;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+            }
             this.GetComponentInChildren<Gun>().enabled = false;
             rb.AddForce(norm * knockback, ForceMode2D.Impulse);
             ah.ChangeAnimationState(ah.PLAYER_HURT);
