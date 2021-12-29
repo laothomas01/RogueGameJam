@@ -14,17 +14,16 @@ public class Player_Attributes : MonoBehaviour
     private bool playerIsDead = false;
     AnimationHandler ah;
     private Rigidbody2D rb;
-
-
     public bool damaged;
     private float time = 0;
-
-
+    public GameObject healthBar;
+    private HealthBar hb;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         ah = GetComponent<AnimationHandler>();
         currentHealth = maxHealth;
+        hb = healthBar.GetComponent<HealthBar>();
 
     }
 
@@ -34,7 +33,7 @@ public class Player_Attributes : MonoBehaviour
     {
         damaged = true;
         currentHealth -= damage;
-
+        hb.setHealth(currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -55,10 +54,12 @@ public class Player_Attributes : MonoBehaviour
         if (currentHealth > 0 && currentHealth <= maxHealth)
         {
             currentHealth += heal;
+            hb.setHealth(currentHealth);
         }
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
+            hb.setHealth(currentHealth);
         }
 
 
