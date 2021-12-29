@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PauseController : MonoBehaviour
 {
-    
+
     public GameObject Canvas;
     private int escape_key_pressed_Count = 0;
     public static bool gameisPaused = false;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!Player_Attributes.playerIsDead)
         {
-            gameisPaused = !gameisPaused;
-            Canvas.gameObject.SetActive(gameisPaused);
-            Pause();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameisPaused = !gameisPaused;
+                Canvas.gameObject.SetActive(gameisPaused);
+                Pause();
+            }
         }
 
 

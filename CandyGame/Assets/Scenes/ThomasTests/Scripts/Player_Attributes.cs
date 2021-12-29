@@ -11,19 +11,22 @@ public class Player_Attributes : MonoBehaviour
 {
     public int maxHealth = 10;
     public int currentHealth = 0;
-    private bool playerIsDead = false;
+    public static bool playerIsDead;
     AnimationHandler ah;
     private Rigidbody2D rb;
     public bool damaged;
     private float time = 0;
     public GameObject healthBar;
     private HealthBar hb;
+    public GameObject GameOverScreen;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         ah = GetComponent<AnimationHandler>();
         currentHealth = maxHealth;
         hb = healthBar.GetComponent<HealthBar>();
+        playerIsDead = false;
 
     }
 
@@ -81,6 +84,8 @@ public class Player_Attributes : MonoBehaviour
         //disable player movement
         GetComponent<PlayerController>().enabled = false;
         this.GetComponentInChildren<Gun>().enabled = false;
+        GameOverScreen.SetActive(true);
+
 
     }
 
