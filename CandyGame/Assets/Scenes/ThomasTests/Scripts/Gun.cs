@@ -23,24 +23,45 @@ public class Gun : MonoBehaviour
     }
     private void Update()
     {
-        if (!PauseController.gameisPaused)
+        if (!Player_Attributes.playerIsDead)
         {
-            gunTurning();
-            if (Input.GetMouseButtonDown(0) && canShoot)
+            if (!PauseController.gameisPaused)
             {
-                Shoot();
-                canShoot = false;
-            }
-            else if (Input.GetMouseButtonUp(0) && canShoot == false)
-            {
-                canShoot = true;
-            }
+                if (PlayerController.moving)
+                {
+                    gunTurning();
+                    if (Input.GetMouseButtonDown(0) && canShoot)
+                    {
+                        Shoot();
+                        canShoot = false;
+                    }
+                    else if (Input.GetMouseButtonUp(0) && canShoot == false)
+                    {
+                        canShoot = true;
+                    }
+                }
+                else
+                {
+                    gunTurning();
+                    if (Input.GetMouseButtonDown(0) && canShoot)
+                    {
+                        Shoot();
+                        canShoot = false;
+                    }
+                    else if (Input.GetMouseButtonUp(0) && canShoot == false)
+                    {
+                        canShoot = true;
+                    }
+                }
 
+            }
+            else
+            {
+                return;
+            }
         }
-        else
-        {
-            return;
-        }
+
+
 
     }
 

@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
 
     public bool facingRight = true;  // For determining which way the player is currently facing.
-    public bool moving = false; //check whether the character is moving. 
+    public static bool moving;
     private Vector3 velocity = Vector3.zero;
 
 
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
         pa = this.GetComponent<Player_Attributes>();
         rb = GetComponent<Rigidbody2D>();
         weapon = GetComponentInChildren<Gun>();
+        moving = false;
 
     }
 
@@ -78,47 +79,60 @@ public class PlayerController : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * lowJump * Time.deltaTime;
         }
 
-        if (!PauseController.gameisPaused)
+        if (!Player_Attributes.playerIsDead)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (!PauseController.gameisPaused)
             {
-                jump = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.Space))
-            {
-                jump = false;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    jump = true;
+                }
+                else if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    jump = false;
+
+                }
+
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    RestartLevel();
+                }
 
             }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    return;
+                }
+                else if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    return;
+                }
 
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    return;
+                }
+
+            }
+        }
+        else
+        {
             if (Input.GetKeyDown(KeyCode.R))
             {
                 RestartLevel();
             }
-
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                return;
-            }
-            else if (Input.GetKeyUp(KeyCode.Space))
-            {
-                return;
-            }
 
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                return;
-            }
-
-        }
 
     }
 
     private void RestartLevel()
     {
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
     private void FixedUpdate()
     {
@@ -135,7 +149,7 @@ public class PlayerController : MonoBehaviour
             time += Time.fixedDeltaTime;
 
 
-            if (time > 1)
+            if (time > 0.5)
             {
                 pa.damaged = false;
                 for (int i = 0; i < transform.childCount; i++)
@@ -182,11 +196,12 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.x != 0)
             {
                 ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
-
+                moving = true;
             }
             else
             {
                 ah.ChangeAnimationState(ah.PLAYER_IDLE);
+                moving = false;
             }
         }
 
@@ -300,15 +315,13 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+
+
         if (grounded && jump)
         {
-
             rb.velocity = Vector2.up * jumpForce;
             ah.ChangeAnimationState(ah.PLAYER_JUMP);
             grounded = false;
-
-
-
         }
     }
 }
