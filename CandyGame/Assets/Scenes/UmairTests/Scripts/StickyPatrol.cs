@@ -95,6 +95,16 @@ public class StickyPatrol : MonoBehaviour
 
         }
 
+        if (this.GetComponent<EnemyScript>().damaged)
+        {
+            FindObjectOfType<SoundManager>().Play2("wormhit");
+
+        }
+        if (this.GetComponent<EnemyScript>().dead)
+        {
+
+            FindObjectOfType<SoundManager>().Play2("sizzle");
+        }
 
     }
 

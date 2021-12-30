@@ -53,6 +53,7 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
+
         }
         s.source.Stop();
     }
@@ -141,6 +142,17 @@ public class SoundManager : MonoBehaviour
 
     }
     public void bgnoise(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (!s.source.isPlaying)
+        {
+            s.source.Play();
+        }
+
+
+    }
+    public void Play2(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
