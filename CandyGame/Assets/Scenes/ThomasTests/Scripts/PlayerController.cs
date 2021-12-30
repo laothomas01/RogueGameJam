@@ -124,18 +124,18 @@ public class PlayerController : MonoBehaviour
                 RestartLevel();
             }
         }
-        if (moving)
-        {
-            if (!audio.isPlaying)
-            {
-                audio.Play();
-            }
+        //if (moving)
+        //{
+        //    if (!audio.isPlaying)
+        //    {
+        //        audio.Play();
+        //    }
 
-        }
-        else
-        {
-            audio.Stop();
-        }
+        //}
+        //else
+        //{
+        //    audio.Stop();
+        //}
 
     }
 
