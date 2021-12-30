@@ -9,7 +9,8 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         //playerhitsound = Resources.Load<AudioClip>
-        walksound = Resources.Load<AudioClip>("Samus Footstep");
+        walksound = Resources.Load<AudioClip>("WalkingSoundEffect");
+        jumpsound = Resources.Load<AudioClip>("JumpSound");
         audioSrc = GetComponent<AudioSource>();
     }
     public static void PlaySound(string clip)
@@ -26,10 +27,10 @@ public class SoundManager : MonoBehaviour
             case "enemyDeath":
                 break;
             case "jump":
-                //audioSrc.PlayOneShot()
+                audioSrc.PlayOneShot(jumpsound);
                 break;
-
         }
     }
+
 
 }
