@@ -26,6 +26,7 @@ public class SoundManager : MonoBehaviour
             case "enemyDeath":
                 break;
             case "jump":
+                //audioSrc.PlayOneShot()
                 break;
 
         }
