@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         {
             SoundManager.PlaySound("move");
         }
-        
+
 
 
     }
