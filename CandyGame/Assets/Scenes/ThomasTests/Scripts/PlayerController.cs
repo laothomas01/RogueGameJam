@@ -253,7 +253,7 @@ public class PlayerController : MonoBehaviour
 
             pa.damaged = true;
 
-
+            FindObjectOfType<SoundManager>().player_hurt("damage");
             Vector2 norm = transform.position - col.transform.position;
             for (int i = 0; i < transform.childCount; i++)
             {

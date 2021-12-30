@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
+        if (collision.gameObject.layer == 6)
         {
             collision.gameObject.GetComponent<EnemyScript>().TakeDamage(damage);
             GameObject splt = Instantiate(splat, transform.position, transform.rotation);
@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviour
         else
         {
             GameObject splt = Instantiate(splat, transform.position, transform.rotation);
+            FindObjectOfType<SoundManager>().Play("splat");
             Destroy(gameObject);
             Destroy(splt, 2);
         }

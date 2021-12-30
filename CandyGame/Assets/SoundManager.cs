@@ -77,11 +77,44 @@ public class SoundManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (PlayerController.walking && Gun.isShooting)
         {
-            if(!s.source.isPlaying)
+            if (!s.source.isPlaying)
             {
                 s.source.PlayOneShot(s.clip);
             }
         }
+    }
+    public void death(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (PlayerController.walking && Gun.isShooting)
+        {
+            if (!s.source.isPlaying)
+            {
+                s.source.PlayOneShot(s.clip);
+            }
+        }
+    }
+    public void player_hurt(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (!s.source.isPlaying)
+        {
+            s.source.PlayOneShot(s.clip);
+        }
+
+
+    }
+    public void splat(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (!s.source.isPlaying)
+        {
+            s.source.PlayOneShot(s.clip);
+        }
+
+
     }
 
 

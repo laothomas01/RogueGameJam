@@ -115,6 +115,7 @@ public class Gun : MonoBehaviour
     private void Shoot()
     {
         FindObjectOfType<SoundManager>().Play("blaster");
+     
         isShooting = true;
         Debug.Log(isShooting);
         //    targetDelta =               destination                 -           source

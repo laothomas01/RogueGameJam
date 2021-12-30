@@ -8,16 +8,16 @@ public class EnemyScript : MonoBehaviour
     public int currentHealth = 10;
     public int deathTime = 0;
     [HideInInspector]
-    public bool dead=false;
+    public bool dead = false;
     private bool playerIsDead = false;
     AnimationHandler ah;
     public int damage;
     public bool damaged;
-    private float time=0f;
+    private float time = 0f;
 
     private void Start()
     {
-        
+
         ah = GetComponent<AnimationHandler>();
 
     }
@@ -27,7 +27,7 @@ public class EnemyScript : MonoBehaviour
         {
             time += Time.deltaTime;
         }
-        if(time > 0.5f)
+        if (time > 0.5f)
         {
             damaged = false;
             time = 0;
@@ -59,6 +59,7 @@ public class EnemyScript : MonoBehaviour
 
             if (pa != null)
             {
+                FindObjectOfType<SoundManager>().player_hurt("damage");
                 pa.TakeDamage(damage);
             }
         }
@@ -67,6 +68,6 @@ public class EnemyScript : MonoBehaviour
 
     private void Die()
     {
-        Destroy(this.gameObject,deathTime);
+        Destroy(this.gameObject, deathTime);
     }
 }

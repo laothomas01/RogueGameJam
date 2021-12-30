@@ -34,6 +34,7 @@ public class Player_Attributes : MonoBehaviour
     //player takes damage
     public void TakeDamage(int damage)
     {
+
         damaged = true;
         currentHealth -= damage;
         hb.setHealth(currentHealth);
@@ -78,9 +79,9 @@ public class Player_Attributes : MonoBehaviour
             transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
         }
 
-        //this animation does not loop after the first play through
+        //play death animation
         ah.ChangeAnimationState(ah.PLAYER_DEATH);
-
+        FindObjectOfType<SoundManager>().Play("death");
         //disable player movement
         GetComponent<PlayerController>().enabled = false;
         this.GetComponentInChildren<Gun>().enabled = false;
