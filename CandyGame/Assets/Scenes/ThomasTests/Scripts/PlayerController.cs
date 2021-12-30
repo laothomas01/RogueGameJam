@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float knockback;
 
-
+    AudioSource audio;
     private void Start()
     {
         ah = this.GetComponent<AnimationHandler>();
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         weapon = GetComponentInChildren<Gun>();
         moving = false;
-
+        audio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -124,7 +124,18 @@ public class PlayerController : MonoBehaviour
                 RestartLevel();
             }
         }
+        if (moving)
+        {
+            if (!audio.isPlaying)
+            {
+                audio.Play();
+            }
 
+        }
+        else
+        {
+            audio.Stop();
+        }
 
     }
 
@@ -197,6 +208,7 @@ public class PlayerController : MonoBehaviour
             {
                 ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
                 moving = true;
+
             }
             else
             {
