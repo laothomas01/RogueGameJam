@@ -103,9 +103,26 @@ public class PlayerController : MonoBehaviour
 
                 if (stepcooldown < 0f)
                 {
-                    FindObjectOfType<SoundManager>().Step();
+                    if (Gun.isShooting && walking)
+                    {
+
+
+                        FindObjectOfType<SoundManager>().Step("FootStepSounds");
+                    }
+                    else if (walking)
+                    {
+                        FindObjectOfType<SoundManager>().Step("FootStepSounds");
+                    }
+
+
                     stepcooldown = stepRate;
+
                 }
+
+
+
+
+
 
 
 
@@ -214,7 +231,7 @@ public class PlayerController : MonoBehaviour
                 ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
 
                 walking = true;
-                FindObjectOfType<SoundManager>().Step();
+                FindObjectOfType<SoundManager>().Step("FootStepSounds");
 
             }
             else

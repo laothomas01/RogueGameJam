@@ -56,15 +56,15 @@ public class SoundManager : MonoBehaviour
         }
         s.source.Stop();
     }
-    public void Step()
+    public void Step(string name)
     {
-        Sound s = GetRandomSound();
+        Sound s = Array.Find(sounds, sound => sound.name == name);
         if (PlayerController.walking && !PlayerController.jump)
         {
             if (!s.source.isPlaying)
             {
                 s.source.PlayOneShot(s.clip);
-                //s.source.PlayDelayed(0.3f);
+
             }
         }
         else
@@ -72,9 +72,18 @@ public class SoundManager : MonoBehaviour
             s.source.Stop();
         }
     }
-
-    private Sound GetRandomSound()
+    public void Blaster(string name)
     {
-        return sounds[UnityEngine.Random.Range(1, sounds.Length)];
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (PlayerController.walking && Gun.isShooting)
+        {
+            if(!s.source.isPlaying)
+            {
+                s.source.PlayOneShot(s.clip);
+            }
+        }
     }
+
+
+
 }

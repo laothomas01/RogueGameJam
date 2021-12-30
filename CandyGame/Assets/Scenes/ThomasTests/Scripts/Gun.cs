@@ -11,6 +11,7 @@ public class Gun : MonoBehaviour
     Vector2 direction;
     float angle;
     bool canShoot = true;
+    public static bool isShooting = false;
     float time = 0;
     public GameObject projectile;
     PlayerScript playerScript;
@@ -32,11 +33,14 @@ public class Gun : MonoBehaviour
                     gunTurning();
                     if (Input.GetMouseButtonDown(0) && canShoot)
                     {
+
                         Shoot();
+
                         canShoot = false;
                     }
                     else if (Input.GetMouseButtonUp(0) && canShoot == false)
                     {
+
                         canShoot = true;
                     }
                 }
@@ -51,6 +55,7 @@ public class Gun : MonoBehaviour
                     else if (Input.GetMouseButtonUp(0) && canShoot == false)
                     {
                         canShoot = true;
+                        isShooting = false;
                     }
                 }
 
@@ -109,7 +114,9 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
-
+        FindObjectOfType<SoundManager>().Play("blaster");
+        isShooting = true;
+        Debug.Log(isShooting);
         //    targetDelta =               destination                 -           source
         direction = new Vector2(MOUSE_POSITION.x, MOUSE_POSITION.y) - new Vector2(transform.position.x, transform.position.y);
         GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
