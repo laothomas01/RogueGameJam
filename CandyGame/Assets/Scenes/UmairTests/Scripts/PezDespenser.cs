@@ -17,16 +17,16 @@ public class PezDespenser : MonoBehaviour
     private float time = 0;
     private bool spotted;
     public float fireGap = 2;
-    public Animator turretAnimator, headAnimator,bodyAnimator;
+    public Animator turretAnimator, headAnimator, bodyAnimator;
     private EnemyScript enemy;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         enemy = GetComponent<EnemyScript>();
         headAnimator = transform.GetChild(0).GetComponent<Animator>();
         bodyAnimator = transform.GetChild(1).GetComponent<Animator>();
-        turretAnimator= GetComponent<Animator>();
+        turretAnimator = GetComponent<Animator>();
 
         rb = GetComponent<Rigidbody2D>();
         x = gun.transform.rotation.x;
@@ -36,7 +36,7 @@ public class PezDespenser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         headAnimator.SetBool("Hit", enemy.damaged);
         bodyAnimator.SetBool("Hit", enemy.damaged);
 
@@ -47,7 +47,7 @@ public class PezDespenser : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = true;
             turretAnimator.SetBool("death", true);
         }
-        
+
         hit = Physics2D.Raycast(gun.transform.position, gun.transform.right, hitDistance, PlayerMask);
 
         if (!hit)
@@ -80,6 +80,15 @@ public class PezDespenser : MonoBehaviour
         {
             headAnimator.SetBool("PezShoot", false);
         }
+        if (this.GetComponent<EnemyScript>().damaged)
+        {
+            FindObjectOfType<SoundManager>().splat("splat");
+        }
+        if (this.GetComponent<EnemyScript>().dead)
+        {
+            FindObjectOfType<SoundManager>().Play2("sizzle");
+        }
+
     }
 
     void shoot()
@@ -88,4 +97,5 @@ public class PezDespenser : MonoBehaviour
         Instantiate(bullet, firepoint.transform.position, gun.transform.rotation);
         //headAnimator.SetBool("PezShoot", false);
     }
+
 }
