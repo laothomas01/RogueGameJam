@@ -9,28 +9,8 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         //playerhitsound = Resources.Load<AudioClip>
-        walksound = Resources.Load<AudioClip>("WalkingSoundEffect");
-        jumpsound = Resources.Load<AudioClip>("JumpSound");
-        audioSrc = GetComponent<AudioSource>();
     }
-    public static void PlaySound(string clip)
-    {
-        switch (clip)
-        {
-            case "fire":
-                break;
-            case "move":
-                audioSrc.PlayOneShot(walksound);
-                break;
-            case "die":
-                break;
-            case "enemyDeath":
-                break;
-            case "jump":
-                audioSrc.PlayOneShot(jumpsound);
-                break;
-        }
-    }
+
 
 
 }

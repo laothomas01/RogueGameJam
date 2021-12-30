@@ -124,10 +124,7 @@ public class PlayerController : MonoBehaviour
                 RestartLevel();
             }
         }
-        if (moving)
-        {
-            SoundManager.PlaySound("move");
-        }
+        
 
 
 
