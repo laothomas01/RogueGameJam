@@ -33,6 +33,11 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             Destroy(splt, 2);
         }
+        else if (collision.gameObject.tag == "Player")
+        {
+
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
         else
         {
             GameObject splt = Instantiate(splat, transform.position, transform.rotation);
