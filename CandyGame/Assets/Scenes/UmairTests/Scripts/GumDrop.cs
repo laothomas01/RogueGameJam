@@ -40,6 +40,7 @@ public class GumDrop : MonoBehaviour
         {
             time += Time.deltaTime;
         }
+        Debug.Log(direction);
         
     }
 }
