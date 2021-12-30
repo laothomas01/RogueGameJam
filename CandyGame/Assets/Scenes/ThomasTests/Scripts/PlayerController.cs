@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public float highJump = 2.5f;
     public float lowJump = 2f;
-    public bool jump = false;
+    public static bool jump = false;
     private float time = 0;
 
     [SerializeField] private float jumpForce = 400f;
@@ -32,12 +32,14 @@ public class PlayerController : MonoBehaviour
 
 
     public bool facingRight = true;  // For determining which way the player is currently facing.
-    public static bool moving;
+    public static bool walking;
     private Vector3 velocity = Vector3.zero;
 
-
+    public float stepRate = 0.5f;
+    public float stepcooldown;
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
+
 
     //used to call animations we want to play
     AnimationHandler ah;
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float knockback;
 
-    AudioSource audio;
+
     private void Start()
     {
         ah = this.GetComponent<AnimationHandler>();
@@ -60,12 +62,13 @@ public class PlayerController : MonoBehaviour
         pa = this.GetComponent<Player_Attributes>();
         rb = GetComponent<Rigidbody2D>();
         weapon = GetComponentInChildren<Gun>();
-        moving = false;
-        audio = GetComponent<AudioSource>();
+        walking = false;
+
     }
 
     private void Update()
     {
+        stepcooldown -= Time.deltaTime;
         GroundCheck();
         Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
 
@@ -98,6 +101,14 @@ public class PlayerController : MonoBehaviour
                     RestartLevel();
                 }
 
+                if (stepcooldown < 0f)
+                {
+                    FindObjectOfType<SoundManager>().Step();
+                    stepcooldown = stepRate;
+                }
+
+
+
             }
             else
             {
@@ -124,18 +135,12 @@ public class PlayerController : MonoBehaviour
                 RestartLevel();
             }
         }
-        if (moving)
-        {
-            if (!audio.isPlaying)
-            {
-                audio.Play();
-            }
 
-        }
-        else
-        {
-            audio.Stop();
-        }
+
+        //if (moving)
+        //{
+        //    FindObjectOfType<SoundManager>().Play("HardShoesSound1");
+        //}
 
     }
 
@@ -207,13 +212,15 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.x != 0)
             {
                 ah.ChangeAnimationState(ah.PLAYER_MOVEMENT);
-                moving = true;
+
+                walking = true;
+                FindObjectOfType<SoundManager>().Step();
 
             }
             else
             {
                 ah.ChangeAnimationState(ah.PLAYER_IDLE);
-                moving = false;
+                walking = false;
             }
         }
 
@@ -229,29 +236,7 @@ public class PlayerController : MonoBehaviour
 
             pa.damaged = true;
 
-            //if (transform.position.x < col.gameObject.transform.position.x)
-            //{
-            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
-            //    for (int i = 0; i < transform.childCount; i++)
-            //    {
-            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
 
-            //    }
-            //    this.GetComponentInChildren<Gun>().enabled = false;
-            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
-
-            //}
-            //else
-            //{
-            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * -knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
-            //    for (int i = 0; i < transform.childCount; i++)
-            //    {
-            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
-
-            //    }
-            //    this.GetComponentInChildren<Gun>().enabled = false;
-            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
-            //}
             Vector2 norm = transform.position - col.transform.position;
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -331,6 +316,7 @@ public class PlayerController : MonoBehaviour
 
         if (grounded && jump)
         {
+            FindObjectOfType<SoundManager>().Play("JumpSound");
             rb.velocity = Vector2.up * jumpForce;
             ah.ChangeAnimationState(ah.PLAYER_JUMP);
             grounded = false;

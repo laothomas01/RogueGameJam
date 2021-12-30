@@ -27,7 +27,7 @@ public class Gun : MonoBehaviour
         {
             if (!PauseController.gameisPaused)
             {
-                if (PlayerController.moving)
+                if (PlayerController.walking)
                 {
                     gunTurning();
                     if (Input.GetMouseButtonDown(0) && canShoot)
