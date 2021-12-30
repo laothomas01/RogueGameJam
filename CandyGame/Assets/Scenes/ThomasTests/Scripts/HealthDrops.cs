@@ -6,6 +6,8 @@ public class HealthDrops : MonoBehaviour
 {
     public int heal = 1;
     public float lifeSpan;
+    public bool isItemDrop = false;
+
 
     public void selfDestroy()
     {
@@ -14,7 +16,10 @@ public class HealthDrops : MonoBehaviour
 
     void Update()
     {
-        selfDestroy();
+        if (isItemDrop)
+        {
+            selfDestroy();
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -23,6 +28,7 @@ public class HealthDrops : MonoBehaviour
         {
             if (pa != null)
             {
+                FindObjectOfType<SoundManager>().healthPickup("health");
                 pa.Heal(heal);
                 this.gameObject.SetActive(false);
             }

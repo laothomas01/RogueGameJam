@@ -117,6 +117,18 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    public void healthPickup(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (!s.source.isPlaying)
+        {
+            s.source.PlayOneShot(s.clip);
+        }
+
+
+    }
+
 
 
 }
