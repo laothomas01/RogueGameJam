@@ -69,11 +69,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-<<<<<<< Updated upstream
-        stepcooldown -= Time.deltaTime;
-=======
+
         hitCoolTime += Time.deltaTime;
->>>>>>> Stashed changes
+
         GroundCheck();
         Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
 
@@ -258,11 +256,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-<<<<<<< Updated upstream
-            FindObjectOfType<SoundManager>().player_hurt("damage");
-            Vector2 norm = transform.position - col.transform.position;
-            for (int i = 0; i < transform.childCount; i++)
-=======
             //if (transform.position.x < col.gameObject.transform.position.x)
             //{
             //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
@@ -286,8 +279,7 @@ public class PlayerController : MonoBehaviour
             //    this.GetComponentInChildren<Gun>().enabled = false;
             //    ah.ChangeAnimationState(ah.PLAYER_HURT);
             //}
-            if(time < 1)
->>>>>>> Stashed changes
+            if (time < 1)
             {
                 pa.damaged = true;
                 Vector2 norm = transform.position - col.transform.position;
@@ -300,7 +292,7 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(norm * knockback, ForceMode2D.Impulse);
                 ah.ChangeAnimationState(ah.PLAYER_HURT);
             }
-            
+
 
 
         }
