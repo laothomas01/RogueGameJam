@@ -6,17 +6,18 @@ public class StickyPatrol : MonoBehaviour
 {
     private Rigidbody2D rb;
     private RaycastHit2D[] hits = new RaycastHit2D[4];
-    private RaycastHit2D forwardHit,wallHit,currentGroundHit;
-    public float hitDistance,speed;
+    private RaycastHit2D forwardHit, wallHit, currentGroundHit;
+    public float hitDistance, speed;
     [SerializeField] private LayerMask GroundedMask;
     public Vector2 gravity = new Vector2(0f, -1f);
     public bool grounded;
-    private float time=0;
+    private float time = 0;
     Quaternion newRot;
     public bool right = true;
     private Vector3 forwardRotation;
     private Color curr;
     private EnemyScript enemy;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class StickyPatrol : MonoBehaviour
         //transform.right = -transform.right;
         if (!right)
         {
-            transform.right =  -transform.right;
+            transform.right = -transform.right;
             forwardRotation = -Vector3.forward;
         }
         else
@@ -43,6 +44,7 @@ public class StickyPatrol : MonoBehaviour
         GetComponent<SpriteRenderer>().color = enemy.damaged ? Color.red : curr;
         gravity = -transform.up;
         Vector2 forward = new Vector2(transform.right.x, -transform.up.y);
+
         Debug.DrawRay(transform.position, forward * hitDistance, Color.black);
         forwardHit = Physics2D.Raycast(transform.position, forward, hitDistance, GroundedMask);
         grounded = currentGroundHit;
@@ -55,20 +57,21 @@ public class StickyPatrol : MonoBehaviour
             Debug.DrawRay(transform.position, transform.right * hitDistance, Color.blue);
             transform.rotation = Quaternion.LookRotation(forwardRotation, -transform.right);
         }
-        for (int i=1; i<= hits.Length/2; i++)
+        for (int i = 1; i <= hits.Length / 2; i++)
         {
             int dir = i % 2 == 0 ? 1 : -1;
-            hits[i] = Physics2D.Raycast(transform.position, dir*transform.up, hitDistance, GroundedMask);
-            hits[i+1] = Physics2D.Raycast(transform.position, dir*transform.right, hitDistance, GroundedMask);
+            hits[i] = Physics2D.Raycast(transform.position, dir * transform.up, hitDistance, GroundedMask);
+            hits[i + 1] = Physics2D.Raycast(transform.position, dir * transform.right, hitDistance, GroundedMask);
 
-            
 
-            if(hits[i] || hits[i + 1]){
+
+            if (hits[i] || hits[i + 1])
+            {
                 currentGroundHit = hits[i] ? hits[i] : hits[i + 1];
             }
 
 
-            if ((hits[i] ) && !forwardHit)
+            if ((hits[i]) && !forwardHit)
             {
                 //transform.right = gravity;
                 //transform.up = hits[i].normal;
@@ -77,9 +80,9 @@ public class StickyPatrol : MonoBehaviour
                 Debug.DrawRay(transform.position, dir * transform.right * hitDistance, Color.blue);
 
             }
-            else if((hits[i+1])&& !forwardHit)
+            else if ((hits[i + 1]) && !forwardHit)
             {
-                transform.rotation = Quaternion.LookRotation(forwardRotation, hits[i+1].normal);
+                transform.rotation = Quaternion.LookRotation(forwardRotation, hits[i + 1].normal);
 
                 //transform.right = gravity;
                 //transform.up = hits[i+1].normal;
@@ -87,11 +90,11 @@ public class StickyPatrol : MonoBehaviour
                 Debug.DrawRay(transform.position, dir * transform.right * hitDistance, Color.grey);
 
             }
-            
-          
+
+
 
         }
-        
+
 
     }
 
@@ -103,16 +106,16 @@ public class StickyPatrol : MonoBehaviour
         {
             rb.velocity = transform.right * speed;
             time = 0;
-            
+
         }
         if (!grounded)
         {
             time += Time.fixedDeltaTime;
-            if(time > 1)
+            if (time > 1)
             {
                 gravity = -transform.up;
             }
         }
-        
+
     }
 }

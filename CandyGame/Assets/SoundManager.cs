@@ -129,6 +129,27 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    public void worm(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
 
+        if (!s.source.isPlaying)
+        {
+            s.source.PlayOneShot(s.clip);
+        }
+
+
+    }
+    public void bgnoise(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+
+        if (!s.source.isPlaying)
+        {
+            s.source.Play();
+        }
+
+
+    }
 
 }
