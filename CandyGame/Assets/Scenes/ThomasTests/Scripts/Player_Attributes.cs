@@ -30,21 +30,38 @@ public class Player_Attributes : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        time += Time.deltaTime;
+    }
 
     //player takes damage
     public void TakeDamage(int damage)
     {
+<<<<<<< Updated upstream
 
         damaged = true;
         currentHealth -= damage;
         hb.setHealth(currentHealth);
 
         if (currentHealth <= 0)
+=======
+        if(time > 1)
+>>>>>>> Stashed changes
         {
-            currentHealth = 0;
-            playerIsDead = true;
-            Die();
+            damaged = true;
+            currentHealth -= damage;
+            hb.setHealth(currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                playerIsDead = true;
+                Die();
+            }
+            time = 0;
         }
+        
     }
 
     //player heals health

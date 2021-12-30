@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float lowJump = 2f;
     public static bool jump = false;
     private float time = 0;
+    private float hitCoolTime = 0;
 
     [SerializeField] private float jumpForce = 400f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
@@ -68,7 +69,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< Updated upstream
         stepcooldown -= Time.deltaTime;
+=======
+        hitCoolTime += Time.deltaTime;
+>>>>>>> Stashed changes
         GroundCheck();
         Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
 
@@ -251,18 +256,51 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.layer == 6)
         {
 
-            pa.damaged = true;
 
+
+<<<<<<< Updated upstream
             FindObjectOfType<SoundManager>().player_hurt("damage");
             Vector2 norm = transform.position - col.transform.position;
             for (int i = 0; i < transform.childCount; i++)
-            {
-                transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+=======
+            //if (transform.position.x < col.gameObject.transform.position.x)
+            //{
+            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+            //    for (int i = 0; i < transform.childCount; i++)
+            //    {
+            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
 
+            //    }
+            //    this.GetComponentInChildren<Gun>().enabled = false;
+            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
+
+            //}
+            //else
+            //{
+            //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * -knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
+            //    for (int i = 0; i < transform.childCount; i++)
+            //    {
+            //        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+            //    }
+            //    this.GetComponentInChildren<Gun>().enabled = false;
+            //    ah.ChangeAnimationState(ah.PLAYER_HURT);
+            //}
+            if(time < 1)
+>>>>>>> Stashed changes
+            {
+                pa.damaged = true;
+                Vector2 norm = transform.position - col.transform.position;
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+
+                }
+                this.GetComponentInChildren<Gun>().enabled = false;
+                rb.AddForce(norm * knockback, ForceMode2D.Impulse);
+                ah.ChangeAnimationState(ah.PLAYER_HURT);
             }
-            this.GetComponentInChildren<Gun>().enabled = false;
-            rb.AddForce(norm * knockback, ForceMode2D.Impulse);
-            ah.ChangeAnimationState(ah.PLAYER_HURT);
+            
 
 
         }

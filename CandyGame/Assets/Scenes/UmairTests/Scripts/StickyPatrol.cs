@@ -6,10 +6,15 @@ public class StickyPatrol : MonoBehaviour
 {
     private Rigidbody2D rb;
     private RaycastHit2D[] hits = new RaycastHit2D[4];
+<<<<<<< Updated upstream
     private RaycastHit2D forwardHit, wallHit, currentGroundHit;
     public float hitDistance, speed;
+=======
+    private RaycastHit2D forwardHit,wallHit,currentGroundHit;
+    public float hitDistance,speed,gravityForce,dlDistance;
+>>>>>>> Stashed changes
     [SerializeField] private LayerMask GroundedMask;
-    public Vector2 gravity = new Vector2(0f, -1f);
+    private Vector2 gravity = new Vector2(0f, -1f);
     public bool grounded;
     private float time = 0;
     Quaternion newRot;
@@ -47,7 +52,7 @@ public class StickyPatrol : MonoBehaviour
 
         Debug.DrawRay(transform.position, forward * hitDistance, Color.black);
         forwardHit = Physics2D.Raycast(transform.position, forward, hitDistance, GroundedMask);
-        grounded = currentGroundHit;
+        grounded = onTheGround();
 
         wallHit = Physics2D.Raycast(transform.position, transform.right, hitDistance, GroundedMask);
         if (wallHit)
@@ -57,11 +62,26 @@ public class StickyPatrol : MonoBehaviour
             Debug.DrawRay(transform.position, transform.right * hitDistance, Color.blue);
             transform.rotation = Quaternion.LookRotation(forwardRotation, -transform.right);
         }
+<<<<<<< Updated upstream
         for (int i = 1; i <= hits.Length / 2; i++)
         {
             int dir = i % 2 == 0 ? 1 : -1;
             hits[i] = Physics2D.Raycast(transform.position, dir * transform.up, hitDistance, GroundedMask);
             hits[i + 1] = Physics2D.Raycast(transform.position, dir * transform.right, hitDistance, GroundedMask);
+=======
+        
+        for (int i=1; i<= hits.Length/2; i++)
+        {
+            int dir = i % 2 == 0 ? 1 : -1;
+            if(i == 0)
+            {
+                Debug.DrawRay(transform.position, dir * transform.up * (hitDistance+dlDistance), Color.red);
+                Debug.DrawRay(transform.position, dir * transform.right * (hitDistance + dlDistance), Color.blue);
+
+            }
+            hits[i] = Physics2D.Raycast(transform.position, dir*transform.up, hitDistance, GroundedMask);
+            hits[i+1] = Physics2D.Raycast(transform.position, dir*transform.right, hitDistance, GroundedMask);
+>>>>>>> Stashed changes
 
 
 
@@ -95,6 +115,7 @@ public class StickyPatrol : MonoBehaviour
 
         }
 
+<<<<<<< Updated upstream
         if (this.GetComponent<EnemyScript>().damaged)
         {
             FindObjectOfType<SoundManager>().Play2("wormhit");
@@ -104,6 +125,18 @@ public class StickyPatrol : MonoBehaviour
         {
 
             FindObjectOfType<SoundManager>().Play2("sizzle");
+=======
+        bool onTheGround()
+        {
+            for(int i=0; i < hits.Length; i++)
+            {
+                if (hits[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+>>>>>>> Stashed changes
         }
 
     }
@@ -111,8 +144,8 @@ public class StickyPatrol : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(gravity * 100f, ForceMode2D.Force);
-        if (grounded)
+        rb.AddForce(gravity * gravityForce, ForceMode2D.Force);
+        if (grounded || time <0.5f)
         {
             rb.velocity = transform.right * speed;
             time = 0;
@@ -121,9 +154,13 @@ public class StickyPatrol : MonoBehaviour
         if (!grounded)
         {
             time += Time.fixedDeltaTime;
+<<<<<<< Updated upstream
             if (time > 1)
+=======
+            if(time > 2)
+>>>>>>> Stashed changes
             {
-                gravity = -transform.up;
+                gravity = -Vector2.up;
             }
         }
 
