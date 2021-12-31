@@ -38,9 +38,13 @@ public class Player_Attributes : MonoBehaviour
     //player takes damage
     public void TakeDamage(int damage)
     {
+<<<<<<< Updated upstream
 
         if (time > 1)
 
+=======
+        if(time > 1)
+>>>>>>> Stashed changes
         {
             damaged = true;
             currentHealth -= damage;
@@ -54,7 +58,11 @@ public class Player_Attributes : MonoBehaviour
             }
             time = 0;
         }
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
     }
 
     //player heals health
