@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HealthDrops : MonoBehaviour
 {
-    public int heal = 1;
+    public int heal = 2;
     public float lifeSpan;
     public bool isItemDrop = false;
 
