@@ -47,7 +47,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
 
     public void createPieces(int x, int y)
     {
-        pool = Random.Range(0,100);
+        pool = Random.Range(0, 100);
         if (pool >= 50)
         {
             Vector3 explosionPos = this.transform.position;
@@ -63,7 +63,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
                 sludge.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
             }
         }
-        else if(pool <= 49)
+        else if (pool <= 49)
         {
             Vector3 explosionPos = this.transform.position;
             GameObject healthDrops = ObjectPool.instance.Get_Health_Drops();
@@ -91,6 +91,6 @@ public class Resuable_Explosion_Script : MonoBehaviour
             }
         }
     }
-   
+
 }
 
