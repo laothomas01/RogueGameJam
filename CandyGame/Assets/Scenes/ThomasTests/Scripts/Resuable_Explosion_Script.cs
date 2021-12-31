@@ -98,9 +98,9 @@ public class Resuable_Explosion_Script : MonoBehaviour
     }
     public void explode_Out_HealthPacks()
     {
-        for (int i = 0; i < objectsInRow * 2; i++)
+        for (int i = 0; i < objectsInRow; i++)
         {
-            for (int j = 0; j < objectsInRow * 2; j++)
+            for (int j = 0; j < objectsInRow; j++)
             {
                 createPieces(i, j);
             }

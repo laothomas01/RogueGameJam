@@ -15,6 +15,7 @@ public class EnemyScript : MonoBehaviour
     public bool damaged;
     private float time = 0f;
     private Resuable_Explosion_Script pes;
+    public bool explodable = false;
     private void Start()
     {
 
@@ -70,15 +71,19 @@ public class EnemyScript : MonoBehaviour
     {
         Destroy(this.gameObject, deathTime);
         //explode [ 1- >>>> 50 ]
-        int random = Random.RandomRange(0, 10);
-        if (random >= 5)
+        if(explodable)
         {
-            pes.explode_Out_HealthPacks();
+            int random = Random.RandomRange(0, 10);
+            if (random >= 5)
+            {
+                pes.explode_Out_HealthPacks();
 
+            }
+            else
+            {
+                pes.explodeSludge();
+            }
         }
-        else
-        {
-            pes.explodeSludge();
-        }
+        
     }
 }
