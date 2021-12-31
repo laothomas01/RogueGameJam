@@ -14,12 +14,12 @@ public class PezDespenser : MonoBehaviour
     public float amp = 1;
     private RaycastHit2D hit;
     public float freq = 1;
-    private float time,dir = 0;
+    private float time, dir = 0;
     private bool spotted;
     public float fireGap = 2;
     public Animator turretAnimator, headAnimator, bodyAnimator;
     private EnemyScript enemy;
-    public bool facingRight=true;
+    public bool facingRight = true;
     private float yScaleNeg, yScalePos;
 
     // Start is called before the first frame update
@@ -37,7 +37,7 @@ public class PezDespenser : MonoBehaviour
         //gun.transform.right = -gun.transform.right;
         //transform.right = -transform.right;
         dir = facingRight ? 0 : 180;
-        
+
     }
 
     // Update is called once per frame
@@ -62,7 +62,7 @@ public class PezDespenser : MonoBehaviour
             //gun.transform.rotation = Quaternion.AngleAxis(z, transform.forward);
 
             //gun.transform.rotation  = Quaternion.Euler(gun.transform.rotation.x, gun.transform.rotation.y, gun.transform.rotation.z);
-            gun.transform.rotation = Quaternion.Euler(0, dir , z);
+            gun.transform.rotation = Quaternion.Euler(0, dir, z);
             if (!facingRight)
             {
                 gun.transform.localScale = new Vector3(gun.transform.localScale.x, yScalePos, gun.transform.localScale.z);
@@ -84,7 +84,7 @@ public class PezDespenser : MonoBehaviour
             }
             spotted = true;
         }
-        
+
         Debug.DrawRay(gun.transform.position, gun.transform.right * hitDistance, Color.green);
 
 

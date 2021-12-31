@@ -24,6 +24,7 @@ public class HealthDrops : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Player_Attributes pa = collision.gameObject.GetComponent<Player_Attributes>();
+
         if (collision.gameObject.tag == "Player")
         {
             if (pa != null)
@@ -32,6 +33,10 @@ public class HealthDrops : MonoBehaviour
                 pa.Heal(heal);
                 this.gameObject.SetActive(false);
             }
+        }
+        if (collision.gameObject.tag == "enemy")
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
     }
 
