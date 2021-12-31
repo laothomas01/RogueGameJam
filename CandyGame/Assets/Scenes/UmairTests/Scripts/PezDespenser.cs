@@ -20,6 +20,7 @@ public class PezDespenser : MonoBehaviour
     public Animator turretAnimator, headAnimator, bodyAnimator;
     private EnemyScript enemy;
     public bool facingRight=true;
+    private float yScaleNeg, yScalePos;
 
     // Start is called before the first frame update
     void Start()
@@ -28,14 +29,15 @@ public class PezDespenser : MonoBehaviour
         headAnimator = transform.GetChild(0).GetComponent<Animator>();
         bodyAnimator = transform.GetChild(1).GetComponent<Animator>();
         turretAnimator = GetComponent<Animator>();
-
+        yScaleNeg = -gun.transform.localScale.y;
+        yScalePos = gun.transform.localScale.y;
         rb = GetComponent<Rigidbody2D>();
         x = gun.transform.rotation.x;
         y = gun.transform.rotation.y;
         //gun.transform.right = -gun.transform.right;
         //transform.right = -transform.right;
         dir = facingRight ? 0 : 180;
-
+        
     }
 
     // Update is called once per frame
@@ -61,7 +63,10 @@ public class PezDespenser : MonoBehaviour
 
             //gun.transform.rotation  = Quaternion.Euler(gun.transform.rotation.x, gun.transform.rotation.y, gun.transform.rotation.z);
             gun.transform.rotation = Quaternion.Euler(0, dir , z);
-
+            if (!facingRight)
+            {
+                gun.transform.localScale = new Vector3(gun.transform.localScale.x, yScalePos, gun.transform.localScale.z);
+            }
             z = Mathf.Sin(Time.time * freq) * amp;
             spotted = false;
         }
@@ -69,6 +74,10 @@ public class PezDespenser : MonoBehaviour
         {
             direction = hit.transform.position - gun.transform.position;
             gun.transform.right = direction;
+            if (!facingRight)
+            {
+                gun.transform.localScale = new Vector3(gun.transform.localScale.x, yScaleNeg, gun.transform.localScale.z);
+            }
             if (!spotted)
             {
                 Debug.Log("Should return");

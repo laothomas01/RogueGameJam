@@ -8,7 +8,7 @@ public class FollowCamera : MonoBehaviour
     private Camera camera;
     Vector3 newPosition;
     public float xOffset,yOffset,zOffSet=1f;
-    public float bound,speed,x,y;
+    public float xbound,ybound,xSpeed,ySpeed,x,y;
     public float xDistance, yDistance, w, h,distance;
     private void Start()
     {
@@ -26,43 +26,29 @@ public class FollowCamera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
-        //Debug.DrawRay(new Vector2(xEdge,transform.position.y) , Vector2.up * 100, Color.red);
-        //Debug.DrawRay(new Vector2(-xEdge, transform.position.y), Vector2.up * 100, Color.red);
-        //Debug.DrawRay(new Vector2(transform.position.x,yEdge), Vector2.right * 100, Color.green);
-        //Debug.DrawRay(new Vector2(transform.position.x, -yEdge), Vector2.right * 100, Color.green);
+        
 
-        // get the X and Y position of the follow target and the Z position of the camera.
-        // if the camera Z position is zero or position, the screen will be blank, so we are setting it to -10 (any negative number will work)
-        //if (followTarget.position.x > Screen.width - bound)
-        //{
-        //    x += speed * Time.deltaTime;
-        //}
-        //if (followTarget.position.x < bound)
-        //{
-        //    x -= speed * Time.deltaTime;
-        //}
-        //if (followTarget.position.y > Screen.height - bound)
-        //{
-        //    y += speed * Time.deltaTime;
-        //}
-        //if (followTarget.position.x <  bound)
-        //{
-        //    y -= speed * Time.deltaTime;
-        //}
-
-        w = transform.position.x + bound;
-        h = transform.position.y + bound;
+        w = transform.position.x;
+        h = transform.position.y;
         distance = followTarget.position.x;
-        if (followTarget.position.x > w)
+        if (followTarget.position.x > w + xbound)
         {
-            x += speed * Time.deltaTime;
+            x += xSpeed * Time.fixedDeltaTime;
         }
-        if (followTarget.position.x <- w)
+        if (followTarget.position.x <w-xbound)
         {
-            x -= speed * Time.deltaTime;
+            x -= xSpeed * Time.fixedDeltaTime;
+        }
+        if (followTarget.position.y > h + ybound)
+        {
+            y += ySpeed * Time.fixedDeltaTime;
+        }
+        if (followTarget.position.y < h - ybound)
+        {
+            y -= ySpeed * Time.fixedDeltaTime;
         }
 
 
