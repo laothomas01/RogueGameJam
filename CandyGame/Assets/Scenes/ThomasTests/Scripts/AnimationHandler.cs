@@ -16,6 +16,8 @@ public class AnimationHandler : MonoBehaviour
     public string PLAYER_JUMP = "PlayerJumpAnimation";
     [HideInInspector]
     public string PLAYER_HURT = "PlayerHurtAnimation";
+    [HideInInspector]
+    public string WAKE_UP = "Wakeup";
 
     private Animator animator;
     private string currentState;

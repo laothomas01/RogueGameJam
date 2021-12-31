@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public static bool jump = false;
     private float time = 0;
     private float hitCoolTime = 0;
-
+    private bool woke = false;
     [SerializeField] private float jumpForce = 400f;
     [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;
     [SerializeField] private LayerMask GroundedMask;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public float stepcooldown;
     private float horizontalMove = 0f;
     public float runSpeed = 40f;
-
+    private float wakeUpTimer;
 
     //used to call animations we want to play
     AnimationHandler ah;
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
 
         hitCoolTime += Time.deltaTime;
-
+        wakeUpTimer += Time.deltaTime;
         GroundCheck();
         Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
 
@@ -169,32 +169,45 @@ public class PlayerController : MonoBehaviour
     {
 
 
-
-        if (!pa.damaged)
+        if(wakeUpTimer < 2.3f)
         {
-            Move();
-            time = 0;
+            ah.ChangeAnimationState(ah.WAKE_UP);
+            transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
         }
         else
         {
-            time += Time.fixedDeltaTime;
-
-
-            if (time > 0.5)
+            if (!woke)
             {
-                pa.damaged = false;
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
-
-                }
-                this.GetComponentInChildren<Gun>().enabled = true;
+                woke = true;
+                transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = true;
             }
+            if (!pa.damaged)
+            {
+                Move();
+                time = 0;
+            }
+            else
+            {
+                time += Time.fixedDeltaTime;
+
+
+                if (time > 0.5)
+                {
+                    pa.damaged = false;
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = true;
+
+                    }
+                    this.GetComponentInChildren<Gun>().enabled = true;
+                }
+            }
+
+
+            // Jump control and animation
+            Jump();
         }
-
-
-        // Jump control and animation
-        Jump();
+       
 
     }
 
