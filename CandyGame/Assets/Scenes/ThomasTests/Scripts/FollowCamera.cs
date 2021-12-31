@@ -9,7 +9,7 @@ public class FollowCamera : MonoBehaviour
     Vector3 newPosition;
     public float xOffset,yOffset,zOffSet=1f;
     public float bound,speed,x,y;
-    public float xDistance, yDistance, w, h;
+    public float xDistance, yDistance, w, h,distance;
     private void Start()
     {
         //Cursor.visible = false;
@@ -53,10 +53,19 @@ public class FollowCamera : MonoBehaviour
         //    y -= speed * Time.deltaTime;
         //}
 
-        w = Screen.width;
-        h = Screen.height;
-        xDistance = followTarget.position.x - w;
-        yDistance = followTarget.position.y - h;
+        w = transform.position.x + bound;
+        h = transform.position.y + bound;
+        distance = followTarget.position.x;
+        if (followTarget.position.x > w)
+        {
+            x += speed * Time.deltaTime;
+        }
+        if (followTarget.position.x <- w)
+        {
+            x -= speed * Time.deltaTime;
+        }
+
+
         // set camera position to new position
         newPosition = new Vector3(x + xOffset, y + yOffset, zOffSet);
         transform.position = newPosition;
