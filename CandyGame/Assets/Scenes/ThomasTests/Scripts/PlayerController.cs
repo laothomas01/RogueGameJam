@@ -69,13 +69,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-<<<<<<< Updated upstream
 
         hitCoolTime += Time.deltaTime;
 
-=======
-        hitCoolTime += Time.deltaTime;
->>>>>>> Stashed changes
         GroundCheck();
         Flip_Player_Based_On_Rotation_Of_The_Mouse_Input();
 
@@ -283,11 +279,9 @@ public class PlayerController : MonoBehaviour
             //    this.GetComponentInChildren<Gun>().enabled = false;
             //    ah.ChangeAnimationState(ah.PLAYER_HURT);
             //}
-<<<<<<< Updated upstream
-            if (time < 1)
-=======
+
             if(time < 1)
->>>>>>> Stashed changes
+
             {
                 pa.damaged = true;
                 Vector2 norm = transform.position - col.transform.position;
@@ -300,11 +294,7 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(norm * knockback, ForceMode2D.Impulse);
                 ah.ChangeAnimationState(ah.PLAYER_HURT);
             }
-<<<<<<< Updated upstream
 
-=======
-            
->>>>>>> Stashed changes
 
 
         }
