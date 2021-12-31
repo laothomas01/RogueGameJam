@@ -53,6 +53,7 @@ public class PezDespenser : MonoBehaviour
         if (!hit)
         {
             gun.transform.rotation = Quaternion.AngleAxis(z, Vector3.forward);
+
             z = Mathf.Sin(Time.time * freq) * amp;
             spotted = false;
         }

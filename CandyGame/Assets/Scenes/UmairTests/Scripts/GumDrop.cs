@@ -6,7 +6,7 @@ public class GumDrop : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float jumpInterval, jumpForce, distance, horiDis;
-    private float time, horizontal,direction;
+    private float time, horizontal, direction;
     private Transform Player;
     // Start is called before the first frame update
     void Awake()
@@ -27,18 +27,20 @@ public class GumDrop : MonoBehaviour
 
         if (time > jumpInterval)
         {
-            
+
             if (Mathf.Abs(direction) < distance)
             {
-                horizontal = direction/Mathf.Abs(direction);
+                horizontal = direction / Mathf.Abs(direction);
+                FindObjectOfType<SoundManager>().Step("boing");
             }
             else
             {
                 horizontal = Random.Range(-1, 2);
+                FindObjectOfType<SoundManager>().Step("boing");
             }
-            
-            
-            rb.velocity = new Vector2(Vector2.right.x * horizontal*horiDis,Vector2.up.y* jumpForce);
+
+
+            rb.velocity = new Vector2(Vector2.right.x * horizontal * horiDis, Vector2.up.y * jumpForce);
             time = 0;
         }
         else
@@ -46,6 +48,6 @@ public class GumDrop : MonoBehaviour
             time += Time.deltaTime;
         }
         Debug.Log(direction);
-        
+
     }
 }

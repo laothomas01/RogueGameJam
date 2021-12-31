@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        if(wakeUpTimer < 2.3f)
+        if (wakeUpTimer < 2.3f)
         {
             ah.ChangeAnimationState(ah.WAKE_UP);
             transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
             // Jump control and animation
             Jump();
         }
-       
+
 
     }
 
