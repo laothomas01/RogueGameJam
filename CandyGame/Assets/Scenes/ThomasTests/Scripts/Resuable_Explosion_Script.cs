@@ -23,6 +23,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
 
     private float objectPivotDistance;
     public float explosionRadius = 0f;
+    public int pool;
 
     //your choice on what pools you want to be active
     //note: check the boxes before starting the scene
@@ -34,14 +35,20 @@ public class Resuable_Explosion_Script : MonoBehaviour
     Vector2 objectPivot;
     void Start()
     {
-        explosionForce = Random.Range(300, 500);
-        explosionUpward = Random.Range(0.4f, 0.7f);
-        explosionRadius = Random.Range(3, 6);
+        explosionForce = 400;
+        explosionUpward = .5f;
+        explosionRadius = 4;
         objectsInRow = Random.Range(1, 3);
         //calculate pivot distance
         objectPivotDistance = objectSize * objectsInRow / 2;
         //use this value to create a pivot vector
         objectPivot = new Vector3(objectPivotDistance, objectPivotDistance);
+        pool = Random.Range(1, 3);
+        if (pool == 1)
+            poolSludge = true;
+        else
+            poolHealthPacks = true;
+
     }
 
     public void createPieces(int x, int y)
