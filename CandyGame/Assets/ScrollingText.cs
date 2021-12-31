@@ -31,15 +31,15 @@ public class ScrollingText : MonoBehaviour
         + "\n.....\n"
         + "\n.....\n";
 
-    private string message2 = "HELLO, MY NAME IS ZEGLER ROMANOV.\nI AM A QUANTUM PHYICIST FOR PROJECT RASPUTIN.\n" +
-        "WE HAVE BEEN WORKING ON PROJECT RASPUTIN FOR 10 YEARS AND HAVE FINALLY PERFECTED THE QUANTUM TUNNELING.\n" +
-        "BUT SOMETHING WAS NOT SUPPOSE TO ENTER THAT MACHINE AND SOMETHING WAS NOT SUPPOSE TO COME THROUGH THAT MACHINE. " +
+    private string message2 = "HELLO, MY NAME IS ZEGLER ROMANOV.\n\nI AM A QUANTUM PHYICIST FOR PROJECT RASPUTIN\n\n" +
+        "WE HAVE BEEN WORKING ON PROJECT RASPUTIN FOR 10 YEARS AND HAVE FINALLY PERFECTED THE QUANTUM TUNNELING\n\n" +
+        "BUT SOMETHING WAS NOT SUPPOSE TO ENTER THAT MACHINE AND SOMETHING WAS NOT SUPPOSE TO COME THROUGH THAT MACHINE\n\n" +
         "IF YOU RECEIVE THIS MESSAGE, TURN OFF THE MACHINE!";
 
-    private string message3 = "GAME INPUTS:\n" +
-        "MOVEMENT:\n MOVE LEFT: A\nMOVE RIGHT: D\nJUMP: W\n" +
-        "SHOOT: LEFT MOUSE CLICK\n";
-    private string message4 = "             PRESS SPACE BAR TO CONTINUE             ";
+    private string message3 = "[================= GAME CONTROLS =================]\n" +
+        "[=================== MOVE LEFT: A ===============]\n [================== MOVE RIGHT: D ===============]\n [================== JUMP: SPACEBAR =================]\n" +
+        "[=================== SHOOT: LEFT MOUSE CLICK ===========]";
+    private string message4 = "\n[============ PRESS SPACE BAR TO CONTINUE ===============]";
 
 
 
@@ -53,24 +53,26 @@ public class ScrollingText : MonoBehaviour
     }
     IEnumerator ShowText()
     {
-        for (int i = 0; i < message.Length; i++)
-        {
-            currText = message.Substring(0, i + 1);
-            t.text = currText;
-            yield return new WaitForSeconds(delay);
-        }
-        for (int i = 0; i < message2.Length; i++)
-        {
-            currText = message2.Substring(0, i + 1);
-            t.text = currText;
-            yield return new WaitForSeconds(delay);
-        }
+        //for (int i = 0; i < message.Length; i++)
+        //{
+        //    currText = message.Substring(0, i + 1);
+        //    t.text = currText;
+        //    yield return new WaitForSeconds(delay);
+        //}
+        //for (int i = 0; i < message2.Length; i++)
+        //{
+        //    currText = message2.Substring(0, i + 1);
+        //    t.text = currText;
+        //    yield return new WaitForSeconds(delay);
+        //}
+        delay = 0.1f;
         for (int i = 0; i < message3.Length; i++)
         {
             currText = message3.Substring(0, i + 1);
             t.text = currText;
             yield return new WaitForSeconds(delay);
         }
+
         for (int i = 0; i < message4.Length; i++)
         {
             currText = message4.Substring(0, i + 1);
