@@ -97,6 +97,7 @@ public class SoundManager : MonoBehaviour
     }
     public void player_hurt(string name)
     {
+<<<<<<< HEAD
         Sound s = Array.Find(sounds, sound => sound.name == name);
 
         if (!s.source.isPlaying)
@@ -163,5 +164,11 @@ public class SoundManager : MonoBehaviour
 
 
     }
+=======
+        //playerhitsound = Resources.Load<AudioClip>
+    }
+
+
+>>>>>>> NEW-BRANCH-FROM-THE-MAIN
 
 }

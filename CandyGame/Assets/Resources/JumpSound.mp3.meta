@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: f5997aec2d7a1a14db31204f4a53e373
+=======
+<<<<<<<< HEAD:CandyGame/Assets/Resources/JumpSound.mp3.meta
+guid: dbf4f428c9d62a846a00219948be1f9f
+========
+guid: bc0e4ec3386e0cc4d87f606fce96bcdb
+>>>>>>>> NEW-BRANCH-FROM-THE-MAIN:CandyGame/Assets/Resources/FootStepSounds.mp3.meta
+>>>>>>> NEW-BRANCH-FROM-THE-MAIN
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6

@@ -155,12 +155,18 @@ public class PlayerController : MonoBehaviour
                 RestartLevel();
             }
         }
+<<<<<<< HEAD
 
 
         //if (moving)
         //{
         //    FindObjectOfType<SoundManager>().Play("HardShoesSound1");
         //}
+=======
+        
+
+
+>>>>>>> NEW-BRANCH-FROM-THE-MAIN
 
     }
 
@@ -256,6 +262,7 @@ public class PlayerController : MonoBehaviour
 
 
 
+<<<<<<< HEAD
             //if (transform.position.x < col.gameObject.transform.position.x)
             //{
             //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
@@ -282,6 +289,10 @@ public class PlayerController : MonoBehaviour
 
             if(time < 1)
 
+=======
+            Vector2 norm = transform.position - col.transform.position;
+            for (int i = 0; i < transform.childCount; i++)
+>>>>>>> NEW-BRANCH-FROM-THE-MAIN
             {
                 pa.damaged = true;
                 Vector2 norm = transform.position - col.transform.position;
@@ -368,7 +379,10 @@ public class PlayerController : MonoBehaviour
             FindObjectOfType<SoundManager>().Play("JumpSound");
             rb.velocity = Vector2.up * jumpForce;
             ah.ChangeAnimationState(ah.PLAYER_JUMP);
+
             grounded = false;
+
+
         }
     }
 }
