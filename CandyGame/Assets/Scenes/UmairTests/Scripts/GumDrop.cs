@@ -8,9 +8,11 @@ public class GumDrop : MonoBehaviour
     public float jumpInterval, jumpForce, distance, horiDis;
     private float time, horizontal, direction;
     private Transform Player;
+
     // Start is called before the first frame update
     void Awake()
     {
+
         time = 0;
         rb = GetComponent<Rigidbody2D>();
         Player = GameObject.FindGameObjectsWithTag("Player")[0].transform;
@@ -31,12 +33,12 @@ public class GumDrop : MonoBehaviour
             if (Mathf.Abs(direction) < distance)
             {
                 horizontal = direction / Mathf.Abs(direction);
-                FindObjectOfType<SoundManager>().Step("boing");
+
             }
             else
             {
                 horizontal = Random.Range(-1, 2);
-                FindObjectOfType<SoundManager>().Step("boing");
+
             }
 
 
