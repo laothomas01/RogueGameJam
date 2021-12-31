@@ -155,18 +155,7 @@ public class PlayerController : MonoBehaviour
                 RestartLevel();
             }
         }
-<<<<<<< HEAD
 
-
-        //if (moving)
-        //{
-        //    FindObjectOfType<SoundManager>().Play("HardShoesSound1");
-        //}
-=======
-        
-
-
->>>>>>> NEW-BRANCH-FROM-THE-MAIN
 
     }
 
@@ -262,7 +251,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-<<<<<<< HEAD
             //if (transform.position.x < col.gameObject.transform.position.x)
             //{
             //    rb.AddForce(new Vector2(rb.transform.position.x - col.transform.position.x * knockback, rb.transform.position.y - col.transform.position.y), ForceMode2D.Impulse);
@@ -287,27 +275,26 @@ public class PlayerController : MonoBehaviour
             //    ah.ChangeAnimationState(ah.PLAYER_HURT);
             //}
 
-            if(time < 1)
-
-=======
-            Vector2 norm = transform.position - col.transform.position;
-            for (int i = 0; i < transform.childCount; i++)
->>>>>>> NEW-BRANCH-FROM-THE-MAIN
+            if (time < 1)
             {
-                pa.damaged = true;
-                Vector2 norm = transform.position - col.transform.position;
-                for (int i = 0; i < transform.childCount; i++)
+
+
                 {
-                    transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
+                    pa.damaged = true;
+                    Vector2 norm = transform.position - col.transform.position;
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).GetComponent<SpriteRenderer>().enabled = false;
 
+                    }
+                    this.GetComponentInChildren<Gun>().enabled = false;
+                    rb.AddForce(norm * knockback, ForceMode2D.Impulse);
+                    ah.ChangeAnimationState(ah.PLAYER_HURT);
                 }
-                this.GetComponentInChildren<Gun>().enabled = false;
-                rb.AddForce(norm * knockback, ForceMode2D.Impulse);
-                ah.ChangeAnimationState(ah.PLAYER_HURT);
+
+
+
             }
-
-
-
         }
     }
 
