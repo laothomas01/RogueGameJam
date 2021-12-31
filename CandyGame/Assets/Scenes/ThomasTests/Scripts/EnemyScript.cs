@@ -6,7 +6,7 @@ public class EnemyScript : MonoBehaviour
 {
 
     public int currentHealth = 10;
-    public int deathTime = 0;
+    public float deathTime = 0;
     [HideInInspector]
     public bool dead = false;
     private bool playerIsDead = false;
@@ -41,9 +41,12 @@ public class EnemyScript : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            dead = true;
+
             currentHealth = 0;
+
             Die();
+
+
         }
     }
 
@@ -65,17 +68,29 @@ public class EnemyScript : MonoBehaviour
             }
         }
 
+        if (dead)
+        {
+            Physics2D.IgnoreLayerCollision(7, 6);
+            Physics2D.IgnoreLayerCollision(6, 31);
+        }
+
+
     }
 
     private void Die()
     {
+        //Destroy(this.gameObject, deathTime);
+        ////explode [ 1- >>>> 50 ]
+        //if (explodable)
+        //{
+        //    res.explode();
+        //    Destroy(this.gameObject, deathTime);
+        //}
+        //Debug.Log(dead);
+        dead = true;
+        res.explode();
         Destroy(this.gameObject, deathTime);
-        //explode [ 1- >>>> 50 ]
-        if (explodable)
-        {
-            res.explode();
-            Destroy(this.gameObject, deathTime);
-        }
+
 
     }
 }
