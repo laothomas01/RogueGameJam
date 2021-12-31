@@ -14,13 +14,13 @@ public class EnemyScript : MonoBehaviour
     public int damage;
     public bool damaged;
     private float time = 0f;
-    private Resuable_Explosion_Script pes;
+    private Resuable_Explosion_Script res;
     public bool explodable = false;
     private void Start()
     {
 
         ah = GetComponent<AnimationHandler>();
-        pes = GetComponent<Resuable_Explosion_Script>();
+        res = GetComponent<Resuable_Explosion_Script>();
     }
     public void Update()
     {
@@ -73,7 +73,7 @@ public class EnemyScript : MonoBehaviour
         //explode [ 1- >>>> 50 ]
         if (explodable)
         {
-            pes.explode();
+            res.explode();
         }
 
     }
