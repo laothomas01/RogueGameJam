@@ -74,6 +74,7 @@ public class EnemyScript : MonoBehaviour
         if (explodable)
         {
             res.explode();
+            Destroy(this.gameObject, deathTime);
         }
 
     }
