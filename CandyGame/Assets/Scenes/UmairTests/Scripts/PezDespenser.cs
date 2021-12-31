@@ -14,11 +14,12 @@ public class PezDespenser : MonoBehaviour
     public float amp = 1;
     private RaycastHit2D hit;
     public float freq = 1;
-    private float time = 0;
+    private float time,dir = 0;
     private bool spotted;
     public float fireGap = 2;
     public Animator turretAnimator, headAnimator, bodyAnimator;
     private EnemyScript enemy;
+    public bool facingRight=true;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,10 @@ public class PezDespenser : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         x = gun.transform.rotation.x;
         y = gun.transform.rotation.y;
+        //gun.transform.right = -gun.transform.right;
+        //transform.right = -transform.right;
+        dir = facingRight ? 0 : 180;
+
     }
 
     // Update is called once per frame
@@ -52,7 +57,10 @@ public class PezDespenser : MonoBehaviour
 
         if (!hit)
         {
-            gun.transform.rotation = Quaternion.AngleAxis(z, Vector3.forward);
+            //gun.transform.rotation = Quaternion.AngleAxis(z, transform.forward);
+
+            //gun.transform.rotation  = Quaternion.Euler(gun.transform.rotation.x, gun.transform.rotation.y, gun.transform.rotation.z);
+            gun.transform.rotation = Quaternion.Euler(0, dir , z);
 
             z = Mathf.Sin(Time.time * freq) * amp;
             spotted = false;
@@ -67,7 +75,7 @@ public class PezDespenser : MonoBehaviour
             }
             spotted = true;
         }
-        //gun.transform.Rotate(x, y, z);
+        
         Debug.DrawRay(gun.transform.position, gun.transform.right * hitDistance, Color.green);
 
 
