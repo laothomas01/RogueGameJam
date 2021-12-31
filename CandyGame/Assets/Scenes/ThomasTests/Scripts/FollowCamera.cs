@@ -8,8 +8,8 @@ public class FollowCamera : MonoBehaviour
     private Camera camera;
     Vector3 newPosition;
     public float xOffset,yOffset,zOffSet=1f;
-    public float xbound,ybound,xSpeed,ySpeed,x,y;
-    public float xDistance, yDistance, w, h,distance;
+    public float xbound,ybound,xSpeed,ySpeed;
+    private float  w, h, x, y;
     private void Start()
     {
         //Cursor.visible = false;
@@ -33,7 +33,7 @@ public class FollowCamera : MonoBehaviour
 
         w = transform.position.x;
         h = transform.position.y;
-        distance = followTarget.position.x;
+        
         if (followTarget.position.x > w + xbound)
         {
             x += xSpeed * Time.fixedDeltaTime;
