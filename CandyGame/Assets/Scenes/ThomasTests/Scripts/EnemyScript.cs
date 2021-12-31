@@ -73,16 +73,7 @@ public class EnemyScript : MonoBehaviour
         //explode [ 1- >>>> 50 ]
         if (explodable)
         {
-            int random = Random.Range(0, 10);
-            if (random >= 5)
-            {
-                pes.explode_Out_HealthPacks();
-
-            }
-            else
-            {
-                pes.explodeSludge();
-            }
+            pes.explode();
         }
 
     }

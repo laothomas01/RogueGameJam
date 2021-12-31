@@ -1,68 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class CandyBirthMother : MonoBehaviour
-{
-    [SerializeField] private float iFramesDuration;
-    private bool isInvincible = false;
-    public int health = 10;
+//public class CandyBirthMother : MonoBehaviour
+//{
+//    [SerializeField] private float iFramesDuration;
+//    private bool isInvincible = false;
+//    public int health = 10;
 
-    public Resuable_Explosion_Script res;
+//    public Resuable_Explosion_Script res;
 
-    private void Start()
-    {
-
-
-
-        res = GetComponent<Resuable_Explosion_Script>();
-    }
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-
-        // Gives enemy invincibility in between taking damage.
-        //if (!isInvincible)
-        //{
-        //    StartCoroutine(Invunerability());
-        //}
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
+//    private void Start()
+//    {
 
 
 
-    void Die()
-    {
+//        res = GetComponent<Resuable_Explosion_Script>();
+//    }
+//    public void TakeDamage(int damage)
+//    {
+//        health -= damage;
+
+//        // Gives enemy invincibility in between taking damage.
+//        //if (!isInvincible)
+//        //{
+//        //    StartCoroutine(Invunerability());
+//        //}
+//        if (health <= 0)
+//        {
+//            Die();
+//        }
+//    }
 
 
-        StartCoroutine(DeleteObject());                 // Destroys enemy object after a fixed amount of time.
-    }
 
-    // Suspends time inbetween invulnerability frames.
-    //public IEnumerator Invunerability()
-    //{
-
-    //    isInvincible = true;
+//    void Die()
+//    {
 
 
-    //    yield return new WaitForSeconds(iFramesDuration);
+//        StartCoroutine(DeleteObject());                 // Destroys enemy object after a fixed amount of time.
+//    }
 
-    //    isInvincible = false;
+//    // Suspends time inbetween invulnerability frames.
+//    //public IEnumerator Invunerability()
+//    //{
 
-    //}
+//    //    isInvincible = true;
 
 
-    // Destroys a game object after a given amount of time.
-    //we will have baby candy children explode from this object
-    public IEnumerator DeleteObject()
-    {
-        yield return new WaitForSeconds(0.5f);     // Waits 0.7 of a second.
-        Destroy(gameObject);
-        res.explodeSludge();
-        res.explode_Out_HealthPacks();
-    }
+//    //    yield return new WaitForSeconds(iFramesDuration);
 
-}
+//    //    isInvincible = false;
+
+//    //}
+
+
+//    // Destroys a game object after a given amount of time.
+//    //we will have baby candy children explode from this object
+//    public IEnumerator DeleteObject()
+//    {
+//        yield return new WaitForSeconds(0.5f);     // Waits 0.7 of a second.
+//        Destroy(gameObject);
+//        res.explode();
+//    }
+
+//}

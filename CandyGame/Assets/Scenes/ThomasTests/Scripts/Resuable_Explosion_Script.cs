@@ -28,8 +28,8 @@ public class Resuable_Explosion_Script : MonoBehaviour
     //your choice on what pools you want to be active
     //note: check the boxes before starting the scene
     public bool poolEnemies = false;
-    public bool poolSludge = false;
-    public bool poolHealthPacks = false;
+    //public bool poolSludge = false;
+    //public bool poolHealthPacks = false;
 
 
     Vector2 objectPivot;
@@ -43,18 +43,12 @@ public class Resuable_Explosion_Script : MonoBehaviour
         objectPivotDistance = objectSize * objectsInRow / 2;
         //use this value to create a pivot vector
         objectPivot = new Vector3(objectPivotDistance, objectPivotDistance);
-        pool = Random.Range(1, 3);
-        if (pool == 1)
-            poolSludge = true;
-        else
-            poolHealthPacks = true;
-
     }
 
     public void createPieces(int x, int y)
     {
-
-        if (poolSludge)
+        pool = Random.Range(0,100);
+        if (pool >= 50)
         {
             Vector3 explosionPos = this.transform.position;
             GameObject sludge = ObjectPool.instance.Get_Hazardous_Sludge();
@@ -69,7 +63,7 @@ public class Resuable_Explosion_Script : MonoBehaviour
                 sludge.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce, explosionPos, explosionRadius, explosionUpward);
             }
         }
-        if (poolHealthPacks)
+        else if(pool <= 49)
         {
             Vector3 explosionPos = this.transform.position;
             GameObject healthDrops = ObjectPool.instance.Get_Health_Drops();
@@ -78,7 +72,6 @@ public class Resuable_Explosion_Script : MonoBehaviour
                 ObjectPool.instance.Re_Stock_Health_Drops();
 
             }
-
             else
             {
                 healthDrops.SetActive(true);
@@ -86,24 +79,9 @@ public class Resuable_Explosion_Script : MonoBehaviour
                 healthDrops.GetComponent<Rigidbody2D>().AddExplosionForce(explosionForce * 1.5f, explosionPos, explosionRadius, explosionUpward);
             }
         }
-
-
-
     }
 
-    public void explodeSludge()
-    {
-
-        for (int i = 0; i < objectsInRow; i++)
-        {
-            for (int j = 0; j < objectsInRow; j++)
-            {
-                createPieces(i, j);
-            }
-        }
-
-    }
-    public void explode_Out_HealthPacks()
+    public void explode()
     {
         for (int i = 0; i < objectsInRow; i++)
         {
@@ -113,5 +91,6 @@ public class Resuable_Explosion_Script : MonoBehaviour
             }
         }
     }
+   
 }
 
