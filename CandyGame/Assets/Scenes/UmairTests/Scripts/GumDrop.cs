@@ -49,7 +49,20 @@ public class GumDrop : MonoBehaviour
         {
             time += Time.deltaTime;
         }
-        Debug.Log(direction);
+        //Debug.Log(direction);
+        if (GetComponent<EnemyScript>().damaged)
+        {
+            this.GetComponent<SpriteRenderer>().color = Color.red;
+            FindObjectOfType<SoundManager>().Play("gumdropHurt");
+        }
+        else
+        {
+            this.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        if (GetComponent<EnemyScript>().dead)
+        {
+            FindObjectOfType<SoundManager>().Play("sizzle");
+        }
 
     }
 }

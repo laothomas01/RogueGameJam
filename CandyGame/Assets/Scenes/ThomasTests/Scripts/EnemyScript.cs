@@ -14,12 +14,12 @@ public class EnemyScript : MonoBehaviour
     public int damage;
     public bool damaged;
     private float time = 0f;
-
+    private Resuable_Explosion_Script pes;
     private void Start()
     {
 
         ah = GetComponent<AnimationHandler>();
-
+        pes = GetComponent<Resuable_Explosion_Script>();
     }
     public void Update()
     {
@@ -69,5 +69,16 @@ public class EnemyScript : MonoBehaviour
     private void Die()
     {
         Destroy(this.gameObject, deathTime);
+        //explode [ 1- >>>> 50 ]
+        int random = Random.RandomRange(0, 10);
+        if (random >= 5)
+        {
+            pes.explode_Out_HealthPacks();
+
+        }
+        else
+        {
+            pes.explodeSludge();
+        }
     }
 }
