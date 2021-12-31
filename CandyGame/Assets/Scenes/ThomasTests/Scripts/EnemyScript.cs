@@ -71,7 +71,7 @@ public class EnemyScript : MonoBehaviour
     {
         Destroy(this.gameObject, deathTime);
         //explode [ 1- >>>> 50 ]
-        if(explodable)
+        if (explodable)
         {
             int random = Random.RandomRange(0, 10);
             if (random >= 5)
@@ -84,6 +84,6 @@ public class EnemyScript : MonoBehaviour
                 pes.explodeSludge();
             }
         }
-        
+
     }
 }
