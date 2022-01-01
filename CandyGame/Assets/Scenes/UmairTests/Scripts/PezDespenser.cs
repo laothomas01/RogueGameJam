@@ -26,6 +26,7 @@ public class PezDespenser : MonoBehaviour
     void Start()
     {
         enemy = GetComponent<EnemyScript>();
+        enemy = GetComponent<EnemyScript>();
         headAnimator = transform.GetChild(0).GetComponent<Animator>();
         bodyAnimator = transform.GetChild(1).GetComponent<Animator>();
         turretAnimator = GetComponent<Animator>();

@@ -5,10 +5,10 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
 
-    public int currentHealth = 10;
+    public int currentHealth;
     public float deathTime = 0;
     [HideInInspector]
-    public bool dead = false;
+    public bool dead;
     private bool playerIsDead = false;
     AnimationHandler ah;
     public int damage;
@@ -18,7 +18,7 @@ public class EnemyScript : MonoBehaviour
     public bool explodable = false;
     private void Start()
     {
-
+        dead = false;
         ah = GetComponent<AnimationHandler>();
         res = GetComponent<Resuable_Explosion_Script>();
     }
@@ -87,8 +87,8 @@ public class EnemyScript : MonoBehaviour
         //    Destroy(this.gameObject, deathTime);
         //}
         //Debug.Log(dead);
-        dead = true;
-        res.explode();
+        //dead = true;
+        //res.explode();
         Destroy(this.gameObject, deathTime);
 
 
