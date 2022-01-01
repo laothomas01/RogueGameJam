@@ -23,6 +23,7 @@ public class FollowCamera : MonoBehaviour
         x = transform.position.x;
         y = transform.position.y;
         Cursor.visible = false;
+        transform.position = followTarget.position;
     }
 
     // Update is called once per frame
