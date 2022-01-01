@@ -89,6 +89,8 @@ public class EnemyScript : MonoBehaviour
         //Debug.Log(dead);
         //dead = true;
         //res.explode();
+        dead = true;
+        res.explode();
         Destroy(this.gameObject, deathTime);
 
 
