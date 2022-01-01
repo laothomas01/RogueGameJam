@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChocoBoss : MonoBehaviour
 {
     private float time, playerTime, injTime, direction, horizontal, range, jn, count;
-    public float duration, hitPlayerTimer, injureTimer, distance, speed, jumpForce, horiDis, jumpNormalizer = 0;
+    public float duration, hitPlayerTimer, injureTimer, distance, speed, jumpForce, horiDis,waitTimer, jumpNormalizer = 0;
     public Transform Player;
     public int SpawnCounter;
     public float intensity, groundHitDistance, playerDetector;
@@ -18,9 +18,11 @@ public class ChocoBoss : MonoBehaviour
     Vector2 target;
     private EnemyScript choco;
     public GameObject mobSpawner;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         choco = GetComponent<EnemyScript>();
         spotted = false;
         vertical = 1;
@@ -33,7 +35,10 @@ public class ChocoBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (choco.dead)
+        {
+            animator.SetBool("Dead", true);
+        }
         forward = new Vector2(vertical * transform.right.x, vertical * transform.up.y);
         left = new Vector2(-transform.right.x * vertical, -transform.up.y * vertical);
         right = new Vector2(transform.right.x * vertical, -transform.up.y * vertical);
@@ -46,16 +51,14 @@ public class ChocoBoss : MonoBehaviour
         downHit = Physics2D.Raycast(transform.position, down, groundHitDistance, PlayerMask);
         grounded = Physics2D.Raycast(transform.position, Vector2.down, 9.5f, GroundedMask);
 
-
-        //Debug.DrawRay(transform.position, forward * groundHitDistance, Color.black);
-        //Debug.DrawRay(transform.position, left * groundHitDistance, Color.green);
-        //Debug.DrawRay(transform.position, right * groundHitDistance, Color.yellow);
+        animator.SetBool("Hurt", choco.damaged);
+     
         Debug.DrawRay(transform.position, down * groundHitDistance, Color.blue);
 
         time += Time.deltaTime;
         playerTime += Time.deltaTime;
         injTime += Time.deltaTime;
-        if ((downHit) && playerTime > hitPlayerTimer && injTime > injureTimer || time > duration)
+        if (time > duration && playerTime > hitPlayerTimer)
         {
             //add downward attack sound
             vertical *= -1;
@@ -63,10 +66,22 @@ public class ChocoBoss : MonoBehaviour
             range = 0;
 
         }
-
+        if (downHit)
+        {
+            waitTimer += Time.deltaTime;
+            if(waitTimer> duration)
+            {
+                vertical *= -1;
+                time = 0;
+                range = 0;
+                waitTimer = 0;
+            }
+        }
+        
         if (choco.damaged)
         {
-            //add hurt grunt sound 
+            //add hurt grunt sound
+            
             FindObjectOfType<SoundManager>().Play("rockHurt");
             vertical = -1;
             time = 0;
@@ -167,24 +182,27 @@ public class ChocoBoss : MonoBehaviour
 
 
         //target = new Vector2(target.x, transform.position.y);
-
-
-        rb.AddForce(Vector2.up * intensity / jn * vertical, ForceMode2D.Force);
-
-
-        if (vertical > 0)
+        if (!choco.dead)
         {
-            rb.velocity = Vector2.right * horizontal * speed;
-            jn = 1;
-        }
-        else
-        {
-            if (grounded && range < 0)
+            rb.AddForce(Vector2.up * intensity / jn * vertical, ForceMode2D.Force);
+
+
+            if (vertical > 0)
             {
-                rb.AddForce(new Vector2(Vector2.right.x * horizontal * horiDis, Vector2.up.y * jumpForce), ForceMode2D.Impulse);
-                jn = jumpNormalizer;
+                rb.velocity = Vector2.right * horizontal * speed;
+                jn = 1;
+            }
+            else
+            {
+                if (grounded && range < 0)
+                {
+                    rb.AddForce(new Vector2(Vector2.right.x * horizontal * horiDis, Vector2.up.y * jumpForce), ForceMode2D.Impulse);
+                    jn = jumpNormalizer;
+
+                }
 
             }
+
 
         }
 
