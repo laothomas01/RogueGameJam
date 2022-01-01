@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject != null && collision.gameObject.layer == 6)
+        if (collision.gameObject != null && collision.gameObject.layer == 6 && collision.gameObject.tag != "boss")
         {
             collision.gameObject.GetComponent<EnemyScript>().TakeDamage(damage);
             GameObject splt = Instantiate(splat, transform.position, transform.rotation);
