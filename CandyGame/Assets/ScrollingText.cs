@@ -39,7 +39,13 @@ public class ScrollingText : MonoBehaviour
     private string message3 = "[================= GAME CONTROLS =================]\n" +
         "[=================== MOVE LEFT: A ===============]\n [================== MOVE RIGHT: D ===============]\n [================== JUMP: SPACEBAR =================]\n" +
         "[=================== SHOOT: LEFT MOUSE CLICK ===========]";
-    private string message4 = "\n[============ PRESS SPACE BAR TO CONTINUE ===============]";
+    
+    private string message4 = "\n[====== PRESS SPACE BAR TO START YOUR MISSION =====]";
+    
+    private string message5 = "\n                                TIPS!!!!\n" +
+    " YOUR WEAPON USES YOUR HEALTH AS AMMUNITION SO SHOOT RESPONSIBLY!!   \n" +
+    "            ENEMIES THAT ARE KILLED DROP HEALTH PACKS!     \n" +
+    "\n" + "\n";
 
 
 
@@ -53,18 +59,18 @@ public class ScrollingText : MonoBehaviour
     }
     IEnumerator ShowText()
     {
-        //for (int i = 0; i < message.Length; i++)
-        //{
-        //    currText = message.Substring(0, i + 1);
-        //    t.text = currText;
-        //    yield return new WaitForSeconds(delay);
-        //}
-        //for (int i = 0; i < message2.Length; i++)
-        //{
-        //    currText = message2.Substring(0, i + 1);
-        //    t.text = currText;
-        //    yield return new WaitForSeconds(delay);
-        //}
+        for (int i = 0; i < message.Length; i++)
+        {
+            currText = message.Substring(0, i + 1);
+            t.text = currText;
+           yield return new WaitForSeconds(delay);
+        }
+        for (int i = 0; i < message2.Length; i++)
+        {
+           currText = message2.Substring(0, i + 1);
+           t.text = currText;
+           yield return new WaitForSeconds(delay);
+        }
         delay = 0.1f;
         for (int i = 0; i < message3.Length; i++)
         {
@@ -73,12 +79,22 @@ public class ScrollingText : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
+        for (int i = 0; i < message5.Length; i++)
+        {
+            currText = message5.Substring(0, i + 1);
+            t.text = currText;
+            yield return new WaitForSeconds(delay);
+        }
+
+
         for (int i = 0; i < message4.Length; i++)
         {
             currText = message4.Substring(0, i + 1);
             t.text = currText;
             yield return new WaitForSeconds(delay);
         }
+
+
 
     }
     private void Update()
