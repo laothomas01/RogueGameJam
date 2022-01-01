@@ -45,8 +45,9 @@ public class EnemyScript : MonoBehaviour
             currentHealth = 0;
             if (!dead)
             {
-                Die();
                 dead = true;
+                Die();
+                
             }
             
 
@@ -57,7 +58,7 @@ public class EnemyScript : MonoBehaviour
     //touch damage
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
+        if (collision.gameObject.tag == "enemy" && collision.gameObject.tag == "health")
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
