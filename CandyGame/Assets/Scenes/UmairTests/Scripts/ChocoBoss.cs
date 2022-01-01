@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChocoBoss : MonoBehaviour
 {
-    private float time, playerTime, injTime, direction, horizontal, range, jn, count;
-    public float duration, hitPlayerTimer, injureTimer, distance, speed, jumpForce, horiDis, waitTimer, jumpNormalizer = 0;
+    private float time, playerTime, direction, horizontal, range, jn, count, waitTimer;
+    public float duration, hitPlayerTimer, goingUpTimer, distance, speed, jumpForce, horiDis, waitBeforeHit, jumpNormalizer = 0;
     public Transform Player;
     public int SpawnCounter;
     public float intensity, groundHitDistance, playerDetector;
@@ -30,6 +30,7 @@ public class ChocoBoss : MonoBehaviour
         target = transform.position;
         jn = 1f;
         count = 0;
+        waitTimer = 0;
     }
 
     // Update is called once per frame
@@ -57,7 +58,7 @@ public class ChocoBoss : MonoBehaviour
 
         time += Time.deltaTime;
         playerTime += Time.deltaTime;
-        injTime += Time.deltaTime;
+        
         if (time > duration && playerTime > hitPlayerTimer)
         {
             //add downward attack sound
@@ -66,11 +67,16 @@ public class ChocoBoss : MonoBehaviour
             range = 0;
 
         }
-        if (downHit)
+        if (spotted)
         {
             waitTimer += Time.deltaTime;
-            if (waitTimer > duration)
+        }
+        if (downHit)
+        {
+            spotted = true;
+            if (waitTimer > waitBeforeHit)
             {
+                spotted = false;
                 vertical *= -1;
                 time = 0;
                 range = 0;
@@ -85,7 +91,7 @@ public class ChocoBoss : MonoBehaviour
             FindObjectOfType<SoundManager>().Play("rockHurt");
             vertical = -1;
             time = 0;
-            injTime = 0;
+            
             spotted = true;
             range = Random.Range(-1, 2);
 
@@ -187,7 +193,7 @@ public class ChocoBoss : MonoBehaviour
             rb.AddForce(Vector2.up * intensity / jn * vertical, ForceMode2D.Force);
 
 
-            if (vertical > 0)
+            if (vertical > 0 && time > goingUpTimer)
             {
                 rb.velocity = Vector2.right * horizontal * speed;
                 jn = 1;
