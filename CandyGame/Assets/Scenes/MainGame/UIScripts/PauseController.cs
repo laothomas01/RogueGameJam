@@ -27,10 +27,12 @@ public class PauseController : MonoBehaviour
         if (gameisPaused)
         {
             Time.timeScale = 0;
+            Cursor.visible = true;
         }
         else
         {
             Time.timeScale = 1;
+            Cursor.visible = false;
         }
     }
     public void Resume()

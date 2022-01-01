@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
     //go to the first game scene.
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Prologue");
     }
     //settings scene
     public void Settings()

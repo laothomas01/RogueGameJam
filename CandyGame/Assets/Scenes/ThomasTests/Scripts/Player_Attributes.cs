@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class Player_Attributes : MonoBehaviour
 {
-    public int maxHealth = 10;
+    public int maxHealth;
     public int currentHealth = 0;
     public static bool playerIsDead;
     AnimationHandler ah;
@@ -27,7 +27,7 @@ public class Player_Attributes : MonoBehaviour
         currentHealth = maxHealth;
         hb = healthBar.GetComponent<HealthBar>();
         playerIsDead = false;
-
+        hb.setMaxHealth(currentHealth);
     }
 
     private void Update()
@@ -39,7 +39,7 @@ public class Player_Attributes : MonoBehaviour
     public void TakeDamage(int damage)
     {
 
-        if(time > 1)
+        if (time > 0.1f)
 
 
         {

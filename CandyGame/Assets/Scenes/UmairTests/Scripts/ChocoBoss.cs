@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChocoBoss : MonoBehaviour
 {
     private float time, playerTime, injTime, direction, horizontal, range, jn, count;
-    public float duration, hitPlayerTimer, injureTimer, distance, speed, jumpForce, horiDis,waitTimer, jumpNormalizer = 0;
+    public float duration, hitPlayerTimer, injureTimer, distance, speed, jumpForce, horiDis, waitTimer, jumpNormalizer = 0;
     public Transform Player;
     public int SpawnCounter;
     public float intensity, groundHitDistance, playerDetector;
@@ -52,7 +52,7 @@ public class ChocoBoss : MonoBehaviour
         grounded = Physics2D.Raycast(transform.position, Vector2.down, 9.5f, GroundedMask);
 
         animator.SetBool("Hurt", choco.damaged);
-     
+
         Debug.DrawRay(transform.position, down * groundHitDistance, Color.blue);
 
         time += Time.deltaTime;
@@ -69,7 +69,7 @@ public class ChocoBoss : MonoBehaviour
         if (downHit)
         {
             waitTimer += Time.deltaTime;
-            if(waitTimer> duration)
+            if (waitTimer > duration)
             {
                 vertical *= -1;
                 time = 0;
@@ -77,11 +77,11 @@ public class ChocoBoss : MonoBehaviour
                 waitTimer = 0;
             }
         }
-        
+
         if (choco.damaged)
         {
             //add hurt grunt sound
-            
+
             FindObjectOfType<SoundManager>().Play("rockHurt");
             vertical = -1;
             time = 0;
@@ -104,10 +104,10 @@ public class ChocoBoss : MonoBehaviour
 
         if (downHit && vertical < 0)
         {
-            FindObjectOfType<SoundManager>().Play("rockAttack");
+            FindObjectOfType<SoundManager>().Play2("rockAttack");
 
         }
-       
+
 
 
         //else if (leftHit)

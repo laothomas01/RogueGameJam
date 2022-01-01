@@ -99,10 +99,10 @@ public class PlayerController : MonoBehaviour
 
                 }
 
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    RestartLevel();
-                }
+                //if (Input.GetKeyDown(KeyCode.R))
+                //{
+                //    RestartLevel();
+                //}
 
                 if (stepcooldown < 0f)
                 {

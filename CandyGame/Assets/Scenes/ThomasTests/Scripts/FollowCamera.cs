@@ -7,12 +7,12 @@ public class FollowCamera : MonoBehaviour
     public Transform followTarget;
     private Camera camera;
     Vector3 newPosition;
-    public float xOffset,yOffset,zOffSet=1f;
-    public float xbound,ybound,xSpeed,ySpeed;
-    private float  w, h, x, y;
+    public float xOffset, yOffset, zOffSet = 1f;
+    public float xbound, ybound, xSpeed, ySpeed;
+    private float w, h, x, y;
     private void Start()
     {
-        //Cursor.visible = false;
+      
     }
     void Awake()
     {
@@ -30,16 +30,16 @@ public class FollowCamera : MonoBehaviour
     void FixedUpdate()
     {
 
-        
+
 
         w = transform.position.x;
         h = transform.position.y;
-        
+
         if (followTarget.position.x > w + xbound)
         {
             x += xSpeed * Time.fixedDeltaTime;
         }
-        if (followTarget.position.x <w-xbound)
+        if (followTarget.position.x < w - xbound)
         {
             x -= xSpeed * Time.fixedDeltaTime;
         }
