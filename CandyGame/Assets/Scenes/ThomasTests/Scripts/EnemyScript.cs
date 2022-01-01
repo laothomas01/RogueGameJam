@@ -15,7 +15,7 @@ public class EnemyScript : MonoBehaviour
     public bool damaged;
     private float time = 0f;
     private Resuable_Explosion_Script res;
-    public bool explodable = false;
+    public bool explodable = true;
     private void Start()
     {
         dead = false;
@@ -41,10 +41,14 @@ public class EnemyScript : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-
+            
             currentHealth = 0;
-
-            Die();
+            if (!dead)
+            {
+                Die();
+                dead = true;
+            }
+            
 
 
         }
@@ -70,8 +74,12 @@ public class EnemyScript : MonoBehaviour
 
         if (dead)
         {
-            Physics2D.IgnoreLayerCollision(7, 6);
-            Physics2D.IgnoreLayerCollision(6, 31);
+            if(collision.gameObject.tag == "bullet" || collision.gameObject.tag == "Player")
+            {
+                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+                
+            }
+            
         }
 
 
@@ -81,17 +89,17 @@ public class EnemyScript : MonoBehaviour
     {
         //Destroy(this.gameObject, deathTime);
         ////explode [ 1- >>>> 50 ]
-        //if (explodable)
-        //{
-        //    res.explode();
-        //    Destroy(this.gameObject, deathTime);
-        //}
+        if (explodable)
+        {
+            res.explode();
+         
+        }
+        Destroy(this.gameObject, deathTime);
         //Debug.Log(dead);
         //dead = true;
         //res.explode();
-        dead = true;
-        res.explode();
-        Destroy(this.gameObject, deathTime);
+
+
 
 
     }

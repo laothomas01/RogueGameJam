@@ -156,7 +156,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < pool_Hazardous_Sludge.Count; i++)
         {
-            if (!pool_Hazardous_Sludge[i].activeInHierarchy)
+            if (pool_Hazardous_Sludge[i] != null && !pool_Hazardous_Sludge[i].activeInHierarchy)
             {
                 return pool_Hazardous_Sludge[i];
             }
