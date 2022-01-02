@@ -59,29 +59,27 @@ public class ChocoBoss : MonoBehaviour
         time += Time.deltaTime;
         playerTime += Time.deltaTime;
         
-        if (time > duration && playerTime > hitPlayerTimer)
+        if ((time > duration || waitTimer > waitBeforeHit) && playerTime > hitPlayerTimer )
         {
             //add downward attack sound
+            spotted = false;
             vertical *= -1;
             time = 0;
             range = 0;
+            waitTimer = 0;
+            
 
         }
         if (spotted)
         {
             waitTimer += Time.deltaTime;
+
         }
+       
         if (downHit)
         {
             spotted = true;
-            if (waitTimer > waitBeforeHit)
-            {
-                spotted = false;
-                vertical *= -1;
-                time = 0;
-                range = 0;
-                waitTimer = 0;
-            }
+
         }
 
         if (choco.damaged)
