@@ -5,8 +5,7 @@
  
 # Game Engine: Unity 2020.3.11f1
 # Screen Shots: 
-![](https://img.itch.zone/aW1hZ2UvMTMzOTgyNy83Nzk3NTU1LnBuZw==/original/YBJ5Sk.png)
-![](https://img.itch.zone/aW1hZ2UvMTMzOTgyNy83ODU5Mzc0LnBuZw==/original/CVqLXu.png)
+
 
 
 
