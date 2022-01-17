@@ -1,4 +1,5 @@
-# Sweet Tooth
+
+<img src="https://img.itch.zone/aW1hZ2UvMTMzOTgyNy83ODk2MjAxLnBuZw==/original/I0fkIU.png">
 
 ## Game Description: 
  You play as Specimen 24601, a half human half candy being, that has woken up in the middle of an ongoing candy infestation seeking to engulf the world in sugary sweetness.
